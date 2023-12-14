@@ -1,6 +1,7 @@
 <script>
 
     import { onMount } from 'svelte';
+    import Card from '$lib/components/Card.svelte';
 
     let cardProps = {
         quantity: [1, 2, 3],
@@ -57,7 +58,18 @@
 
 <ol>
     {#each cards as card}
-        <li>{card.quantity} {card.color} {card.shading} {card.shape}</li>
+        <li>
+            <Card 
+                quantity={card.quantity} 
+                color={card.color} 
+                shading={card.shading} 
+                shape={card.shape}
+            />
+        </li>
+        
     {/each}
 </ol>
+
+
+
 
