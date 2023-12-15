@@ -44,31 +44,53 @@
     
 </script>
 
-<style>
-    h1 {
-        color: #ff3e00;
+<style lang="scss">
+
+    .settlegame {
+        background-color: rgb(255,255,255);
+
+        h1 {
+            color: limegreen
+        }
+
+        button {
+            background-color: #bb1d87;
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 2em;
+            cursor: pointer;
+            transition: 0.5s all ease-in-out;
+
+            &:hover {
+                background-color: #8b0d61;
+            }
+        }
     }
+    
 </style>
 
-<h1>Welcome to Settle!</h1>
+<div class="settlegame">
+    <h1>Welcome to Settle</h1>
 
-{cards.length} cards in the deck.
+    {cards.length} cards in the deck.
 
-<button on:click={shuffle}>Shuffle</button>
+    <button on:click={shuffle}>Shuffle</button>
 
-<ol>
-    {#each cards as card}
-        <li>
-            <Card 
-                quantity={card.quantity} 
-                color={card.color} 
-                shading={card.shading} 
-                shape={card.shape}
-            />
-        </li>
-        
-    {/each}
-</ol>
+    <ol>
+        {#each cards as card}
+            <li>
+                <Card 
+                    quantity={card.quantity} 
+                    color={card.color} 
+                    shading={card.shading} 
+                    shape={card.shape}
+                />
+            </li>
+        {/each}
+    </ol>
+</div>
 
 
 
