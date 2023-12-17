@@ -39,7 +39,7 @@
             });
         });
         cards = tempCards;
-        shuffle(cards);
+        // shuffle(cards);
     });
     
 </script>
@@ -47,7 +47,10 @@
 <style lang="scss">
 
     .settlegame {
-        background-color: rgb(255,255,255);
+        background-color: #4e4b46;
+        color: #fff;
+        font-family: sans-serif;
+        padding: 2rem;
 
         h1 {
             color: limegreen
@@ -65,6 +68,12 @@
 
             &:hover {
                 background-color: #8b0d61;
+            }
+        }
+
+        ol {
+            li {
+                margin-bottom:1rem;
             }
         }
     }
