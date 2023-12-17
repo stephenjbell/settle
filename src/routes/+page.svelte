@@ -49,32 +49,33 @@
     .settlegame {
         background-color: #4e4b46;
         color: #fff;
-        font-family: sans-serif;
         padding: 2rem;
 
         h1 {
-            color: limegreen
+            color: #24BC3C
         }
 
         button {
-            background-color: #bb1d87;
+            background-color: #F14F2C;
             color: #fff;
             border: none;
             border-radius: 0.5rem;
             padding: 0.5rem 1rem;
             font-size: 2em;
             cursor: pointer;
-            transition: 0.5s all ease-in-out;
+            transition: 0.2s all ease-in-out;
 
             &:hover {
-                background-color: #8b0d61;
+                background-color: #e0401c;
             }
         }
 
-        ol {
-            li {
-                margin-bottom:1rem;
-            }
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            list-style-type: none;
+            padding: 0;
         }
     }
     
@@ -82,12 +83,13 @@
 
 <div class="settlegame">
     <h1>Welcome to Settle</h1>
-
-    {cards.length} cards in the deck.
+    <p>
+        {cards.length} cards in the deck.
+    </p>
 
     <button on:click={shuffle}>Shuffle</button>
 
-    <ol>
+    <ul>
         {#each cards as card}
             <li>
                 <Card 
@@ -98,7 +100,7 @@
                 />
             </li>
         {/each}
-    </ol>
+    </ul>
 </div>
 
 

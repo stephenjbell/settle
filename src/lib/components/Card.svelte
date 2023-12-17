@@ -19,16 +19,16 @@
   <style lang="scss">
     .card {
         display: flex;
-        gap: 5%;
-        width: 250px;
-        height: 150px;
+        gap: 4%;
+        width: 100%;
+        aspect-ratio: 1.5;
         background-color: #f5f5e9;
         border-radius: 0.5rem;
         align-items: center;
         justify-content:center;
 
         img {
-            height: 75%;
+            height: 70%;
             width: auto;
         }
     }
