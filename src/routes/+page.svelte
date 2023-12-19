@@ -30,6 +30,15 @@
 
     let displayCards = [];
     let drawPile = [];
+    let playSpots = [];
+    
+    for (let i = 0; i < 12; i++) {
+        playSpots.push({
+            x: null,
+            y: null,
+            disabled: true,
+        });
+    }
 
     // Shuffle deck
     function shuffle(array) {
@@ -109,10 +118,13 @@
             gap: 2rem;
             transform-origin: center bottom;
             transform: rotateX(30deg);
+            transform-style: preserve-3d;
 
             .drawarea {
+                transform-style: preserve-3d;
                 .drawpile {
                     position:relative;
+                    transform-style: preserve-3d;
                     .card {
                         position: absolute;
                         left: 0;
@@ -169,13 +181,19 @@
                         color={card.color} 
                         shading={card.shading} 
                         shape={card.shape}
+                        x=0
+                        y=0
+                        z=0
+                        rotX=0
+                        rotY=0
+                        rotZ=90
                     />
                 {/each}
             </div>
         </div>
         <div class="playarea">
-            {#each Array(12) as _}
-                <div class="playspot"></div>
+            {#each playSpots as spot}
+                <button class="playspot" disabled={spot.disabled}></button>
             {/each}
         </div>
         <div class="playerarea">

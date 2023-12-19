@@ -6,11 +6,20 @@
     export let shading = 'solid';
     export let shape = 'oval';
     export let faceUp = false;
+
+    // Position and rotation
+    export let x = 0;
+    export let y = 0;
+    export let z = 0;
+    export let rotX = 0;
+    export let rotY = 0;
+    export let rotZ = 0;
   </script>
   
   <div 
-    class="card quantity{quantity} {color} {shading} {shape} {faceUp ? 'face-up' : ''}" 
+    class="card quantity{quantity} {color} {shading} {shape}" 
     title="{quantity} {color} {shading} {quantity === 1 ? shape : shape + 's'}"
+    style="--x: {x}; --y: {y}; --z: {z}; --rotX: {rotX}; --rotY: {rotY}; --rotZ: {rotZ};"
     >
     <div class="back"></div>
     <div class="front">
@@ -28,6 +37,9 @@
         aspect-ratio: 1.5;
         transition: 0.2s all ease-in-out;
         transform-style: preserve-3d;
+        transform: 
+            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1px))
+            rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
         perspective: 1000px;
         
         .front {
@@ -71,11 +83,6 @@
             transform: rotateY(180deg);
             border: 1px solid transparent;
             border-color: transparent rgba(0,0,0,0.3) ;
-        }
-
-        &.face-up {
-            transition: 0.5s all ease-in-out;
-            transform: rotateX(180deg);
         }
 
     }
