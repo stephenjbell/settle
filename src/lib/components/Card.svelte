@@ -5,10 +5,11 @@
     export let color = 'red';
     export let shading = 'solid';
     export let shape = 'oval';
+    export let faceUp = false;
   </script>
   
   <div 
-    class="card quantity{quantity} {color} {shading} {shape}" 
+    class="card quantity{quantity} {color} {shading} {shape} {faceUp ? 'face-up' : ''}" 
     title="{quantity} {color} {shading} {quantity === 1 ? shape : shape + 's'}"
     >
     <div class="back"></div>
@@ -22,7 +23,7 @@
   <style lang="scss">
     .card {
         display: block;
-        position: relative;
+        position: absolute;
         width: 100%;
         aspect-ratio: 1.5;
         transition: 0.2s all ease-in-out;
@@ -68,9 +69,11 @@
             background-position: center;
             backface-visibility: hidden;
             transform: rotateY(180deg);
+            border: 1px solid transparent;
+            border-color: transparent rgba(0,0,0,0.3) ;
         }
 
-        &:hover {
+        &.face-up {
             transition: 0.5s all ease-in-out;
             transform: rotateX(180deg);
         }
