@@ -5,7 +5,6 @@
     export let color = 'red';
     export let shading = 'solid';
     export let shape = 'oval';
-    export let faceUp = false;
 
     // Position and rotation
     export let x = 0;
@@ -34,7 +33,7 @@
         display: block;
         position: absolute;
         width: 100%;
-        aspect-ratio: 1.5;
+        aspect-ratio: 3.5/2.5;
         transition: 0.2s all ease-in-out;
         transform-style: preserve-3d;
         transform: 
@@ -81,8 +80,8 @@
             background-position: center;
             backface-visibility: hidden;
             transform: rotateY(180deg);
-            border: 1px solid transparent;
-            border-color: transparent rgba(0,0,0,0.3) ;
+            border: 0.5px solid transparent;
+            border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5) ;
         }
 
     }

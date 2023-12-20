@@ -36,7 +36,14 @@
         playSpots.push({
             x: null,
             y: null,
-            disabled: true,
+            disabled: false,
+        });
+    }
+
+    // Set the Z axis of the cards to stack them up in the draw pile
+    function cardPileZs(){
+        drawPile.forEach((card, index) => {
+            card.z = index * 1.5;
         });
     }
 
@@ -69,21 +76,38 @@
         });
         displayCards = tempCards;
         drawPile = tempCards;
+        cardPileZs();
         // shuffle(cards);
     });
+
+    function spotClick(e) {
+
+        // Get the center of the spot
+        let spotX = e.target.offsetLeft + e.target.offsetWidth / 2;
+        let spotY = e.target.offsetTop + e.target.offsetHeight / 2;
+        console.log(spotX, spotY);
+
+        drawPile[0].x = spotX;
+        drawPile[0].y = spotY;
+    }
     
 </script>
 
 <style lang="scss">
 
+    * {
+        box-sizing: border-box;
+    }
+
     .settlegame {
         background-color: #4e4b46;
         color: #fff;
         padding: 2rem;
-        perspective: 1000px;
+        perspective: 12in;
 
         h1 {
-            color: #24BC3C;
+            color: #fff;
+            font-size: 3rem;
         }
 
         button {
@@ -111,11 +135,11 @@
 
         .cardtable {
             display: grid;
-            grid-template-columns: 1fr 3fr;
+            grid-template-columns: 1fr 4fr;
             grid-template-areas: 
                 "drawarea playarea"
                 ". playerarea";
-            gap: 2rem;
+            gap: 1rem;
             transform-origin: center bottom;
             transform: rotateX(30deg);
             transform-style: preserve-3d;
@@ -125,11 +149,6 @@
                 .drawpile {
                     position:relative;
                     transform-style: preserve-3d;
-                    .card {
-                        position: absolute;
-                        left: 0;
-                        top:0;
-                    }
                 }
             }
 
@@ -143,7 +162,17 @@
                     display: block;
                     background-color: rgba(255,255,255,0.1);
                     width: 100%;
-                    aspect-ratio: 3.5/2.5;
+                    aspect-ratio: 3.5/2.5; // Card aspect ratio
+
+                    .dot {
+                        display: block;
+                        width: 3px;
+                        height: 3px;
+                        background-color: #fff;
+                        border-radius: 50%;
+                        margin: 0 auto;
+                        transform: translateY(50%);
+                    }
                 }
             }
         }
@@ -181,19 +210,22 @@
                         color={card.color} 
                         shading={card.shading} 
                         shape={card.shape}
-                        x=0
-                        y=0
-                        z=0
+                        x={card.x}
+                        y={card.y}
+                        z={card.z}
                         rotX=0
-                        rotY=0
-                        rotZ=90
+                        rotY=180
+                        rotZ=0
                     />
                 {/each}
             </div>
         </div>
         <div class="playarea">
             {#each playSpots as spot}
-                <button class="playspot" disabled={spot.disabled}></button>
+                <button class="playspot" 
+                    on:click|preventDefault={spotClick} 
+                    disabled={spot.disabled}
+                ></button>
             {/each}
         </div>
         <div class="playerarea">
