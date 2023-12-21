@@ -34,7 +34,7 @@
         position: absolute;
         width: 100%;
         aspect-ratio: 3.5/2.5;
-        transition: 0.2s all ease-in-out;
+        transition: 0.5s all ease-in-out;
         transform-style: preserve-3d;
         transform: 
             translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1px))

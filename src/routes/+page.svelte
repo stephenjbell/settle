@@ -42,9 +42,9 @@
 
     // Set the Z axis of the cards to stack them up in the draw pile
     function cardPileZs(){
-        drawPile.forEach((card, index) => {
-            card.z = index * 1.5;
-        });
+        for (let i = 0; i < drawPile.length; i++) {
+            drawPile[i].z = (drawPile.length - i) * 1.5;
+        }
     }
 
     // Shuffle deck
@@ -68,7 +68,13 @@
                             color: color,
                             shading: shading,
                             shape: shape,
-                            id: `${quantity}-${color}-${shading}-${shape}`
+                            id: `${quantity}-${color}-${shading}-${shape}`,
+                            x: 0,
+                            y: 0,
+                            z: 0,
+                            rotX: 0,
+                            rotY: 180,
+                            rotZ: 90,
                         });
                     });
                 });
@@ -83,12 +89,18 @@
     function spotClick(e) {
 
         // Get the center of the spot
-        let spotX = e.target.offsetLeft + e.target.offsetWidth / 2;
-        let spotY = e.target.offsetTop + e.target.offsetHeight / 2;
+        // let spotX = e.target.offsetLeft + e.target.offsetWidth / 2;
+        // let spotY = e.target.offsetTop + e.target.offsetHeight / 2;
+        let spotX = e.target.offsetLeft;
+        let spotY = e.target.offsetTop;
         console.log(spotX, spotY);
 
+        drawPile[0].rotY = 0;
+        drawPile[0].rotZ = 0;
+        drawPile[0].rotX = 0;
         drawPile[0].x = spotX;
         drawPile[0].y = spotY;
+        drawPile[0].z = 0;
     }
     
 </script>
@@ -213,9 +225,9 @@
                         x={card.x}
                         y={card.y}
                         z={card.z}
-                        rotX=0
-                        rotY=180
-                        rotZ=0
+                        rotX={card.rotX}
+                        rotY={card.rotY}
+                        rotZ={card.rotZ}
                     />
                 {/each}
             </div>
