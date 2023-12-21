@@ -17,7 +17,6 @@
   
   <div 
     class="card quantity{quantity} {color} {shading} {shape}" 
-    title="{quantity} {color} {shading} {quantity === 1 ? shape : shape + 's'}"
     style="--x: {x}; --y: {y}; --z: {z}; --rotX: {rotX}; --rotY: {rotY}; --rotZ: {rotZ};"
     >
     <div class="back"></div>
@@ -54,6 +53,8 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
+            border: 0.5px solid transparent;
+            border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5) ;
 
             img {
                 height: 65%;
