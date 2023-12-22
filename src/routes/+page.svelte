@@ -56,6 +56,24 @@
         }
     }
 
+    function deal(){
+        // Loop through playSpots
+        for (let i = 0; i < playSpots.length; i++) {
+            // .playarea .playspot
+            let spot = document.querySelector(`.playarea .playspot:nth-child(${i+1})`);
+            let spotX = spot.offsetLeft;
+            let spotY = spot.offsetTop;
+
+            // Set the card's position to the spot's position
+            drawPile[i].x = spotX;
+            drawPile[i].y = spotY;
+            drawPile[i].z = 0;
+            drawPile[i].rotX = 0;
+            drawPile[i].rotY = 0;
+            drawPile[i].rotZ = 0;
+        }
+    }
+
     onMount(() => {
         // Generate deck of cards
         let tempCards = [];
@@ -105,91 +123,8 @@
     
 </script>
 
-<style lang="scss">
-
-    * {
-        box-sizing: border-box;
-    }
-
-    .settlegame {
-        background-color: #4e4b46;
-        color: #fff;
-        padding: 2rem;
-        perspective: 12in;
-
-        h1 {
-            color: #fff;
-            font-size: 3rem;
-        }
-
-        button {
-            background-color: #F14F2C;
-            color: #fff;
-            border: none;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            font-size: 2em;
-            cursor: pointer;
-            transition: 0.2s all ease-in-out;
-
-            &:hover {
-                background-color: #e0401c;
-            }
-        }
-
-        ul.allcards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .cardtable {
-            display: grid;
-            grid-template-columns: 1fr 4fr;
-            grid-template-areas: 
-                "drawarea playarea"
-                ". playerarea";
-            gap: 1rem;
-            transform-origin: center bottom;
-            transform: rotateX(30deg);
-            transform-style: preserve-3d;
-
-            .drawarea {
-                transform-style: preserve-3d;
-                .drawpile {
-                    position:relative;
-                    transform-style: preserve-3d;
-                }
-            }
-
-            .playarea {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: repeat(3, 1fr);
-                gap: 1rem;
-
-                .playspot {
-                    display: block;
-                    background-color: rgba(255,255,255,0.1);
-                    width: 100%;
-                    aspect-ratio: 3.5/2.5; // Card aspect ratio
-
-                    .dot {
-                        display: block;
-                        width: 3px;
-                        height: 3px;
-                        background-color: #fff;
-                        border-radius: 50%;
-                        margin: 0 auto;
-                        transform: translateY(50%);
-                    }
-                }
-            }
-        }
-    }
-    
+<style>
+    @import '$lib/styles/page.scss';
 </style>
 
 <div class="settlegame">
@@ -199,6 +134,7 @@
     </p>
 
     <button on:click={shuffle(drawPile)}>Shuffle Deck</button>
+    <button on:click={deal}>Deal</button>
 
     <!-- <ul class="allcards">
         {#each displayCards as card}
