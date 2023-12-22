@@ -42,13 +42,14 @@
         grid-template-columns: 1fr 4fr;
         grid-template-areas: 
             "drawarea playarea"
-            ". playerarea";
+            "playerarea playerarea";
         gap: 1rem;
         transform-origin: center bottom;
         transform: rotateX(35deg);
         transform-style: preserve-3d;
 
         .drawarea {
+            grid-area: drawarea;
             transform-style: preserve-3d;
             .drawpile {
                 position:relative;
@@ -57,6 +58,7 @@
         }
 
         .playarea {
+            grid-area: playarea;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(3, 1fr);
@@ -67,6 +69,21 @@
                 background-color: rgba(255,255,255,0.1);
                 width: 100%;
                 aspect-ratio: 3.5/2.5; // Card aspect ratio
+            }
+        }
+
+        .playerarea {
+            grid-area: playerarea;
+            display: flex;
+            width: 100%;
+            gap: 1rem;
+            // stretch the flex items to fill the container
+            align-items: stretch;
+
+            .player {
+                display: block;
+                background-color: #f08;
+                width: 100%;
             }
         }
     }

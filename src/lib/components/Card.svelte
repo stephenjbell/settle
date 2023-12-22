@@ -11,6 +11,8 @@
     export let rotX = 0;
     export let rotY = 0;
     export let rotZ = 0;
+    export let cardWidth = 100;
+    export let delay = 0;
   </script>
 
   <style>
@@ -19,7 +21,7 @@
   
   <div 
     class="card quantity{quantity} {color} {shading} {shape}" 
-    style="--x: {x}; --y: {y}; --z: {z}; --rotX: {rotX}; --rotY: {rotY}; --rotZ: {rotZ};"
+    style="--x: {x}; --y: {y}; --z: {z}; --rotX: {rotX}; --rotY: {rotY}; --rotZ: {rotZ}; --cardWidth: {cardWidth}; --delay: {delay}ms; "
     >
     <div class="back"></div>
     <div class="front">

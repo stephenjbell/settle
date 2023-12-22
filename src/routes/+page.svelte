@@ -1,7 +1,17 @@
+
 <script>
 
     import { onMount } from 'svelte';
+
     import Card from '$lib/components/Card.svelte';
+
+    // Set the card width to the width of the play area spots
+    let cardWidth = 150;
+
+    function setCardWidth(){
+        let firstSpot = document.querySelector(`.playarea .playspot:nth-child(1)`);
+        cardWidth = firstSpot.offsetWidth;
+    }
 
     let players = [
         {
@@ -11,6 +21,11 @@
         },
         {
             name: 'Kenny',
+            score: 0,
+            cardsWon: [],
+        },
+        {
+            name: 'Mark',
             score: 0,
             cardsWon: [],
         },
@@ -37,13 +52,15 @@
             x: null,
             y: null,
             disabled: false,
+            cards: [], // This should only ever have 1 card in it
         });
     }
 
     // Set the Z axis of the cards to stack them up in the draw pile
-    function cardPileZs(){
+    function cardPileZandDelay(){
         for (let i = 0; i < drawPile.length; i++) {
             drawPile[i].z = (drawPile.length - i) * 1.5;
+            drawPile[i].delay = i * 0.1;
         }
     }
 
@@ -67,7 +84,7 @@
             // Set the card's position to the spot's position
             drawPile[i].x = spotX;
             drawPile[i].y = spotY;
-            drawPile[i].z = 0;
+            drawPile[i].z = 0.01; // Slightly above the table
             drawPile[i].rotX = 0;
             drawPile[i].rotY = 0;
             drawPile[i].rotZ = 0;
@@ -100,7 +117,8 @@
         });
         displayCards = tempCards;
         drawPile = tempCards;
-        cardPileZs();
+        setCardWidth();
+        cardPileZandDelay();
         // shuffle(cards);
     });
 
@@ -164,6 +182,7 @@
                         rotX={card.rotX}
                         rotY={card.rotY}
                         rotZ={card.rotZ}
+                        cardWidth="{cardWidth}px"
                     />
                 {/each}
             </div>
@@ -178,7 +197,10 @@
         </div>
         <div class="playerarea">
             {#each players as player}
-                <div class="name">{player.name}</div>
+                <div class="player">
+                    <div class="name">{player.name}</div>
+                    <div class="cardpile"></div>
+                </div>
             {/each}
         </div>
     </div>
