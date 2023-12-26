@@ -12,6 +12,7 @@
     h1 {
         color: #fff;
         font-size: 3rem;
+        font-weight: 600;
     }
 
     button {
@@ -23,6 +24,7 @@
         font-size: 2em;
         cursor: pointer;
         transition: 0.2s all ease-in-out;
+        font-family: 'Rubik', sans-serif;
 
         &:hover {
             background-color: #e0401c;

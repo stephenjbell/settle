@@ -146,7 +146,7 @@
 </style>
 
 <div class="settlegame">
-    <h1>Welcome to Settle</h1>
+    <h1>Settle</h1>
     <p>
         {displayCards.length} cards in the deck.
     </p>
