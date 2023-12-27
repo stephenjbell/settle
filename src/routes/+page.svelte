@@ -56,21 +56,31 @@
     }
 
     function deal(){
-        // Loop through playSpots
-        for (let i = 0; i < playSpots.length; i++) {
-            // .playarea .playspot
-            let spot = document.querySelector(`.playarea .playspot:nth-child(${i+1})`);
-            let spotX = spot.offsetLeft;
-            let spotY = spot.offsetTop;
+        //
+    }
 
-            // Set the card's position to the spot's position
-            drawPile[i].x = spotX;
-            drawPile[i].y = spotY;
-            drawPile[i].z = 0.01; // Slightly above the table
-            drawPile[i].rotX = 0;
-            drawPile[i].rotY = 0;
-            drawPile[i].rotZ = 0;
+    // Set the location of each play spot relative to .cardtable
+    function setPlaySpotLocations(){
+        // Get the location of the play area (card grid)
+        let playArea = document.querySelector(`.playarea`);
+
+        // Get the location of each play spot and set to the array
+        for (let i = 0; i < playSpots.length; i++) {
+            let spot = document.querySelector(`.playarea .playspot:nth-child(${i+1})`);
+            playSpots[i].x = spot.offsetLeft + playArea.offsetLeft;
+            playSpots[i].y = spot.offsetTop + playArea.offsetTop;
         }
+    }
+
+    // Set the location of the draw pile relative to .cardtable
+    function setDrawPileLocation(){
+        // Get the location of the draw area
+        let drawArea = document.querySelector(`.drawarea`);
+
+        // Get the location of the draw pile
+        let drawPileEl = document.querySelector(`.drawpile`);
+        drawPile.x = drawPileEl.offsetLeft + drawArea.offsetLeft;
+        drawPile.y = drawPileEl.offsetTop + drawArea.offsetTop;
     }
 
     // Create all the cards (visible and in memory)
@@ -129,6 +139,8 @@
         drawPile.cards = tempDrawPileCards;
         setCardWidth();
         // shuffle(drawPile.cards);
+        setPlaySpotLocations();
+        setDrawPileLocation();
     });
 
     function spotClick(e) {
@@ -163,9 +175,17 @@
 </ol>
 
 <h2>Draw Pile {drawPile.cards.length}</h2>
+{drawPile.x} {drawPile.y}
 <ol>
     {#each drawPile.cards as card}
         <li>{card.name}</li>
+    {/each}
+</ol>
+
+<h2>Play Spots</h2>
+<ol>
+    {#each playSpots as spot}
+        <li>{spot.x} {spot.y}</li>
     {/each}
 </ol>
 
