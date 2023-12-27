@@ -110,7 +110,6 @@
         displayCards = tempCards;
         drawPile = tempCards;
         setCardWidth();
-        cardPileZandDelay();
         // shuffle(cards);
     });
 
@@ -135,6 +134,7 @@
 
 <style>
     @import '$lib/styles/page.scss';
+    @import '$lib/styles/card.scss';
 </style>
 
 <div class="settlegame">
@@ -146,36 +146,21 @@
     <button on:click={shuffle(drawPile)}>Shuffle Deck</button>
     <button on:click={deal}>Deal</button>
 
-    <!-- <ul class="allcards">
-        {#each displayCards as card}
-            <li>
-                <Card 
-                    quantity={card.quantity} 
-                    color={card.color} 
-                    shading={card.shading} 
-                    shape={card.shape}
-                />
-            </li>
-        {/each}
-    </ul> -->
-
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="drawarea">
             <div class="drawpile">
                 {#each drawPile as card, i}
-                    <Card 
-                        quantity={card.quantity} 
-                        color={card.color} 
-                        shading={card.shading} 
-                        shape={card.shape}
-                        x={card.x}
-                        y={card.y}
-                        rotX={card.rotX}
-                        rotY={card.rotY}
-                        rotZ={card.rotZ}
-                        i={i}
-                        delay={drawPile.length - i - 1}
-                    />
+                    <div 
+                        class="card quantity{card.quantity} {card.color} {card.shading} {card.shape}" 
+                        style="--x: {card.x}; --y: {card.y}; --i: {i}; --rotX: {card.rotX}; --rotY: {card.rotY}; --rotZ: {card.rotZ}; --delay: {drawPile.length - i - 1}; "
+                        >
+                        <div class="back"></div>
+                        <div class="front">
+                            {#each Array(card.quantity) as _}
+                                <img src="/images/shapes/{card.color}-{card.shading}-{card.shape}.svg" alt="">
+                            {/each}
+                        </div>
+                    </div>
                 {/each}
             </div>
         </div>

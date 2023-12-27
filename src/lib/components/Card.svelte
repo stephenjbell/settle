@@ -11,7 +11,6 @@
     export let rotX = 0;
     export let rotY = 0;
     export let rotZ = 0;
-    export let cardWidth = 100;
     export let delay = 0;
   </script>
 
