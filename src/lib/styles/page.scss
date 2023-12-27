@@ -47,7 +47,7 @@
             "playerarea playerarea";
         gap: 1rem;
         transform-origin: center bottom;
-        transform: rotateX(35deg);
+        transform: rotateX(40deg);
         transform-style: preserve-3d;
 
         .drawarea {
@@ -83,6 +83,7 @@
                 background-color: rgba(255,255,255,0.1);
                 width: 100%;
                 aspect-ratio: 3.5/2.5; // Card aspect ratio
+                border-radius: 0.5rem;
             }
         }
 
@@ -98,6 +99,27 @@
                 display: block;
                 background-color: #f08;
                 width: 100%;
+
+                .letter {
+                    display: inline-block;
+                    background-color: #4a4a4a;
+                    aspect-ratio: 1;
+                    padding: 0.5rem;
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 2rem;
+                }
+
+                .cardpile {
+                    position:relative;
+                    top: 0;
+                    left: 0;
+                    height: var(--cardWidth);
+                    width: auto;
+                    aspect-ratio: 2.5/3.5;
+                    background-color: rgba(255,255,255,0.1);
+                    border-radius: 0.5rem;
+                }
             }
         }
     }

@@ -11,28 +11,20 @@
         cardWidth = firstSpot.offsetWidth;
     }
 
-    let players = [
-        {
-            name: 'Stephen',
-            score: 0,
-            cardsWon: [],
-        },
-        {
-            name: 'Kenny',
-            score: 0,
-            cardsWon: [],
-        },
-        {
-            name: 'Mark',
-            score: 0,
-            cardsWon: [],
-        },
-        {
-            name: 'Katie',
-            score: 0,
-            cardsWon: [],
-        }
-    ]
+    let players = [];
+    let playerKeys = ["z","v","m","/"]; // Action key on keyboard
+
+    for (let i = 0; i < playerKeys.length; i++) {
+        players[i] = {
+            name: `Player ${i + 1}`,
+            key: playerKeys[i],
+            active: false,
+            x: 0,
+            y: 0,
+            z: 0,
+            cards: [],
+        };
+    }
     
     // Create the 12 play spots
     let playSpots = [];
@@ -102,8 +94,8 @@
     onMount(() => {
         // Generate deck of cards
         let tempDisplayCards = {};
-        let tempDrawPileCards = []
-        ;
+        let tempDrawPileCards = [];
+
         cardProps.quantity.forEach(quantity => {
             cardProps.colors.forEach(color => {
                 cardProps.shading.forEach(shading => {
@@ -228,6 +220,9 @@
             {#each players as player}
                 <div class="player">
                     <div class="name">{player.name}</div>
+                    <div class="key">
+                        Press <span class="letter">{player.key.toUpperCase()}</span>
+                    </div>
                     <div class="cardpile"></div>
                 </div>
             {/each}

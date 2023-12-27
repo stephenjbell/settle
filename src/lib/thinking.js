@@ -88,6 +88,7 @@ let players = [
         "active":true,
         "x":0,
         "y":0,
+        "z":0,
         "cards":[
             {
                 "name":"1 red solid oval",
@@ -95,7 +96,6 @@ let players = [
                 "color":"red",
                 "shading":"solid",
                 "shape":"oval",
-                "z":0 // Stacks upwards
             }
         ]
     },
