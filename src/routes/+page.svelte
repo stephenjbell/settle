@@ -3,8 +3,6 @@
 
     import { onMount } from 'svelte';
 
-    import Card from '$lib/components/Card.svelte';
-
     // Set the card width to the width of the play area spots
     let cardWidth = 150;
 
@@ -35,24 +33,16 @@
             cardsWon: [],
         }
     ]
-
-    let cardProps = {
-        quantity: [1, 2, 3],
-        colors: ['red', 'green', 'purple'],
-        shading: ['solid', 'striped', 'open'],
-        shape: ['oval', 'squiggle', 'diamond'],
-    }
-
-    let displayCards = [];
-    let drawPile = [];
-    let playSpots = [];
     
+    // Create the 12 play spots
+    let playSpots = [];
+
     for (let i = 0; i < 12; i++) {
         playSpots.push({
             x: null,
             y: null,
-            disabled: false,
-            cards: [], // This should only ever have 1 card in it
+            z: 0.001,
+            card: null, // This should only ever have 1 card in it
         });
     }
 
@@ -83,34 +73,62 @@
         }
     }
 
+    // Create all the cards (visible and in memory)
+    let cardProps = {
+        quantity: [1, 2, 3],
+        colors: ['red', 'green', 'purple'],
+        shading: ['solid', 'striped', 'open'],
+        shape: ['oval', 'squiggle', 'diamond'],
+    }
+
+    let displayCards = {};
+    let drawPile = {
+        x: 0,
+        y: 0,
+        rotZ: 90,
+        cards: []
+    };
+
     onMount(() => {
         // Generate deck of cards
-        let tempCards = [];
+        let tempDisplayCards = {};
+        let tempDrawPileCards = []
+        ;
         cardProps.quantity.forEach(quantity => {
             cardProps.colors.forEach(color => {
                 cardProps.shading.forEach(shading => {
                     cardProps.shape.forEach(shape => {
-                        tempCards.push({
+
+                        // Create all the named display cards to animate
+                        tempDisplayCards[`${quantity} ${color} ${shading} ${shape}`] = {
                             quantity: quantity,
                             color: color,
                             shading: shading,
                             shape: shape,
-                            id: `${quantity}-${color}-${shading}-${shape}`,
                             x: 0,
                             y: 0,
                             z: 0,
                             rotX: 0,
                             rotY: 180,
                             rotZ: 90,
+                        }
+
+                        // Create the cards in memory to move around arrays
+                        tempDrawPileCards.push({
+                            name: `${quantity} ${color} ${shading} ${shape}`,
+                            quantity: quantity,
+                            color: color,
+                            shading: shading,
+                            shape: shape,
                         });
                     });
                 });
             });
         });
-        displayCards = tempCards;
-        drawPile = tempCards;
+        displayCards = tempDisplayCards;
+        drawPile.cards = tempDrawPileCards;
         setCardWidth();
-        // shuffle(cards);
+        // shuffle(drawPile.cards);
     });
 
     function spotClick(e) {
@@ -137,10 +155,24 @@
     @import '$lib/styles/card.scss';
 </style>
 
+<h2>Display Cards</h2>
+<ol>
+    {#each Object.keys(displayCards) as cardName}
+        <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
+    {/each}
+</ol>
+
+<h2>Draw Pile {drawPile.cards.length}</h2>
+<ol>
+    {#each drawPile.cards as card}
+        <li>{card.name}</li>
+    {/each}
+</ol>
+
 <div class="settlegame">
     <h1>Settle</h1>
     <p>
-        {displayCards.length} cards in the deck.
+        {drawPile.cards.length} cards in the draw pile.
     </p>
 
     <button on:click={shuffle(drawPile)}>Shuffle Deck</button>
@@ -149,15 +181,15 @@
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="drawarea">
             <div class="drawpile">
-                {#each drawPile as card, i}
+                {#each Object.keys(displayCards) as cardName, i}
                     <div 
-                        class="card quantity{card.quantity} {card.color} {card.shading} {card.shape}" 
-                        style="--x: {card.x}; --y: {card.y}; --i: {i}; --rotX: {card.rotX}; --rotY: {card.rotY}; --rotZ: {card.rotZ}; --delay: {drawPile.length - i - 1}; "
+                        class="card quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}" 
+                        style="--x: {displayCards[cardName].x}; --y: {displayCards[cardName].y}; --i: {i}; --rotX: {displayCards[cardName].rotX}; --rotY: {displayCards[cardName].rotY}; --rotZ: {displayCards[cardName].rotZ}; --delay: {drawPile.length - i - 1}; "
                         >
                         <div class="back"></div>
                         <div class="front">
-                            {#each Array(card.quantity) as _}
-                                <img src="/images/shapes/{card.color}-{card.shading}-{card.shape}.svg" alt="">
+                            {#each Array(displayCards[cardName].quantity) as _}
+                                <img src="/images/shapes/{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}.svg" alt="">
                             {/each}
                         </div>
                     </div>
@@ -168,7 +200,7 @@
             {#each playSpots as spot}
                 <button class="playspot" 
                     on:click|preventDefault={spotClick} 
-                    disabled={spot.disabled}
+                    disabled={spot.card === null}
                 ></button>
             {/each}
         </div>
