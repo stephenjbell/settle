@@ -66,6 +66,16 @@
             grid-template-rows: repeat(3, 1fr);
             gap: 1rem;
 
+            // Add a column if we have 13+ cards
+            &:has(.playspot:nth-child(13)){
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            // Add another column if we have 16+ cards
+            &:has(.playspot:nth-child(16)){
+                grid-template-columns: repeat(6, 1fr);
+            }
+
             .playspot {
                 display: block;
                 background-color: rgba(255,255,255,0.1);
