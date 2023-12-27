@@ -4,10 +4,10 @@
     width: var(--cardWidth);
     aspect-ratio: 3.5/2.5;
     transition: 0.5s all ease-in-out;
-    transition-delay: var(--delay);
+    transition-delay: calc(var(--delay) * 100ms);
     transform-style: preserve-3d;
     transform: 
-        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1px))
+        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--i) * 1.5px))
         rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
     perspective: 1000px;
     

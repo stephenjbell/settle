@@ -7,7 +7,7 @@
     // Position and rotation
     export let x = 0;
     export let y = 0;
-    export let z = 0;
+    export let i = 0;
     export let rotX = 0;
     export let rotY = 0;
     export let rotZ = 0;
@@ -21,7 +21,7 @@
   
   <div 
     class="card quantity{quantity} {color} {shading} {shape}" 
-    style="--x: {x}; --y: {y}; --z: {z}; --rotX: {rotX}; --rotY: {rotY}; --rotZ: {rotZ}; --cardWidth: {cardWidth}; --delay: {delay}ms; "
+    style="--x: {x}; --y: {y}; --i: {i}; --rotX: {rotX}; --rotY: {rotY}; --rotZ: {rotZ}; --delay: {delay}; "
     >
     <div class="back"></div>
     <div class="front">

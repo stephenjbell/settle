@@ -56,14 +56,6 @@
         });
     }
 
-    // Set the Z axis of the cards to stack them up in the draw pile
-    function cardPileZandDelay(){
-        for (let i = 0; i < drawPile.length; i++) {
-            drawPile[i].z = (drawPile.length - i) * 1.5;
-            drawPile[i].delay = i * 0.1;
-        }
-    }
-
     // Shuffle deck
     function shuffle(array) {
         console.log("shuffling...");
@@ -167,10 +159,10 @@
         {/each}
     </ul> -->
 
-    <div class="cardtable">
+    <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="drawarea">
             <div class="drawpile">
-                {#each drawPile as card}
+                {#each drawPile as card, i}
                     <Card 
                         quantity={card.quantity} 
                         color={card.color} 
@@ -178,11 +170,11 @@
                         shape={card.shape}
                         x={card.x}
                         y={card.y}
-                        z={card.z}
                         rotX={card.rotX}
                         rotY={card.rotY}
                         rotZ={card.rotZ}
-                        cardWidth="{cardWidth}px"
+                        i={i}
+                        delay={drawPile.length - i - 1}
                     />
                 {/each}
             </div>
