@@ -1,7 +1,8 @@
 
 <script>
 
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
+    import { browser } from '$app/environment';
     import { page } from '$app/stores'
 
     // Set debug variable to true or false
@@ -22,7 +23,7 @@
         players[i] = {
             name: `Player ${i + 1}`,
             key: playerKeys[i],
-            active: false,
+            active: true,
             x: 0,
             y: 0,
             z: 0,
@@ -108,7 +109,25 @@
         cards: []
     };
 
+    function handleKeydown(e) {
+        // If we're editing a field, textarea or a contenteditable div, don't do anything
+        if (e.target.nodeName === 'INPUT' || e.target.nodeName === 'TEXTAREA' || e.target.isContentEditable) return;
+
+        // If we're holding down a modifier key, don't do anything
+        if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
+
+        for (let i = 0; i < players.length; i++) {
+            if(e.key === players[i].key && players[i].active){
+                playerTurn(i);
+            }
+        }
+    }
+
     onMount(() => {
+        if(browser){
+            window.addEventListener('keydown', handleKeydown);
+        }
+
         // Generate deck of cards
         let tempDisplayCards = {};
         let tempDrawPileCards = [];
@@ -151,6 +170,12 @@
         setPlaySpotLocations();
         setDrawPileLocation();
         setPlayerCardPileLocation();
+    });
+
+    onDestroy(() => {
+        if(browser){
+            window.removeEventListener('keydown', handleKeydown);
+        }
     });
 
     function spotClick(e) {
@@ -205,7 +230,8 @@
 
     <h2>Players</h2>
     <ol>
-        {#each players as player}
+        <!-- Each player who is active -->
+        {#each players.filter(player => player.active) as player}
             <li>{player.name} {player.x} {player.y}</li>
         {/each}
     </ol>
@@ -247,7 +273,7 @@
             {/each}
         </div>
         <div class="playerarea">
-            {#each players as player, i}
+            {#each players.filter(player => player.active) as player, i}
                 <div class="player">
                     <button class="cardpile" on:click={() => playerTurn(i)}></button>
                     <button class="key" on:click={() => playerTurn(i)}>
