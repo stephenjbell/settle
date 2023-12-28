@@ -238,10 +238,10 @@
             {/each}
         </div>
         <div class="playerarea">
-            {#each players as player}
+            {#each players as player, i}
                 <div class="player">
                     <div class="cardpile"></div>
-                    <div class="name" contenteditable>{player.name}</div>
+                    <div class="name" bind:innerHTML={players[i].name} contenteditable></div>
                     <div class="key">
                         Press <span class="letter">{player.key.toUpperCase()}</span>
                     </div>
