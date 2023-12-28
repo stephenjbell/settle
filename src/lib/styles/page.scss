@@ -16,13 +16,21 @@
     }
 
     button {
+        border: 0;
+        cursor: pointer;
+        
+        &[disabled]{
+            cursor: default;
+        }
+    }
+
+    button.ui-button {
         background-color: #F14F2C;
         color: #fff;
         border: none;
         border-radius: 0.5rem;
         padding: 0.5rem 1rem;
         font-size: 2em;
-        cursor: pointer;
         transition: 0.2s all ease-in-out;
         font-family: 'Rubik', sans-serif;
 
@@ -84,11 +92,6 @@
                 width: 100%;
                 aspect-ratio: 3.5/2.5; // Card aspect ratio
                 border-radius: 0.5rem;
-
-                &[disabled]{
-                    opacity: 0.5;
-                    cursor: default;
-                }
             }
         }
 
@@ -109,6 +112,18 @@
                 gap: 1rem;
                 background-color: #f08;
                 width: 100%;
+
+                .cardpile {
+                    grid-area: cardpile;
+                    position:relative;
+                    top: 0;
+                    left: 0;
+                    width: var(--cardWidth);
+                    height: auto;
+                    aspect-ratio: 3.5/2.5;
+                    background-color: rgba(255,255,255,0.1);
+                    border-radius: 0.5rem;
+                }
 
                 .name {
                     grid-area: name;
@@ -141,19 +156,69 @@
                         border-radius: 0.25rem;
                     }
                 }
-
-                .cardpile {
-                    grid-area: cardpile;
-                    position:relative;
-                    top: 0;
-                    left: 0;
-                    width: var(--cardWidth);
-                    height: auto;
-                    aspect-ratio: 3.5/2.5;
-                    background-color: rgba(255,255,255,0.1);
-                    border-radius: 0.5rem;
-                }
             }
         }
     }
+}
+
+
+.card {
+    display: block;
+    position: absolute;
+    width: var(--cardWidth);
+    aspect-ratio: 3.5/2.5;
+    transition: 0.5s all ease-in-out;
+    transition-delay: calc(var(--delay) * 100ms);
+    transform-style: preserve-3d;
+    transform: 
+        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--i) * 1.5px))
+        rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
+    perspective: 1000px;
+    
+    .front {
+        display: flex;
+        gap: 4%;
+        background-color: #f5f5e9;
+        border-radius: 0.5rem;
+        align-items: center;
+        justify-content:center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border: 0.5px solid transparent;
+        border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5) ;
+
+        img {
+            height: 65%;
+            width: auto;
+        }
+    }
+
+    &.oval {
+        .front {
+            gap: 6%;
+        }
+    }
+
+    .back {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #A12596;
+        background-image:url('/images/back-pattern1.svg');
+        border-radius: 0.5rem;
+        background-size: auto 56%;
+        background-position: center;
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+        border: 0.5px solid transparent;
+        border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5) ;
+    }
+
 }

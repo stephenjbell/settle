@@ -2,6 +2,10 @@
 <script>
 
     import { onMount } from 'svelte';
+    import { page } from '$app/stores'
+
+    // Set debug variable to true or false
+    let debug = $page.url.searchParams.get('debug');
 
     // Set the card width to the width of the play area spots
     let cardWidth = 150;
@@ -165,42 +169,47 @@
         drawPile[0].y = spotY;
         drawPile[0].z = 0;
     }
+
+    function playerTurn(i){
+        console.log(`Player ${i}'s turn!`);
+    }
     
 </script>
 
 <style>
     @import '$lib/styles/page.scss';
-    @import '$lib/styles/card.scss';
 </style>
 
-<h2>Display Cards</h2>
-<ol>
-    {#each Object.keys(displayCards) as cardName}
-        <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
-    {/each}
-</ol>
+{#if debug === "true"}
+    <h2>Display Cards</h2>
+    <ol>
+        {#each Object.keys(displayCards) as cardName}
+            <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
+        {/each}
+    </ol>
 
-<h2>Draw Pile {drawPile.cards.length}</h2>
-{drawPile.x} {drawPile.y}
-<ol>
-    {#each drawPile.cards as card}
-        <li>{card.name}</li>
-    {/each}
-</ol>
+    <h2>Draw Pile {drawPile.cards.length}</h2>
+    {drawPile.x} {drawPile.y}
+    <ol>
+        {#each drawPile.cards as card}
+            <li>{card.name}</li>
+        {/each}
+    </ol>
 
-<h2>Play Spots</h2>
-<ol>
-    {#each playSpots as spot}
-        <li>{spot.x} {spot.y}</li>
-    {/each}
-</ol>
+    <h2>Play Spots</h2>
+    <ol>
+        {#each playSpots as spot}
+            <li>{spot.x} {spot.y}</li>
+        {/each}
+    </ol>
 
-<h2>Players</h2>
-<ol>
-    {#each players as player}
-        <li>{player.name} {player.x} {player.y}</li>
-    {/each}
-</ol>
+    <h2>Players</h2>
+    <ol>
+        {#each players as player}
+            <li>{player.name} {player.x} {player.y}</li>
+        {/each}
+    </ol>
+{/if}
 
 <div class="settlegame">
     <h1>Settle</h1>
@@ -208,8 +217,8 @@
         {drawPile.cards.length} cards in the draw pile.
     </p>
 
-    <button on:click={shuffle(drawPile)}>Shuffle Deck</button>
-    <button on:click={deal}>Deal</button>
+    <button class="ui-button" on:click={shuffle(drawPile)}>Shuffle Deck</button>
+    <button class="ui-button" on:click={deal}>Deal</button>
 
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="drawarea">
@@ -240,11 +249,11 @@
         <div class="playerarea">
             {#each players as player, i}
                 <div class="player">
-                    <div class="cardpile"></div>
-                    <div class="name" bind:innerHTML={players[i].name} contenteditable></div>
-                    <div class="key">
+                    <button class="cardpile" on:click={() => playerTurn(i)}></button>
+                    <button class="key" on:click={() => playerTurn(i)}>
                         Press <span class="letter">{player.key.toUpperCase()}</span>
-                    </div>
+                    </button>
+                    <div class="name" bind:innerHTML={players[i].name} contenteditable></div>
                 </div>
             {/each}
         </div>
