@@ -84,6 +84,11 @@
                 width: 100%;
                 aspect-ratio: 3.5/2.5; // Card aspect ratio
                 border-radius: 0.5rem;
+
+                &[disabled]{
+                    opacity: 0.5;
+                    cursor: default;
+                }
             }
         }
 
@@ -96,15 +101,22 @@
             align-items: stretch;
 
             .player {
-                display: block;
+                display: grid;
+                grid-template-columns: max-content 1fr;
+                grid-template-areas:
+                    "cardpile cardpile"
+                    "key name";
+                gap: 1rem;
                 background-color: #f08;
                 width: 100%;
 
                 .name {
-                    font-size: 1.5rem;
+                    grid-area: name;
+                    font-size: 2rem;
                 }
 
                 .key {
+                    grid-area: key;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -113,7 +125,9 @@
                     width: 3rem;
                     background-color: #eee;
                     color: #4a4a4a;
-                    padding-bottom:0.5rem;
+                    padding-bottom: 0.25rem;
+                    text-transform: uppercase;
+                    font-size: 0.8em;
 
                     .letter {
                         display: flex;
@@ -129,6 +143,7 @@
                 }
 
                 .cardpile {
+                    grid-area: cardpile;
                     position:relative;
                     top: 0;
                     left: 0;
