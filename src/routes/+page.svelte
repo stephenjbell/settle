@@ -75,6 +75,19 @@
         drawPile.y = drawPileEl.offsetTop + drawArea.offsetTop;
     }
 
+    // Set the X and Y coordinates of each player card pile
+    function setPlayerCardPileLocation(){
+        // Get the location of the player area
+        let playerArea = document.querySelector(`.playerarea`);
+
+        // Get the location of each player card pile
+        let cardPiles = document.querySelectorAll(`.playerarea .player .cardpile`);
+        for (let i = 0; i < cardPiles.length; i++) {
+            players[i].x = cardPiles[i].offsetLeft + playerArea.offsetLeft;
+            players[i].y = cardPiles[i].offsetTop + playerArea.offsetTop;
+        }
+    }
+
     // Create all the cards (visible and in memory)
     let cardProps = {
         quantity: [1, 2, 3],
@@ -133,6 +146,7 @@
         // shuffle(drawPile.cards);
         setPlaySpotLocations();
         setDrawPileLocation();
+        setPlayerCardPileLocation();
     });
 
     function spotClick(e) {
@@ -181,6 +195,13 @@
     {/each}
 </ol>
 
+<h2>Players</h2>
+<ol>
+    {#each players as player}
+        <li>{player.name} {player.x} {player.y}</li>
+    {/each}
+</ol>
+
 <div class="settlegame">
     <h1>Settle</h1>
     <p>
@@ -219,11 +240,11 @@
         <div class="playerarea">
             {#each players as player}
                 <div class="player">
-                    <div class="name">{player.name}</div>
+                    <div class="cardpile"></div>
+                    <div class="name" contenteditable>{player.name}</div>
                     <div class="key">
                         Press <span class="letter">{player.key.toUpperCase()}</span>
                     </div>
-                    <div class="cardpile"></div>
                 </div>
             {/each}
         </div>
