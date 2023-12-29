@@ -258,11 +258,11 @@
                     {#each playSpots as spot}
                         <li>
                             <strong>{spot.x},{spot.y}</strong>
-                            <ol>
+                            <ul>
                                 {#if spot.card !== null}
                                     <li>{spot.card.name}</li>
                                 {/if}
-                            </ol>
+                            </ul>
                         </li>
                     {/each}
                 </ol>
