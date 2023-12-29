@@ -38,7 +38,10 @@
         playSpots.push({
             x: null,
             y: null,
-            z: 0.001,
+            i: 0, // Index of cards up from the bottom, sets Z
+            rotX: 0,
+            rotY: 0,
+            rotZ: 0,
             card: null, // This should only ever have 1 card in it
         });
     }
@@ -166,10 +169,15 @@
         displayCards = tempDisplayCards;
         drawPile.cards = tempDrawPileCards;
         setCardWidth();
-        // shuffle(drawPile.cards);
+        shuffle(drawPile.cards);
+
+        // Set x and y coordinates of each card location
         setPlaySpotLocations();
         setDrawPileLocation();
         setPlayerCardPileLocation();
+
+        // Fill empty play spots with cards
+        fillPlaySpots();
     });
 
     onDestroy(() => {
@@ -178,21 +186,37 @@
         }
     });
 
-    function spotClick(e) {
+    function updateDisplayCards(){
+        // Check play spots for cards
+        for (let i = 0; i < playSpots.length; i++) {
+            // Check if there's a card in the spot
+            if(playSpots[i].card !== null){
+                // If so, update the display card
+                displayCards[playSpots[i].card.name].x = playSpots[i].x;
+                displayCards[playSpots[i].card.name].y = playSpots[i].y;
+                displayCards[playSpots[i].card.name].z = playSpots[i].i;
+                console.log("playspots i",playSpots[i].i);
+                displayCards[playSpots[i].card.name].rotX = playSpots[i].rotX;
+                displayCards[playSpots[i].card.name].rotY = playSpots[i].rotY;
+                displayCards[playSpots[i].card.name].rotZ = playSpots[i].rotZ;
+            }
+        }
 
-        // Get the center of the spot
-        // let spotX = e.target.offsetLeft + e.target.offsetWidth / 2;
-        // let spotY = e.target.offsetTop + e.target.offsetHeight / 2;
-        let spotX = e.target.offsetLeft;
-        let spotY = e.target.offsetTop;
-        console.log(spotX, spotY);
+        // Check player card piles for cards
 
-        drawPile[0].rotY = 0;
-        drawPile[0].rotZ = 0;
-        drawPile[0].rotX = 0;
-        drawPile[0].x = spotX;
-        drawPile[0].y = spotY;
-        drawPile[0].z = 0;
+    }
+
+    function fillPlaySpots(){
+        // Fill the play spots with cards
+        for (let i = 0; i < playSpots.length; i++) {
+            // Check if there's a card in the spot
+            if(playSpots[i].card === null){
+                // If not, add a card
+                playSpots[i].card = drawPile.cards.pop();
+            }
+        }
+
+        updateDisplayCards();
     }
 
     function playerTurn(i){
@@ -277,7 +301,7 @@
                 {#each Object.keys(displayCards) as cardName, i}
                     <div 
                         class="card quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}" 
-                        style="--x: {displayCards[cardName].x}; --y: {displayCards[cardName].y}; --i: {i}; --rotX: {displayCards[cardName].rotX}; --rotY: {displayCards[cardName].rotY}; --rotZ: {displayCards[cardName].rotZ}; --delay: {drawPile.length - i - 1}; "
+                        style="--x:{displayCards[cardName].x};--y:{displayCards[cardName].y};--i:{i};--rotX:{displayCards[cardName].rotX};--rotY:{displayCards[cardName].rotY};--rotZ:{displayCards[cardName].rotZ};--delay:{drawPile.length - i - 1}; "
                         >
                         <div class="back"></div>
                         <div class="front">
@@ -292,7 +316,6 @@
         <div class="playarea">
             {#each playSpots as spot}
                 <button class="playspot" 
-                    on:click|preventDefault={spotClick} 
                     disabled={spot.card === null}
                 ></button>
             {/each}

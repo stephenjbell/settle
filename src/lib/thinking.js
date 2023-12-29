@@ -105,9 +105,10 @@ let players = [
 
 /* List of functions to implement
 
-* Check play spots for empty spots
-* Move card from draw pile to play spots
-* Start player turn on key press
+* X Check play spots for empty spots
+* X Move card from draw pile to play spots
+* Move display cards to correct location
+* X Start player turn on key press or click
 * Add card info to to card checker
 * Check card checker for Set
 * Move cards from play spots to player pile
