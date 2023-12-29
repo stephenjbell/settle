@@ -196,7 +196,8 @@
     }
 
     function playerTurn(i){
-        console.log(`Player ${i}'s turn!`);
+        let playerName = players[i].name;
+        console.log(`${playerName}'s turn!`);
     }
     
 </script>
@@ -206,35 +207,59 @@
 </style>
 
 {#if debug === "true"}
-    <h2>Display Cards</h2>
-    <ol>
-        {#each Object.keys(displayCards) as cardName}
-            <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
-        {/each}
-    </ol>
+    <details class="debug">
+        <summary>Display Cards</summary>
+        <ol>
+            {#each Object.keys(displayCards) as cardName}
+                <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
+            {/each}
+        </ol>
+    </details>
 
-    <h2>Draw Pile {drawPile.cards.length}</h2>
-    {drawPile.x} {drawPile.y}
-    <ol>
-        {#each drawPile.cards as card}
-            <li>{card.name}</li>
-        {/each}
-    </ol>
-
-    <h2>Play Spots</h2>
-    <ol>
-        {#each playSpots as spot}
-            <li>{spot.x} {spot.y}</li>
-        {/each}
-    </ol>
-
-    <h2>Players</h2>
-    <ol>
-        <!-- Each player who is active -->
-        {#each players.filter(player => player.active) as player}
-            <li>{player.name} {player.x} {player.y}</li>
-        {/each}
-    </ol>
+    <details class="debug" open>
+        <summary>Card Arrays</summary>
+        <div class="cardcolumns">
+            <div class="column">
+                <h2>Draw Pile {drawPile.cards.length}</h2>
+                {drawPile.x} {drawPile.y}
+                <ol>
+                    {#each drawPile.cards as card}
+                        <li>{card.name}</li>
+                    {/each}
+                </ol>
+            </div>
+            <div class="column">
+                <h2>Play Spots</h2>
+                <ol>
+                    {#each playSpots as spot}
+                        <li>
+                            <strong>{spot.x},{spot.y}</strong>
+                            <ol>
+                                {#if spot.card !== null}
+                                    <li>{spot.card.name}</li>
+                                {/if}
+                            </ol>
+                        </li>
+                    {/each}
+                </ol>
+            </div>
+            <div class="column">
+                <h2>Player Card Piles</h2>
+                <ol>
+                    {#each players as player}
+                        <li>
+                            <strong>{player.name} ({player.x},{player.y})</strong>
+                            <ol>
+                                {#each player.cards as card}
+                                    <li>{card.name}</li>
+                                {/each}
+                            </ol>
+                        </li>
+                    {/each}
+                </ol>
+            </div>
+        </div>
+    </details>
 {/if}
 
 <div class="settlegame">
