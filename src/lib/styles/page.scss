@@ -57,6 +57,7 @@
         transform-origin: center bottom;
         transform: rotateX(45deg);
         transform-style: preserve-3d;
+        margin-top: -15%; // to account for the rotation
 
         .drawarea {
             grid-area: drawarea;
