@@ -150,8 +150,8 @@
                             y: 0,
                             z: 0,
                             rotX: 0,
-                            rotY: 180,
-                            rotZ: 90,
+                            rotY: 0,
+                            rotZ: 0,
                         }
 
                         // Create the cards in memory to move around arrays
@@ -296,21 +296,23 @@
     <button class="ui-button" on:click={deal}>Deal</button>
 
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
+        <div class="displaycards">
+            {#each Object.keys(displayCards) as cardName, i}
+                <div 
+                    class="card quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}" 
+                    style="--x:{displayCards[cardName].x};--y:{displayCards[cardName].y};--i:{i};--rotX:{displayCards[cardName].rotX};--rotY:{displayCards[cardName].rotY};--rotZ:{displayCards[cardName].rotZ};--delay:{drawPile.length - i - 1}; "
+                    >
+                    <div class="back"></div>
+                    <div class="front">
+                        {#each Array(displayCards[cardName].quantity) as _}
+                            <img src="/images/shapes/{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}.svg" alt="">
+                        {/each}
+                    </div>
+                </div>
+            {/each}
+        </div>
         <div class="drawarea">
             <div class="drawpile">
-                {#each Object.keys(displayCards) as cardName, i}
-                    <div 
-                        class="card quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}" 
-                        style="--x:{displayCards[cardName].x};--y:{displayCards[cardName].y};--i:{i};--rotX:{displayCards[cardName].rotX};--rotY:{displayCards[cardName].rotY};--rotZ:{displayCards[cardName].rotZ};--delay:{drawPile.length - i - 1}; "
-                        >
-                        <div class="back"></div>
-                        <div class="front">
-                            {#each Array(displayCards[cardName].quantity) as _}
-                                <img src="/images/shapes/{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}.svg" alt="">
-                            {/each}
-                        </div>
-                    </div>
-                {/each}
             </div>
         </div>
         <div class="playarea">
