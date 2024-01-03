@@ -166,13 +166,13 @@
                         let viewBox; // The dimensions of the SVG shape
                         switch (shape) {
                             case 'oval':
-                                viewBox = "0 0 53 112";
+                                viewBox = [53,112];
                                 break;
                             case 'squiggle':
-                                viewBox = "0 0 55 106";
+                                viewBox = [55,106];
                                 break;
                             case 'diamond':
-                                viewBox = "0 0 62 119";
+                                viewBox = [62,119];
                                 break;
                         }
 
@@ -362,7 +362,7 @@
                     <div class="back"></div>
                     <div class="front">
                         {#each Array(displayCards[cardName].quantity) as _}
-                            <svg width="62" height="119" viewBox="{displayCards[cardName].viewBox}" xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMinYMin">
+                            <svg width="{displayCards[cardName].viewBox[0]}" height="{displayCards[cardName].viewBox[1]}" viewBox="0 0 {displayCards[cardName].viewBox[0]} {displayCards[cardName].viewBox[1]}" xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMinYMin">
                                 <use xlink:href="#img-{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}"></use>
                             </svg>
                         {/each}
