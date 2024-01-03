@@ -163,12 +163,26 @@
                 cardProps.shading.forEach(shading => {
                     cardProps.shape.forEach(shape => {
 
+                        let viewBox; // The dimensions of the SVG shape
+                        switch (shape) {
+                            case 'oval':
+                                viewBox = "0 0 53 112";
+                                break;
+                            case 'squiggle':
+                                viewBox = "0 0 55 106";
+                                break;
+                            case 'diamond':
+                                viewBox = "0 0 62 119";
+                                break;
+                        }
+
                         // Create all the named display cards to animate
                         tempDisplayCards[`${quantity} ${color} ${shading} ${shape}`] = {
                             quantity: quantity,
                             color: color,
                             shading: shading,
                             shape: shape,
+                            viewBox: viewBox,
                             x: 0,
                             y: 0,
                             z: 0,
@@ -210,14 +224,27 @@
     });
 
     function updateDisplayCards(){
-        // Check play spots for cards
+
+        // Check draw pile for cards, then move displayCards there
+        for (let i = 0; i < drawPile.cards.length; i++) {
+            // Set card to draw pile location
+            displayCards[drawPile.cards[i].name].x = drawPile.x;
+            displayCards[drawPile.cards[i].name].y = drawPile.y;
+            displayCards[drawPile.cards[i].name].z = i;
+            displayCards[drawPile.cards[i].name].delay = drawPile.cards.length - i - 1;
+            displayCards[drawPile.cards[i].name].rotX = 0;
+            displayCards[drawPile.cards[i].name].rotY = 180;
+            displayCards[drawPile.cards[i].name].rotZ = drawPile.rotZ;
+        }
+
+        // Check play spots for cards, then move displayCards there
         for (let i = 0; i < playSpots.length; i++) {
             // Check if there's a card in the spot
             if(playSpots[i].card !== null){
                 // If so, update the display card
                 displayCards[playSpots[i].card.name].x = playSpots[i].x;
                 displayCards[playSpots[i].card.name].y = playSpots[i].y;
-                displayCards[playSpots[i].card.name].z = playSpots[i].i;
+                displayCards[playSpots[i].card.name].z = 0.01;
                 displayCards[playSpots[i].card.name].rotX = playSpots[i].rotX;
                 displayCards[playSpots[i].card.name].rotY = playSpots[i].rotY;
                 displayCards[playSpots[i].card.name].rotZ = playSpots[i].rotZ;
@@ -322,12 +349,22 @@
             {#each Object.keys(displayCards) as cardName, i}
                 <div 
                     class="card quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}" 
-                    style="--x:{displayCards[cardName].x};--y:{displayCards[cardName].y};--i:{i};--rotX:{displayCards[cardName].rotX};--rotY:{displayCards[cardName].rotY};--rotZ:{displayCards[cardName].rotZ};--delay:{drawPile.length - i - 1}; "
+                    style="
+                        --x:{displayCards[cardName].x};
+                        --y:{displayCards[cardName].y};
+                        --z:{displayCards[cardName].z};
+                        --rotX:{displayCards[cardName].rotX};
+                        --rotY:{displayCards[cardName].rotY};
+                        --rotZ:{displayCards[cardName].rotZ};
+                        --delay:{drawPile.length - i - 1};
+                    "
                     >
                     <div class="back"></div>
                     <div class="front">
                         {#each Array(displayCards[cardName].quantity) as _}
-                            <img src="/images/shapes/{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}.svg" alt="">
+                            <svg width="62" height="119" viewBox="{displayCards[cardName].viewBox}" xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMinYMin">
+                                <use xlink:href="#img-{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}"></use>
+                            </svg>
                         {/each}
                     </div>
                 </div>

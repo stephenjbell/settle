@@ -198,7 +198,7 @@ details.debug {
     transform-style: preserve-3d;
     transform: 
         translate(-50%, -50%) // Position based on center of the card
-        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--i) * 1.5px))
+        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
         rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
     perspective: 1000px;
     

@@ -19,6 +19,102 @@
 		</style>
 	</head>
 	<body data-sveltekit-preload-data="hover">
+
+
+<svg display="none">
+	<!-- Via https://svgsprite.com/tools/svg-sprite-generator/ -->
+	<defs>
+		<pattern id="green-stripes" width="50" height="6" patternUnits="userSpaceOnUse"><path fill="#24BC3C" d="M0 0H62V2H0z"/></pattern>
+
+		<pattern id="red-stripes" width="50" height="6" patternUnits="userSpaceOnUse"><path fill="#f14f2c" d="M0 0H62V2H0z"/></pattern>
+
+		<pattern id="purple-stripes" width="50" height="6" patternUnits="userSpaceOnUse"><path fill="#b23fa6" d="M0 0H62V2H0z"/></pattern>
+
+		<g id="img-green-open-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-green-open-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-green-open-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="none" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-green-solid-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="#24bc3c" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-green-solid-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="#24bc3c" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-green-solid-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="#24bc3c" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-green-striped-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="url(#green-stripes)" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-green-striped-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="url(#green-stripes)" stroke="#24BC3C" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-green-striped-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="url(#green-stripes)" stroke="#24bc3c" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-purple-open-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-purple-open-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="none" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-purple-open-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-purple-solid-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="#b23fa6" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-purple-solid-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="#b23fa6" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-purple-solid-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="#b23fa6" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-purple-striped-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="url(#purple-stripes)" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-purple-striped-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="url(#purple-stripes)" stroke="#B23FA6" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-red-open-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#f14f2c" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-red-open-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="none" stroke="#f14f2c" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-red-solid-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="#f14f2c" stroke="#f14f2c" stroke-linejoin="round" stroke-width="4" d="m2 59.5 29-57.5 29 57.5-29 57.5z"/>
+		</g>
+		<g id="img-purple-striped-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="url(#purple-stripes)" stroke="#b23fa6" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-red-open-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#f14f2c" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-red-solid-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="#f14f2c" stroke="#f14f2c" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+		<g id="img-red-solid-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="#f14f2c" stroke="#f14f2c" stroke-linejoin="round" stroke-width="4" d="m40.4291 70.1824c0 7.1603 5.3241 13.0515 8.6845 17.6734 1.9219 2.6433 3.8864 4.9657 3.8864 6.6846 0 3.6813-5.2924 9.4596-16.7254 9.4596-21.284 0-30.1248-18.921-30.1248-30.3448 0-12.6864 8.4211-25.0636 8.4211-37.8377 0-7.1603-5.32405-13.0514-8.68454-17.6733-1.92188-2.6434-3.88636-4.8529-3.88636-6.6846 0-3.56848 5.29246-9.4596 16.7255-9.4596 21.284 0 30.1247 18.921 30.1247 30.3448 0 12.5652-8.4211 25.1171-8.4211 37.8376z"/>
+		</g>
+		<g id="img-red-striped-diamond">
+			<path xmlns="http://www.w3.org/2000/svg" fill="url(#red-stripes)" stroke="#F14F2C" stroke-linejoin="round" stroke-width="4" d="M2 59.5L31 2L60 59.5L31 117L2 59.5Z"/>
+		</g>
+		<g id="img-red-striped-squiggle">
+			<path xmlns="http://www.w3.org/2000/svg" fill="url(#red-stripes)" stroke="#F14F2C" stroke-linejoin="round" stroke-width="4" d="M40.4291 70.1824C40.4291 77.3427 45.7532 83.2339 49.1136 87.8558C51.0355 90.4991 53 92.8215 53 94.5404C53 98.2217 47.7076 104 36.2746 104C14.9906 104 6.1498 85.079 6.1498 73.6552C6.1498 60.9688 14.5709 48.5916 14.5709 35.8175C14.5709 28.6572 9.24685 22.7661 5.88636 18.1442C3.96448 15.5008 2 13.2913 2 11.4596C2 7.89112 7.29246 2 18.7255 2C40.0095 2 48.8502 20.921 48.8502 32.3448C48.8502 44.91 40.4291 57.4619 40.4291 70.1824Z"/>
+		</g>
+		<g id="img-red-striped-oval">
+			<rect xmlns="http://www.w3.org/2000/svg" width="49" height="108" x="2" y="2" fill="url(#red-stripes)" stroke="#F14F2C" stroke-linejoin="round" stroke-width="4" rx="24.5"/>
+		</g>
+	</defs>
+</svg>
+
+
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
