@@ -59,6 +59,27 @@
         //
     }
 
+    // Get the offset of an element relative to .cardtable
+    function cardTableOffset(el){
+        let cardTable = document.querySelector(`.cardtable`);
+
+        // Break out of loop if element isn't a descendant of cardTable
+        if(!cardTable.contains(el)) return false;
+
+        let offset = {
+            x: el.offsetLeft,
+            y: el.offsetTop,
+        }
+
+        let parent = el.offsetParent;
+        while(parent !== cardTable){
+            offset.x += parent.offsetLeft;
+            offset.y += parent.offsetTop;
+            parent = parent.offsetParent;
+        }
+        return offset;
+    }
+
     // Set the location of each play spot relative to .cardtable
     function setPlaySpotLocations(){
         // Get the location of the play area (card grid)
@@ -67,8 +88,11 @@
         // Get the location of each play spot and set to the array
         for (let i = 0; i < playSpots.length; i++) {
             let spot = document.querySelector(`.playarea .playspot:nth-child(${i+1})`);
-            playSpots[i].x = spot.offsetLeft + playArea.offsetLeft;
-            playSpots[i].y = spot.offsetTop + playArea.offsetTop;
+
+            // Set offsets using cardTableOffset function instead
+            let offset = cardTableOffset(spot);
+            playSpots[i].x = offset.x;
+            playSpots[i].y = offset.y;
         }
     }
 
@@ -195,7 +219,6 @@
                 displayCards[playSpots[i].card.name].x = playSpots[i].x;
                 displayCards[playSpots[i].card.name].y = playSpots[i].y;
                 displayCards[playSpots[i].card.name].z = playSpots[i].i;
-                console.log("playspots i",playSpots[i].i);
                 displayCards[playSpots[i].card.name].rotX = playSpots[i].rotX;
                 displayCards[playSpots[i].card.name].rotY = playSpots[i].rotY;
                 displayCards[playSpots[i].card.name].rotZ = playSpots[i].rotZ;
