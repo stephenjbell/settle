@@ -66,9 +66,10 @@
         // Break out of loop if element isn't a descendant of cardTable
         if(!cardTable.contains(el)) return false;
 
+        // Get middle of element
         let offset = {
-            x: el.offsetLeft,
-            y: el.offsetTop,
+            x: el.offsetLeft + el.offsetWidth / 2,
+            y: el.offsetTop + el.offsetHeight / 2,
         }
 
         let parent = el.offsetParent;
@@ -82,8 +83,6 @@
 
     // Set the location of each play spot relative to .cardtable
     function setPlaySpotLocations(){
-        // Get the location of the play area (card grid)
-        let playArea = document.querySelector(`.playarea`);
 
         // Get the location of each play spot and set to the array
         for (let i = 0; i < playSpots.length; i++) {
