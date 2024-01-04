@@ -76,7 +76,6 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background-color: #000;
                 width: var(--cardWidth);
                 height: auto;
                 aspect-ratio: 3.5/2.5;
@@ -201,6 +200,7 @@ details.debug {
         translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
         rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
     perspective: 1000px;
+    pointer-events: none;
     
     .front {
         display: flex;

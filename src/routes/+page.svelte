@@ -30,6 +30,73 @@
             cards: [],
         };
     }
+
+    let cardProps = {
+        quantity: [1, 2, 3],
+        colors: ['red', 'green', 'purple'],
+        shading: ['solid', 'striped', 'open'],
+        shape: ['oval', 'squiggle', 'diamond'],
+    }
+
+    // Card checker
+    let cardChecker = [];
+    let cardCheckerResults = {
+        set: false,
+        properties: []
+    };
+
+    function checkCards(){
+        if(cardChecker.length !== 3){
+            console.log("not enough cards!");
+            return false;
+        }
+
+        cardCheckerResults.set = true;
+
+        // let props = ["quantity","color","shading","shape"];
+        // Get the keys for cardProps
+        let props = Object.keys(cardProps);
+
+        props.forEach (prop => {
+            // Are the cards all the same for this property?
+            if(cardChecker[0][prop] === cardChecker[1][prop] && cardChecker[1][prop] === cardChecker[2][prop]){
+                cardCheckerResults.properties.push([prop, "same"]);
+
+            // Are the cards all different for this property?
+            } else if(cardChecker[0][prop] !== cardChecker[1][prop] && cardChecker[1][prop] !== cardChecker[2][prop] && cardChecker[0][prop] !== cardChecker[2][prop]){
+                cardCheckerResults.properties.push([prop, "different"]);
+
+            // If neither of the above, then it's not a set
+            } else {
+                cardCheckerResults.properties.push([prop, "noset"]);
+                cardCheckerResults.set = false;
+            }
+        });
+
+        cardCheckerResults = cardCheckerResults; // Tell Svelte to update variable
+    }
+
+    function addCardToChecker(i){
+        console.log("clicked card",playSpots[i].card.name);
+        // If card is already in the checker, don't add it
+        if(cardChecker.find(card => card.name === playSpots[i].card.name)){
+            console.log("already here!");
+            return false;
+        }
+
+        // Add card to checker
+        if(cardChecker.length < 3){
+            cardChecker = [...cardChecker, playSpots[i].card];
+            console.log("added card",playSpots[i].card.name);
+
+            // Check cards if there are 3
+            if(cardChecker.length === 3){
+                checkCards();
+            }
+        }
+
+        
+    }
     
     // Create the 12 play spots
     let playSpots = [];
@@ -117,14 +184,6 @@
             players[i].x = cardPiles[i].offsetLeft + playerArea.offsetLeft;
             players[i].y = cardPiles[i].offsetTop + playerArea.offsetTop;
         }
-    }
-
-    // Create all the cards (visible and in memory)
-    let cardProps = {
-        quantity: [1, 2, 3],
-        colors: ['red', 'green', 'purple'],
-        shading: ['solid', 'striped', 'open'],
-        shape: ['oval', 'squiggle', 'diamond'],
     }
 
     let displayCards = {};
@@ -322,12 +381,23 @@
 
 <div class="settlegame">
     <h1>Settle</h1>
-    <p>
-        {drawPile.cards.length} cards in the draw pile.
-    </p>
 
-    <button class="ui-button" on:click={shuffle(drawPile)}>Shuffle Deck</button>
-    <button class="ui-button" on:click={deal}>Deal</button>
+    <button class="ui-button" on:click|preventDefault={deal}>Deal</button>
+
+    <div class="cardchecker" style="margin-top: 2rem;">
+        Cards to check:
+        <ul>
+            {#each cardChecker as card}
+                <li>{card.name}</li>
+            {/each}
+        </ul>
+        
+        <pre>{JSON.stringify(cardCheckerResults)}</pre>
+        
+        {#if cardCheckerResults.set}
+            <strong style="font-size:3em;">Set!</strong>
+        {/if}
+    </div>
 
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="displaycards">
@@ -358,8 +428,9 @@
             </div>
         </div>
         <div class="playarea">
-            {#each playSpots as spot}
-                <button class="playspot" 
+            {#each playSpots as spot, i}
+                <button class="playspot"
+                    on:click|preventDefault={() => addCardToChecker(i)}
                     disabled={spot.card === null}
                 ></button>
             {/each}
@@ -367,8 +438,8 @@
         <div class="playerarea">
             {#each players.filter(player => player.active) as player, i}
                 <div class="player">
-                    <button class="cardpile" on:click={() => playerTurn(i)}></button>
-                    <button class="key" on:click={() => playerTurn(i)}>
+                    <button class="cardpile" on:click|preventDefault={() => playerTurn(i)}></button>
+                    <button class="key" on:click|preventDefault={() => playerTurn(i)}>
                         Press <span class="letter">{player.key.toUpperCase()}</span>
                     </button>
                     <div class="name" bind:innerHTML={players[i].name} contenteditable></div>
