@@ -56,7 +56,7 @@
     }
 
     function deal(){
-        //
+        fillPlaySpots();
     }
 
     // Get the offset of an element relative to .cardtable
@@ -197,10 +197,9 @@
         // Set x and y coordinates of each card location
         setPlaySpotLocations();
         setDrawPileLocation();
-        setPlayerCardPileLocation();
-
-        // Fill empty play spots with cards
-        fillPlaySpots();
+        setPlayerCardPileLocation();  
+        
+        updateDisplayCards();
     });
 
     onDestroy(() => {
@@ -342,7 +341,7 @@
                         --rotX:{displayCards[cardName].rotX};
                         --rotY:{displayCards[cardName].rotY};
                         --rotZ:{displayCards[cardName].rotZ};
-                        --delay:{drawPile.length - i - 1};
+                        --delay:{displayCards[cardName].delay};
                     "
                     >
                     <div class="back"></div>
