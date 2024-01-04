@@ -33,7 +33,7 @@
 
     let cardProps = {
         quantity: [1, 2, 3],
-        colors: ['red', 'green', 'purple'],
+        color: ['red', 'green', 'purple'],
         shading: ['solid', 'striped', 'open'],
         shape: ['oval', 'squiggle', 'diamond'],
     }
@@ -53,23 +53,25 @@
 
         cardCheckerResults.set = true;
 
-        // let props = ["quantity","color","shading","shape"];
-        // Get the keys for cardProps
+        // ["quantity","color","shading","shape"];
         let props = Object.keys(cardProps);
 
         props.forEach (prop => {
             // Are the cards all the same for this property?
             if(cardChecker[0][prop] === cardChecker[1][prop] && cardChecker[1][prop] === cardChecker[2][prop]){
                 cardCheckerResults.properties.push([prop, "same"]);
+                console.log(">>same " + prop, cardChecker[0][prop], cardChecker[1][prop], cardChecker[2][prop]);
 
             // Are the cards all different for this property?
             } else if(cardChecker[0][prop] !== cardChecker[1][prop] && cardChecker[1][prop] !== cardChecker[2][prop] && cardChecker[0][prop] !== cardChecker[2][prop]){
                 cardCheckerResults.properties.push([prop, "different"]);
+                console.log(">>different " + prop, cardChecker[0][prop], cardChecker[1][prop], cardChecker[2][prop]);
 
             // If neither of the above, then it's not a set
             } else {
                 cardCheckerResults.properties.push([prop, "noset"]);
                 cardCheckerResults.set = false;
+                console.log(">>noset " + prop, cardChecker[0][prop], cardChecker[1][prop], cardChecker[2][prop]);
             }
         });
 
@@ -218,7 +220,7 @@
         let tempDrawPileCards = [];
 
         cardProps.quantity.forEach(quantity => {
-            cardProps.colors.forEach(color => {
+            cardProps.color.forEach(color => {
                 cardProps.shading.forEach(shading => {
                     cardProps.shape.forEach(shape => {
 
@@ -277,7 +279,7 @@
             displayCards[drawPile.cards[i].name].z = i;
             displayCards[drawPile.cards[i].name].delay = drawPile.cards.length - i - 1;
             displayCards[drawPile.cards[i].name].rotX = 0;
-            displayCards[drawPile.cards[i].name].rotY = 180;
+            displayCards[drawPile.cards[i].name].rotY = -180;
             displayCards[drawPile.cards[i].name].rotZ = drawPile.rotZ;
         }
 
@@ -384,20 +386,40 @@
 
     <button class="ui-button" on:click|preventDefault={deal}>Deal</button>
 
-    <div class="cardchecker" style="margin-top: 2rem;">
-        Cards to check:
-        <ul>
-            {#each cardChecker as card}
-                <li>{card.name}</li>
-            {/each}
-        </ul>
-        
-        <pre>{JSON.stringify(cardCheckerResults)}</pre>
-        
-        {#if cardCheckerResults.set}
-            <strong style="font-size:3em;">Set!</strong>
-        {/if}
-    </div>
+    {#if cardChecker.length}
+        <div class="cardchecker" style="margin-top: 2rem;">
+            <div class="cards">
+                {#each cardChecker as card}
+                    <div class="card quantity{card.quantity} {card.color} {card.shading} {card.shape}" >
+                        <div class="front">
+                            {#each Array(card.quantity) as _}
+                                <img src="/images/shapes/{card.color}-{card.shading}-{card.shape}.svg" alt="">
+                            {/each}
+                        </div>
+                    </div>
+                {/each}
+            </div>
+            {#if cardChecker.length === 3}
+                <div class="message">
+                    <ul>
+                        {#each cardCheckerResults.properties as result}
+                            <li class="{result[1]}">{result[0]}</li>
+                        {/each}
+                    </ul>
+                </div>
+
+                <div class="result">
+                    {#if cardCheckerResults.set}
+                        <strong>Set!</strong>
+                    {:else}
+                        <strong>No Set.</strong>
+                    {/if}
+                </div>
+            {/if}
+            
+            
+        </div>
+    {/if}
 
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="displaycards">
