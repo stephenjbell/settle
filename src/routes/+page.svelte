@@ -163,26 +163,12 @@
                 cardProps.shading.forEach(shading => {
                     cardProps.shape.forEach(shape => {
 
-                        let viewBox; // The dimensions of the SVG shape
-                        switch (shape) {
-                            case 'oval':
-                                viewBox = [53,112];
-                                break;
-                            case 'squiggle':
-                                viewBox = [55,106];
-                                break;
-                            case 'diamond':
-                                viewBox = [62,119];
-                                break;
-                        }
-
                         // Create all the named display cards to animate
                         tempDisplayCards[`${quantity} ${color} ${shading} ${shape}`] = {
                             quantity: quantity,
                             color: color,
                             shading: shading,
                             shape: shape,
-                            viewBox: viewBox,
                             x: 0,
                             y: 0,
                             z: 0,
@@ -362,9 +348,7 @@
                     <div class="back"></div>
                     <div class="front">
                         {#each Array(displayCards[cardName].quantity) as _}
-                            <svg width="{displayCards[cardName].viewBox[0]}" height="{displayCards[cardName].viewBox[1]}" viewBox="0 0 {displayCards[cardName].viewBox[0]} {displayCards[cardName].viewBox[1]}" xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="xMinYMin">
-                                <use xlink:href="#img-{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}"></use>
-                            </svg>
+                            <img src="/images/shapes/{displayCards[cardName].color}-{displayCards[cardName].shading}-{displayCards[cardName].shape}.svg" alt="">
                         {/each}
                     </div>
                 </div>
