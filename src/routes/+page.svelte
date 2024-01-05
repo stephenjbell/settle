@@ -379,47 +379,49 @@
         <div class="currentplayer">
             <h2>{players[currentPlayer].name}'s Turn!</h2>
 
-            {#if cardChecker.length}
-                <div class="cardchecker">
-                    <div class="cards">
-                        {#each cardChecker as card}
-                            <div class="card quantity{card.quantity} {card.color} {card.shading} {card.shape}" >
-                                <div class="front">
-                                    {#each Array(card.quantity) as _}
-                                        <img src="/images/shapes/{card.color}-{card.shading}-{card.shape}.svg" alt="">
-                                    {/each}
+            <div class="cardchecker">
+                <div class="cards">
+                    {#each {length:3} as _, i}
+                        <div class="cardslot">
+                            {#if cardChecker[i]}
+                                <div class="card quantity{cardChecker[i].quantity} {cardChecker[i].color} {cardChecker[i].shading} {cardChecker[i].shape}" >
+                                    <div class="front">
+                                        {#each Array(cardChecker[i].quantity) as _}
+                                            <img src="/images/shapes/{cardChecker[i].color}-{cardChecker[i].shading}-{cardChecker[i].shape}.svg" alt="">
+                                        {/each}
+                                    </div>
                                 </div>
-                            </div>
-                        {/each}
-                    </div>
-                    {#if cardChecker.length === 3}
-                        <div class="message">
-                            <ul>
-                                {#each cardCheckerResults.properties as result}
-                                    <li class="{result[1]}">
-                                        {#if result[1] === "same" || result[1] === "different"}
-                                            ✅
-                                        {:else}
-                                            ❌
-                                        {/if}
-                                        {result[0]}
-                                    </li>
-                                {/each}
-                            </ul>
-                        </div>
-
-                        <div class="result">
-                            {#if cardCheckerResults.set}
-                                <strong>Set!</strong>
-                            {:else}
-                                <strong>No Set.</strong>
                             {/if}
                         </div>
-                    {/if}
-                    
-                    
+                    {/each}
                 </div>
-            {/if}
+                {#if cardChecker.length === 3}
+                    <div class="message">
+                        <ul>
+                            {#each cardCheckerResults.properties as result}
+                                <li class="{result[1]}">
+                                    {#if result[1] === "same" || result[1] === "different"}
+                                        ✅
+                                    {:else}
+                                        ❌
+                                    {/if}
+                                    {result[0]}
+                                </li>
+                            {/each}
+                        </ul>
+                    </div>
+
+                    <div class="result">
+                        {#if cardCheckerResults.set}
+                            <strong>Set!</strong>
+                        {:else}
+                            <strong>No Set.</strong>
+                        {/if}
+                    </div>
+                {/if}
+                
+                
+            </div>
 
         </div>
     {/if}

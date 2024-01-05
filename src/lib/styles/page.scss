@@ -76,7 +76,7 @@
         padding: 1rem;
         border-radius: 0.5rem;
         z-index: 10;
-        max-width: 17rem;
+        width: 17rem;
 
         h2 {
             font-size: 1.5rem;
@@ -89,11 +89,20 @@
             .cards {
                 display: flex;
                 gap: 0.5rem;
+
+                .cardslot {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    aspect-ratio: 3.5/2.5;
+                    background-color: #333;
+                }
     
                 .card {
                     position: relative;
-                    width: 50px;
+                    width: 100%;
                     pointer-events: auto;
+                    border-radius: 0.15rem;
                 }
             }
     
