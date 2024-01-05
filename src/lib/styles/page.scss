@@ -134,7 +134,7 @@
         transform-origin: center bottom;
         transform: rotateX(35deg);
         transform-style: preserve-3d;
-        margin-top: -15%; // to account for the rotation
+        margin-top: -20%; // to account for the rotation
 
         .displaycards {
             position: absolute;
@@ -150,7 +150,7 @@
             .drawpile {
                 position:relative;
                 transform-style: preserve-3d;
-                top: 50%;
+                top: 70%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 width: var(--cardWidth);

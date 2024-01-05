@@ -323,7 +323,9 @@
         }
 
         drawPile = drawPile; // Tell Svelte to update variable
+        playSpots = playSpots; // Tell Svelte to update variable
         updateDisplayCards();
+        countSets();
     }
 
     let currentPlayer = null;
@@ -331,6 +333,61 @@
 
     function playerTurn(i){
         currentPlayer = i;
+    }
+
+    let currentSets = [];
+
+    // Check if the cards are a set
+    function checkSpotsSet(card1, card2, card3){
+        let isSet = true;
+        let props = Object.keys(cardProps);
+
+        props.forEach (prop => {
+            // Are the cards all the same for this property?
+            if(card1[prop] === card2[prop] && card2[prop] === card3[prop]){
+                // do nothing
+
+            // Are the cards all different for this property?
+            } else if(card1[prop] !== card2[prop] && card2[prop] !== card3[prop] && card1[prop] !== card3[prop]){
+                // do nothing
+
+            // If neither of the above, then it's not a set
+            } else {
+                isSet = false;
+            }
+        });
+
+        return isSet;
+    }
+
+    // Count the current number of Sets currently in playSpots
+    function countSets(){
+        let sets = {};
+
+        // Loop through each play spot
+        for (let i = 0; i < playSpots.length; i++) {
+            // Loop through the playspots again, excluding the current spot
+            for (let j = 0; j < playSpots.length; j++) {
+                if(i !== j){
+                    // Loop through the playspots again, excluding the current spot
+                    for (let k = 0; k < playSpots.length; k++) {
+                        if(i !== k && j !== k){
+                            // Check if the cards in the spots are a set
+                            if(checkSpotsSet(playSpots[i].card, playSpots[j].card, playSpots[k].card)){
+                                // Sort indexes and create unique key to remove duplicates
+                                let cardIndexes = [i,j,k];
+                                cardIndexes.sort();
+                                // i.e. set0-1-2
+                                let setKey = `set-${cardIndexes[0]}-${cardIndexes[1]}-${cardIndexes[2]}`;
+                                sets[setKey] = cardIndexes;
+                            }
+                        }
+                    }
+                }
+            }
+        }        
+
+        currentSets = sets;
     }
     
 </script>
@@ -365,13 +422,16 @@
                 <pre>{JSON.stringify(players,null,2)}</pre>
             </div>
         </div>
+        Current sets: <br>
+        {JSON.stringify(currentSets,null,2)}
     </details>
+
+    
 {/if}
 
 <div class="settlegame">
     <h1>Settle</h1>
-
-    <!-- <button class="ui-button" on:click|preventDefault={deal}>Deal</button> -->
+    <p>Sets available on table: {Object.keys(currentSets).length}</p>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
