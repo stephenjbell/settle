@@ -377,44 +377,54 @@
 
     {#if currentPlayer !== null}
         <div class="currentplayer">
-            {players[currentPlayer].name}'s Turn!
-        </div>
-    {/if}
+            <h2>{players[currentPlayer].name}'s Turn!</h2>
 
-    {#if cardChecker.length}
-        <div class="cardchecker" style="margin-top: 2rem;">
-            <div class="cards">
-                {#each cardChecker as card}
-                    <div class="card quantity{card.quantity} {card.color} {card.shading} {card.shape}" >
-                        <div class="front">
-                            {#each Array(card.quantity) as _}
-                                <img src="/images/shapes/{card.color}-{card.shading}-{card.shape}.svg" alt="">
-                            {/each}
-                        </div>
-                    </div>
-                {/each}
-            </div>
-            {#if cardChecker.length === 3}
-                <div class="message">
-                    <ul>
-                        {#each cardCheckerResults.properties as result}
-                            <li class="{result[1]}">{result[0]}</li>
+            {#if cardChecker.length}
+                <div class="cardchecker">
+                    <div class="cards">
+                        {#each cardChecker as card}
+                            <div class="card quantity{card.quantity} {card.color} {card.shading} {card.shape}" >
+                                <div class="front">
+                                    {#each Array(card.quantity) as _}
+                                        <img src="/images/shapes/{card.color}-{card.shading}-{card.shape}.svg" alt="">
+                                    {/each}
+                                </div>
+                            </div>
                         {/each}
-                    </ul>
-                </div>
+                    </div>
+                    {#if cardChecker.length === 3}
+                        <div class="message">
+                            <ul>
+                                {#each cardCheckerResults.properties as result}
+                                    <li class="{result[1]}">
+                                        {#if result[1] === "same" || result[1] === "different"}
+                                            ✅
+                                        {:else}
+                                            ❌
+                                        {/if}
+                                        {result[0]}
+                                    </li>
+                                {/each}
+                            </ul>
+                        </div>
 
-                <div class="result">
-                    {#if cardCheckerResults.set}
-                        <strong>Set!</strong>
-                    {:else}
-                        <strong>No Set.</strong>
+                        <div class="result">
+                            {#if cardCheckerResults.set}
+                                <strong>Set!</strong>
+                            {:else}
+                                <strong>No Set.</strong>
+                            {/if}
+                        </div>
                     {/if}
+                    
+                    
                 </div>
             {/if}
-            
-            
+
         </div>
     {/if}
+
+    
 
     <div class="cardtable" style="--cardWidth:{cardWidth}px;">
         <div class="displaycards">
