@@ -261,6 +261,11 @@
         setPlayerCardPileLocation();  
         
         updateDisplayCards();
+        
+        // Wait 1ms to set up cards and then deal()
+        setTimeout(() => {
+            deal();
+        }, 1);
     });
 
     onDestroy(() => {
@@ -311,12 +316,14 @@
             }
         }
 
+        drawPile = drawPile; // Tell Svelte to update variable
         updateDisplayCards();
     }
 
+    let currentPlayer = null;
+
     function playerTurn(i){
-        let playerName = players[i].name;
-        console.log(`${playerName}'s turn!`);
+        currentPlayer = i;
     }
     
 </script>
@@ -340,42 +347,15 @@
         <div class="cardcolumns">
             <div class="column">
                 <h2>Draw Pile {drawPile.cards.length}</h2>
-                {drawPile.x} {drawPile.y}
-                <ol>
-                    {#each drawPile.cards as card}
-                        <li>{card.name}</li>
-                    {/each}
-                </ol>
+                <pre>{JSON.stringify(drawPile,null,2)}</pre>
             </div>
             <div class="column">
                 <h2>Play Spots</h2>
-                <ol>
-                    {#each playSpots as spot}
-                        <li>
-                            <strong>{spot.x},{spot.y}</strong>
-                            <ul>
-                                {#if spot.card !== null}
-                                    <li>{spot.card.name}</li>
-                                {/if}
-                            </ul>
-                        </li>
-                    {/each}
-                </ol>
+                <pre>{JSON.stringify(playSpots,null,2)}</pre>
             </div>
             <div class="column">
                 <h2>Player Card Piles</h2>
-                <ol>
-                    {#each players as player}
-                        <li>
-                            <strong>{player.name} ({player.x},{player.y})</strong>
-                            <ol>
-                                {#each player.cards as card}
-                                    <li>{card.name}</li>
-                                {/each}
-                            </ol>
-                        </li>
-                    {/each}
-                </ol>
+                <pre>{JSON.stringify(players,null,2)}</pre>
             </div>
         </div>
     </details>
@@ -384,7 +364,13 @@
 <div class="settlegame">
     <h1>Settle</h1>
 
-    <button class="ui-button" on:click|preventDefault={deal}>Deal</button>
+    <!-- <button class="ui-button" on:click|preventDefault={deal}>Deal</button> -->
+
+    {#if currentPlayer !== null}
+        <div class="currentplayer">
+            {players[currentPlayer].name}'s Turn!
+        </div>
+    {/if}
 
     {#if cardChecker.length}
         <div class="cardchecker" style="margin-top: 2rem;">
