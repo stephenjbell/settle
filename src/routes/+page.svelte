@@ -397,16 +397,16 @@
 </style>
 
 {#if debug === "true"}
-    <details class="debug">
+    <!-- <details class="debug">
         <summary>Display Cards</summary>
         <ol>
             {#each Object.keys(displayCards) as cardName}
                 <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
             {/each}
         </ol>
-    </details>
+    </details> -->
 
-    <details class="debug" open>
+    <details class="debug" closed>
         <summary>Card Arrays</summary>
         <div class="cardcolumns">
             <div class="column">
@@ -421,8 +421,11 @@
                 <h2>Player Card Piles</h2>
                 <pre>{JSON.stringify(players,null,2)}</pre>
             </div>
-        </div>
-        Current sets: <br>
+        </div>        
+    </details>
+
+    <details class="debug" closed>
+        <summary>Current Sets ({Object.keys(currentSets).length})</summary>
         {JSON.stringify(currentSets,null,2)}
     </details>
 
@@ -431,7 +434,6 @@
 
 <div class="settlegame">
     <h1>Settle</h1>
-    <p>Sets available on table: {Object.keys(currentSets).length}</p>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
