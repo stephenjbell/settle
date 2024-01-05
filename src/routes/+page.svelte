@@ -433,7 +433,9 @@
 {/if}
 
 <div class="settlegame">
-    <h1>Settle</h1>
+    <h1>
+        Settle
+    </h1>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
