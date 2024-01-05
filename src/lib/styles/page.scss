@@ -13,6 +13,7 @@
         color: #fff;
         font-size: 3rem;
         font-weight: 600;
+        margin: 0;
     }
 
     button {
@@ -45,6 +46,24 @@
         gap: 1rem;
         list-style-type: none;
         padding: 0;
+    }
+
+    .noplayerwarning {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        background-color: #000;
+        color: #fff;
+        font-size: 2rem;
+        padding: 1rem;
+        border-radius: 0 0 0.5rem 0.5rem;
+        display: none;
+
+        // When set to .show, warning will flash visible then disappear
+        &.show {
+            display: block;
+        }
     }
 
     .currentplayer {

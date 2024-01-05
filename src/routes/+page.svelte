@@ -46,10 +46,6 @@
     };
 
     function checkCards(){
-        if(cardChecker.length !== 3){
-            console.log("not enough cards!");
-            return false;
-        }
 
         cardCheckerResults.set = true;
 
@@ -60,36 +56,46 @@
             // Are the cards all the same for this property?
             if(cardChecker[0][prop] === cardChecker[1][prop] && cardChecker[1][prop] === cardChecker[2][prop]){
                 cardCheckerResults.properties.push([prop, "same"]);
-                console.log(">>same " + prop, cardChecker[0][prop], cardChecker[1][prop], cardChecker[2][prop]);
 
             // Are the cards all different for this property?
             } else if(cardChecker[0][prop] !== cardChecker[1][prop] && cardChecker[1][prop] !== cardChecker[2][prop] && cardChecker[0][prop] !== cardChecker[2][prop]){
                 cardCheckerResults.properties.push([prop, "different"]);
-                console.log(">>different " + prop, cardChecker[0][prop], cardChecker[1][prop], cardChecker[2][prop]);
 
             // If neither of the above, then it's not a set
             } else {
                 cardCheckerResults.properties.push([prop, "noset"]);
                 cardCheckerResults.set = false;
-                console.log(">>noset " + prop, cardChecker[0][prop], cardChecker[1][prop], cardChecker[2][prop]);
             }
         });
+
+        if(cardCheckerResults.set){
+            console.log("That's a set!");
+            // TODO: Move cards to player's pile
+        }
 
         cardCheckerResults = cardCheckerResults; // Tell Svelte to update variable
     }
 
     function addCardToChecker(i){
-        console.log("clicked card",playSpots[i].card.name);
+
+        // If there's no currentPlayer, return false
+        if(currentPlayer === null){
+            noPlayerWarning = "show";
+            // Turn off noPlayerWarning after 3 seconds
+            setTimeout(() => {
+                noPlayerWarning = "";
+            }, 3000);
+            return false;
+        } 
+
         // If card is already in the checker, don't add it
         if(cardChecker.find(card => card.name === playSpots[i].card.name)){
-            console.log("already here!");
             return false;
         }
 
         // Add card to checker
         if(cardChecker.length < 3){
             cardChecker = [...cardChecker, playSpots[i].card];
-            console.log("added card",playSpots[i].card.name);
 
             // Check cards if there are 3
             if(cardChecker.length === 3){
@@ -321,6 +327,7 @@
     }
 
     let currentPlayer = null;
+    let noPlayerWarning = "";
 
     function playerTurn(i){
         currentPlayer = i;
@@ -365,6 +372,8 @@
     <h1>Settle</h1>
 
     <!-- <button class="ui-button" on:click|preventDefault={deal}>Deal</button> -->
+
+    <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
     {#if currentPlayer !== null}
         <div class="currentplayer">
