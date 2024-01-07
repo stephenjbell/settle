@@ -26,7 +26,6 @@
             active: true,
             x: 0,
             y: 0,
-            z: 0,
             cards: [],
         };
     }
@@ -36,6 +35,16 @@
         color: ['red', 'green', 'purple'],
         shading: ['solid', 'striped', 'open'],
         shape: ['oval', 'squiggle', 'diamond'],
+    }
+
+    function moveCardToCurrentPlayer(i, delay){
+        console.log(`Moving card ${i} to player ${currentPlayer}`);
+        // Set delay on display cards to move in order clicked
+        displayCards[playSpots[i].card.name].delay = delay;
+        // Add card to current player
+        players[currentPlayer].cards = [...players[currentPlayer].cards, playSpots[i].card];
+        // Remove card from the play spot
+        playSpots[i].card = null;
     }
 
     // Card checker
@@ -70,10 +79,25 @@
 
         if(cardCheckerResults.set){
             console.log("That's a set!");
-            // TODO: Move cards to player's pile
+            
+            // loop through cardChecker and move cards to currentPlayer
+            for(let i = 0; i < cardChecker.length; i++){
+                moveCardToCurrentPlayer(cardChecker[i].index, i);
+            }
+        } else {
+            console.log("That's not a set.");
         }
 
-        cardCheckerResults = cardCheckerResults; // Tell Svelte to update variable
+        cardChecker = []; // Clear the card checker
+        updateDisplayCards(); // Move display cards to new locations
+        currentPlayer = null; // Clear the current player
+
+        // fillPlaySpots after small delay
+        setTimeout(() => {
+            fillPlaySpots();
+        }, 1000);
+
+        cardCheckerResults = cardCheckerResults; // Update card checker results
     }
 
     function addCardToChecker(i){
@@ -95,7 +119,9 @@
 
         // Add card to checker
         if(cardChecker.length < 3){
-            cardChecker = [...cardChecker, playSpots[i].card];
+            let card = playSpots[i].card;
+            card.index = i; 
+            cardChecker = [...cardChecker, card];
 
             // Check cards if there are 3
             if(cardChecker.length === 3){
@@ -309,6 +335,23 @@
         }
 
         // Check player card piles for cards
+        for (let i = 0; i < players.length; i++) {
+            let thisPlayer = players[i];
+
+            // Loop through cards in the player's pile
+            for (let j = 0; j < players[i].cards.length; j++) {
+
+                let thisCard = thisPlayer.cards[j];
+                // Update the display card
+                displayCards[thisCard.name].x = thisPlayer.x;
+                displayCards[thisCard.name].y = thisPlayer.y;
+                displayCards[thisCard.name].z = j;
+                displayCards[thisCard.name].rotX = 0;
+                displayCards[thisCard.name].rotY = -180;
+                displayCards[thisCard.name].rotZ = 0;
+            }
+            
+        }
 
     }
 
@@ -397,14 +440,10 @@
 </style>
 
 {#if debug === "true"}
-    <!-- <details class="debug">
+    <details class="debug" closed>
         <summary>Display Cards</summary>
-        <ol>
-            {#each Object.keys(displayCards) as cardName}
-                <li>{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}</li>
-            {/each}
-        </ol>
-    </details> -->
+        <pre>{JSON.stringify(displayCards,null,2)}</pre>
+    </details>
 
     <details class="debug" closed>
         <summary>Card Arrays</summary>
@@ -536,6 +575,9 @@
                         Press <span class="letter">{player.key.toUpperCase()}</span>
                     </button>
                     <div class="name" bind:innerHTML={players[i].name} contenteditable></div>
+                    <div class="points">
+                        {players[i].cards.length} cards
+                    </div>
                 </div>
             {/each}
         </div>
