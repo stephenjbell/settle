@@ -212,9 +212,10 @@
                 .cardpile {
                     grid-area: cardpile;
                     position:relative;
+                    display: block;
                     top: 0;
                     left: 0;
-                    width: var(--cardWidth);
+                    width: 100%;
                     height: auto;
                     aspect-ratio: 3.5/2.5;
                     background-color: rgba(255,255,255,0.1);

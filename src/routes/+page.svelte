@@ -209,14 +209,12 @@
 
     // Set the X and Y coordinates of each player card pile
     function setPlayerCardPileLocation(){
-        // Get the location of the player area
-        let playerArea = document.querySelector(`.playerarea`);
-
         // Get the location of each player card pile
         let cardPiles = document.querySelectorAll(`.playerarea .player .cardpile`);
         for (let i = 0; i < cardPiles.length; i++) {
-            players[i].x = cardPiles[i].offsetLeft + playerArea.offsetLeft;
-            players[i].y = cardPiles[i].offsetTop + playerArea.offsetTop;
+            let offset = cardTableOffset(cardPiles[i]);
+            players[i].x = offset.x;
+            players[i].y = offset.y;
         }
     }
 
@@ -570,7 +568,9 @@
         <div class="playerarea">
             {#each players.filter(player => player.active) as player, i}
                 <div class="player">
-                    <button class="cardpile" on:click|preventDefault={() => playerTurn(i)}></button>
+                    <button class="cardpile" on:click|preventDefault={() => playerTurn(i)}>
+                        {players[i].name} start turn.
+                    </button>
                     <button class="key" on:click|preventDefault={() => playerTurn(i)}>
                         Press <span class="letter">{player.key.toUpperCase()}</span>
                     </button>
