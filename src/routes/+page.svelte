@@ -57,6 +57,7 @@
     function checkCards(){
 
         cardCheckerResults.set = true;
+        cardCheckerResults.properties = [];
 
         // ["quantity","color","shading","shape"];
         let props = Object.keys(cardProps);
@@ -88,14 +89,14 @@
             console.log("That's not a set.");
         }
 
-        cardChecker = []; // Clear the card checker
-        updateDisplayCards(); // Move display cards to new locations
-        currentPlayer = null; // Clear the current player
+        updateDisplayCards(); // Move display cards to new locations immediately
 
-        // fillPlaySpots after small delay
+        // Wait 2 seconds before getting rid of card checker and allowing next turn
         setTimeout(() => {
+            cardChecker = []; // Clear the card checker
+            currentPlayer = null; // Clear the current player
             fillPlaySpots();
-        }, 1000);
+        }, 2000);
 
         cardCheckerResults = cardCheckerResults; // Update card checker results
     }

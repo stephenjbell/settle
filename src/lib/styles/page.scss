@@ -1,4 +1,9 @@
 
+$red: #F14F2C;
+$green: #24BC3C;
+$purple: #B23FA6;
+$pink: #ff22a7;
+
 :root {
     --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
@@ -188,6 +193,10 @@
                 width: 100%;
                 aspect-ratio: 3.5/2.5; // Card aspect ratio
                 border-radius: 0.5rem;
+
+                &:focus {
+                    outline: 10px solid $pink;
+                }
             }
         }
 
