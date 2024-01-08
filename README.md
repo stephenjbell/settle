@@ -2,6 +2,8 @@
 
 Settle is a card game similar to Set. This is still a **work-in-progress**, and design/functionality hasn't been finalized.
 
+[Settle WIP on Cloudflare Pages](https://settle.pages.dev/)
+
 ![A screenshot of Settle](static/images/settle-screenshot.png)
 
 My requirements.
