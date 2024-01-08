@@ -430,6 +430,23 @@
 
         currentSets = sets;
     }
+
+    function reshuffle(){
+
+        // TODO: Fix the delays, etc. so cards aren't out of order
+
+        // Move all cards from play spots to draw pile
+        for (let i = 0; i < playSpots.length; i++) {
+            if(playSpots[i].card !== null){
+                drawPile.cards.push(playSpots[i].card);
+                playSpots[i].card = null;
+            }
+        }
+
+        shuffle(drawPile.cards);        
+        fillPlaySpots();
+        updateDisplayCards();
+    }
     
 </script>
 
@@ -473,6 +490,7 @@
     <h1>
         Settle
     </h1>
+    <button on:click|preventDefault={reshuffle}>Re-shuffle</button>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
