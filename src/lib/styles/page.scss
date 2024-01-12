@@ -13,7 +13,7 @@ $pink: #ff22a7;
 }
 
 .settlegame {
-    background-color: #4e4b46;
+    background: linear-gradient(to bottom, #4a4b46 0%,#7f827a 100%);
     color: #fff;
     padding: 2rem;
     perspective: 24in;
@@ -209,18 +209,18 @@ $pink: #ff22a7;
                 gap: 1rem;
                 align-items: stretch;
                 flex-grow: 0;
-                background-color: $green;
+                background-color: #b2b1a5;
                 padding: 0.5rem;
                 border-radius: 0.5rem;
                 transform-style: preserve-3d;
                 transition: 0.2s all ease-in-out;
 
                 &:hover, &:focus-within {
-                    background-color: lighten($green, 10%);
+                    background-color: lighten(#b2b1a5, 10%);
                 }
 
                 &.current {
-                    background-color: lighten($green, 30%);
+                    background-color: lighten(#b2b1a5, 30%);
                 }
 
                 .cardpile {
