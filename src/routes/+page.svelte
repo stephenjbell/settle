@@ -374,7 +374,9 @@
     let noPlayerWarning = "";
 
     function playerTurn(i){
-        currentPlayer = i;
+        if(currentPlayer === null){
+            currentPlayer = i;
+        }
     }
 
     let currentSets = [];
@@ -590,7 +592,7 @@
         </div>
         <div class="playerarea">
             {#each players.filter(player => player.active) as player, i}
-                <button class="player" on:click|preventDefault={() => playerTurn(i)}>
+                <button class="player {currentPlayer === i ? "current" : ""}" on:click|preventDefault={() => playerTurn(i)}>
                     <div class="name">{player.name}</div>
                     <div class="cardpile" style="width:{cardWidth}px;">
                         
@@ -600,7 +602,7 @@
                             </div>
                         {:else}
                             <div class="buttontext">
-                                Click to play.
+                                Click to play
                             </div>
                         {/if}
                     </div>

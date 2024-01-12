@@ -123,7 +123,7 @@ $pink: #ff22a7;
                     li {
                         padding-left: 0.5rem;
                         text-transform: uppercase;
-                        list-style-type:none;
+                        list-style-type: none;
                     }
                 }
             }
@@ -159,7 +159,7 @@ $pink: #ff22a7;
             transform-style: preserve-3d;
 
             .drawpile {
-                position:relative;
+                position: relative;
                 transform-style: preserve-3d;
                 top: 70%;
                 left: 50%;
@@ -177,16 +177,6 @@ $pink: #ff22a7;
             grid-template-rows: repeat(3, 1fr);
             gap: 1rem;
 
-            // Add a column if we have 13+ cards
-            &:has(.playspot:nth-child(13)){
-                grid-template-columns: repeat(5, 1fr);
-            }
-
-            // Add another column if we have 16+ cards
-            &:has(.playspot:nth-child(16)){
-                grid-template-columns: repeat(6, 1fr);
-            }
-
             .playspot {
                 display: block;
                 background-color: rgba(255,255,255,0.1);
@@ -195,7 +185,7 @@ $pink: #ff22a7;
                 border-radius: 0.5rem;
 
                 &:focus {
-                    outline: 10px solid $pink;
+                    outline: 10px solid $red;
                 }
             }
         }
@@ -204,9 +194,10 @@ $pink: #ff22a7;
             grid-area: playerarea;
             display: flex;
             width: 100%;
-            gap: 1rem;
+            gap: 3rem;
             // stretch the flex items to fill the container
             align-items: stretch;
+            justify-content: right;
             transform-style: preserve-3d;
 
             .player {
@@ -216,20 +207,32 @@ $pink: #ff22a7;
                     "cardpile cardpile"
                     "key name";
                 gap: 1rem;
-                background-color: #f08;
-                width: 100%;
+                align-items: stretch;
+                flex-grow: 0;
+                background-color: $green;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
                 transform-style: preserve-3d;
+                transition: 0.2s all ease-in-out;
+
+                &:hover, &:focus-within {
+                    background-color: lighten($green, 10%);
+                }
+
+                &.current {
+                    background-color: lighten($green, 30%);
+                }
 
                 .cardpile {
                     grid-area: cardpile;
-                    position:relative;
+                    position: relative;
                     display: block;
                     top: 0;
                     left: 0;
                     width: 100%;
                     height: auto;
                     aspect-ratio: 3.5/2.5;
-                    background-color: rgba(255,255,255,0.1);
+                    background-color: rgba(255,255,255,0.15);
                     border-radius: 0.5rem;
                     transform-style: preserve-3d;
 
@@ -239,7 +242,6 @@ $pink: #ff22a7;
                         top: 50%;
                         transform: translate(-50%, -50%);
                         font-size: 1.5rem;
-                        font-weight: bold;
                         transform-style: preserve-3d;
                         transition: 0.2s all ease-in-out;
                         white-space: nowrap;
@@ -247,7 +249,7 @@ $pink: #ff22a7;
 
                     .points {
                         position: absolute;
-                        left:50%;
+                        left: 50%;
                         top: 50%;
                         transform: translate(-50%, -50%) translateZ(calc(var(--z) * 1.5px));
                         font-size: 2rem;
@@ -265,6 +267,8 @@ $pink: #ff22a7;
                     grid-area: name;
                     text-align: left;
                     font-size: 2rem;
+                    display: flex;
+                    align-items: center;
                 }
 
                 .key {
@@ -302,7 +306,7 @@ details.debug {
     background-color: #c9b7c7;
     border-radius: 1rem;
     padding: 0.5rem;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 
     .cardcolumns {
         display: grid;
@@ -333,7 +337,7 @@ details.debug {
         background-color: #f5f5e9;
         border-radius: 0.5rem;
         align-items: center;
-        justify-content:center;
+        justify-content: center;
         position: absolute;
         left: 0;
         top: 0;
@@ -365,7 +369,7 @@ details.debug {
         width: 100%;
         height: 100%;
         background-color: #A12596;
-        background-image:url('/images/back-pattern1.svg');
+        background-image: url('/images/back-pattern1.svg');
         border-radius: 0.5rem;
         background-size: auto 56%;
         background-position: center;
