@@ -581,7 +581,11 @@
                 <button class="playspot"
                     on:click|preventDefault={() => addCardToChecker(i)}
                     disabled={spot.card === null}
-                ></button>
+                >
+                    {#if spot.card?.name}
+                        {spot.card?.name}{spot.card?.quantity && spot.card.quantity != 1 ? "s" : ""}
+                    {/if}
+                </button>
             {/each}
         </div>
         <div class="playerarea">
