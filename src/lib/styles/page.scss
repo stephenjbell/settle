@@ -207,6 +207,7 @@ $pink: #ff22a7;
             gap: 1rem;
             // stretch the flex items to fill the container
             align-items: stretch;
+            transform-style: preserve-3d;
 
             .player {
                 display: grid;
@@ -217,6 +218,7 @@ $pink: #ff22a7;
                 gap: 1rem;
                 background-color: #f08;
                 width: 100%;
+                transform-style: preserve-3d;
 
                 .cardpile {
                     grid-area: cardpile;
@@ -229,10 +231,39 @@ $pink: #ff22a7;
                     aspect-ratio: 3.5/2.5;
                     background-color: rgba(255,255,255,0.1);
                     border-radius: 0.5rem;
+                    transform-style: preserve-3d;
+
+                    .buttontext {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        transform-style: preserve-3d;
+                        transition: 0.2s all ease-in-out;
+                        white-space: nowrap;
+                    }
+
+                    .points {
+                        position: absolute;
+                        left:50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%) translateZ(calc(var(--z) * 1.5px));
+                        font-size: 2rem;
+                        font-weight: bold;
+                        transform-style: preserve-3d;
+                        transition: 0.2s all ease-in-out;
+                        background-color: #fff;
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 0.25rem;
+                        white-space: nowrap;
+                    }
                 }
 
                 .name {
                     grid-area: name;
+                    text-align: left;
                     font-size: 2rem;
                 }
 

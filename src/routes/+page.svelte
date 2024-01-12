@@ -9,7 +9,7 @@
     let debug = $page.url.searchParams.get('debug');
 
     // Set the card width to the width of the play area spots
-    let cardWidth = 150;
+    let cardWidth = 1;
 
     function setCardWidth(){
         let firstSpot = document.querySelector(`.playarea .playspot:nth-child(1)`);
@@ -289,12 +289,12 @@
         // Set x and y coordinates of each card location
         setPlaySpotLocations();
         setDrawPileLocation();
-        setPlayerCardPileLocation();  
         
         updateDisplayCards();
         
         // Wait 1ms to set up cards and then deal()
         setTimeout(() => {
+            setPlayerCardPileLocation();
             deal();
         }, 1);
     });
@@ -590,18 +590,25 @@
         </div>
         <div class="playerarea">
             {#each players.filter(player => player.active) as player, i}
-                <div class="player">
-                    <button class="cardpile" on:click|preventDefault={() => playerTurn(i)}>
-                        {players[i].name} start turn.
-                    </button>
-                    <button class="key" on:click|preventDefault={() => playerTurn(i)}>
-                        Press <span class="letter">{player.key.toUpperCase()}</span>
-                    </button>
-                    <div class="name" bind:innerHTML={players[i].name} contenteditable></div>
-                    <div class="points">
-                        {players[i].cards.length} cards
+                <button class="player" on:click|preventDefault={() => playerTurn(i)}>
+                    <div class="name">{player.name}</div>
+                    <div class="cardpile" style="width:{cardWidth}px;">
+                        
+                        {#if player.cards.length > 0}
+                            <div class="points" style="--z:{player.cards.length + 1}">
+                                {player.cards.length} cards
+                            </div>
+                        {:else}
+                            <div class="buttontext">
+                                Click to play.
+                            </div>
+                        {/if}
                     </div>
-                </div>
+                    <div class="key">
+                        Press <span class="letter">{player.key.toUpperCase()}</span>
+                    </div>
+                    
+                </button>
             {/each}
         </div>
     </div>
