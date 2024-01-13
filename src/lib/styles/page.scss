@@ -2,14 +2,40 @@
 $red: #F14F2C;
 $green: #24BC3C;
 $purple: #B23FA6;
+$darkpurple: #50234c;
 $pink: #ff22a7;
 
 :root {
     --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    accent-color: $red;
 }
 
 * {
     box-sizing: border-box;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    
+    &[disabled]{
+        cursor: default;
+    }
+}
+
+button.ui-button {
+    background-color: #F14F2C;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    transition: 0.2s all ease-in-out;
+    font-family: var(--system-ui);
+
+    &:hover {
+        background-color: #e0401c;
+    }
 }
 
 .settlegame {
@@ -23,30 +49,6 @@ $pink: #ff22a7;
         font-size: 3rem;
         font-weight: 600;
         margin: 0;
-    }
-
-    button {
-        border: 0;
-        cursor: pointer;
-        
-        &[disabled]{
-            cursor: default;
-        }
-    }
-
-    button.ui-button {
-        background-color: #F14F2C;
-        color: #fff;
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        font-size: 2em;
-        transition: 0.2s all ease-in-out;
-        font-family: var(--system-ui);
-
-        &:hover {
-            background-color: #e0401c;
-        }
     }
 
     ul.allcards {
@@ -379,4 +381,50 @@ details.debug {
         border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5) ;
     }
 
+}
+
+dialog.settings {
+    background-color: $darkpurple;
+    border-radius: 0.5rem;
+    color: #fff;
+    border: 0;
+    padding: 2rem;
+    box-shadow: 0 15px 19px 0 rgba(0, 0, 0, 0.2);
+    font-size: 1.5rem;
+
+    &::backdrop {
+        transition: 2s all ease-in-out;
+        background-color: rgba(0,0,0,0.4);
+        backdrop-filter: blur(4px);
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .formfield {
+        margin-bottom: 1rem;
+
+        input {
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
+    }
+
+    input[type="submit"] {
+        background-color: #F14F2C;
+        color: #fff;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.5rem;
+        transition: 0.2s all ease-in-out;
+        font-family: var(--system-ui);
+        cursor: pointer;
+        margin-top: 1rem;
+    
+        &:hover {
+            background-color: #e0401c;
+        }
+    }
 }
