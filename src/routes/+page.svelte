@@ -99,9 +99,15 @@
             cardChecker = []; // Clear the card checker
             currentPlayer = null; // Clear the current player
             fillPlaySpots();
+
+            // If there are no current sets and the draw pile is empty, end the game
+            if(Object.keys(currentSets).length === 0 && drawPile.cards.length === 0){
+                console.log("Game over!");
+            }
+
+            cardCheckerResults = cardCheckerResults; // Update card checker results
         }, 2000);
 
-        cardCheckerResults = cardCheckerResults; // Update card checker results
     }
 
     function addCardToChecker(i){
@@ -329,7 +335,7 @@
         // Check play spots for cards, then move displayCards there
         for (let i = 0; i < playSpots.length; i++) {
             // Check if there's a card in the spot
-            if(playSpots[i].card !== null){
+            if(playSpots[i].card?.name){
                 // If so, update the display card
                 displayCards[playSpots[i].card.name].x = playSpots[i].x;
                 displayCards[playSpots[i].card.name].y = playSpots[i].y;
@@ -394,16 +400,10 @@
         let props = Object.keys(cardProps);
 
         props.forEach (prop => {
-            // Are the cards all the same for this property?
-            if(card1[prop] === card2[prop] && card2[prop] === card3[prop]){
-                // do nothing
+            let allSame = card1[prop] === card2[prop] && card2[prop] === card3[prop];
+            let allDifferent = card1[prop] !== card2[prop] && card2[prop] !== card3[prop] && card1[prop] !== card3[prop];
 
-            // Are the cards all different for this property?
-            } else if(card1[prop] !== card2[prop] && card2[prop] !== card3[prop] && card1[prop] !== card3[prop]){
-                // do nothing
-
-            // If neither of the above, then it's not a set
-            } else {
+            if(!allSame && !allDifferent){
                 isSet = false;
             }
         });
@@ -423,8 +423,12 @@
                     // Loop through the playspots again, excluding the current spot
                     for (let k = 0; k < playSpots.length; k++) {
                         if(i !== k && j !== k){
+
+                            // Don't check empty spots
+                            let allThreeCardsExist = playSpots[i].card && playSpots[j].card && playSpots[k].card;
+
                             // Check if the cards in the spots are a set
-                            if(checkSpotsSet(playSpots[i].card, playSpots[j].card, playSpots[k].card)){
+                            if(allThreeCardsExist && checkSpotsSet(playSpots[i].card, playSpots[j].card, playSpots[k].card)){
                                 // Sort indexes and create unique key to remove duplicates
                                 let cardIndexes = [i,j,k];
                                 cardIndexes.sort();
