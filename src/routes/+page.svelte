@@ -102,7 +102,7 @@
 
             // If there are no current sets and the draw pile is empty, end the game
             if(Object.keys(currentSets).length === 0 && drawPile.cards.length === 0){
-                console.log("Game over!");
+                gameOver();
             }
 
             cardCheckerResults = cardCheckerResults; // Update card checker results
@@ -467,6 +467,29 @@
         settings.close();
         console.log("Starting game...");
     }
+
+    let winners = [];
+
+    function gameOver(){
+        // Get players, sorted by number of cards
+        let sortedPlayers = players.sort((a,b) => {
+            return b.cards.length - a.cards.length;
+        });
+
+        // Get the highest number of cards
+        let highestCards = sortedPlayers[0].cards.length;
+
+        // Get all players with the highest number of cards
+        winners = sortedPlayers.filter(player => player.cards.length === highestCards);
+
+        // Display game over dialog
+        const gameOver = document.querySelector('dialog.gameover');
+        gameOver.showModal();
+    }
+
+    function playAgain(){
+        console.log("play again");
+    }
     
 </script>
 
@@ -654,6 +677,22 @@
         </div>
     {/each}
     <input type="submit" value="Start Game" on:click|preventDefault={() => startGame()} />
+
+</dialog>
+
+<dialog class="gameover">
+    <h2>Game Over</h2>
+    {#if winners.length === 1}
+        <p>{winners[0].name} wins!</p>
+    {:else}
+        <p>
+            It's a tie!
+            {#each winners as winner, i}
+                {winner.name}{i < winners.length - 1 ? ", " : "."}
+            {/each}
+        </p>
+    {/if}
+    <button class="ui-button" on:click|preventDefault={playAgain}>Play Again</button>
 
 </dialog>
 
