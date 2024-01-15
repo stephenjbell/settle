@@ -330,7 +330,7 @@
             displayCards[drawPile.cards[i].name].rotX = 0;
             displayCards[drawPile.cards[i].name].rotY = -180;
             displayCards[drawPile.cards[i].name].rotZ = 90;
-            displayCards[playSpots[i].card.name].location = "drawpile";
+            displayCards[drawPile.cards[i].name].location = "drawpile";
         }
 
         // Check play spots for cards, then move displayCards there
@@ -363,7 +363,7 @@
                 displayCards[thisCard.name].rotX = 0;
                 displayCards[thisCard.name].rotY = -180;
                 displayCards[thisCard.name].rotZ = 0;
-                displayCards[playSpots[i].card.name].location = "player";
+                displayCards[thisCard.name].location = "player";
             }
         }
     }
