@@ -274,12 +274,22 @@
                             shading: shading,
                             shape: shape,
                             location: "start",
-                            x: 0,
-                            y: 0,
-                            z: 0,
-                            rotX: 0,
-                            rotY: 0,
-                            rotZ: 0,
+                            old: {
+                                x: null,
+                                y: null,
+                                z: null,
+                                rotX: null,
+                                rotY: null,
+                                rotZ: null
+                            },
+                            now: {
+                                x: 0,
+                                y: 0,
+                                z: 0,
+                                rotX: 0,
+                                rotY: 0,
+                                rotZ: 0
+                            },
                         }
 
                         // Create the cards in memory to move around arrays
@@ -323,13 +333,14 @@
         // Check draw pile for cards, then move displayCards there
         for (let i = 0; i < drawPile.cards.length; i++) {
             // Set card to draw pile location
-            displayCards[drawPile.cards[i].name].x = drawPile.x;
-            displayCards[drawPile.cards[i].name].y = drawPile.y;
-            displayCards[drawPile.cards[i].name].z = i;
+            displayCards[drawPile.cards[i].name].now.x = drawPile.x;
+            displayCards[drawPile.cards[i].name].now.y = drawPile.y;
+            displayCards[drawPile.cards[i].name].now.z = i;
+            displayCards[drawPile.cards[i].name].now.rotX = 0;
+            displayCards[drawPile.cards[i].name].now.rotY = -180;
+            displayCards[drawPile.cards[i].name].now.rotZ = 90;
+
             displayCards[drawPile.cards[i].name].delay = drawPile.cards.length - i - 1;
-            displayCards[drawPile.cards[i].name].rotX = 0;
-            displayCards[drawPile.cards[i].name].rotY = -180;
-            displayCards[drawPile.cards[i].name].rotZ = 90;
             displayCards[drawPile.cards[i].name].location = "drawpile";
         }
 
@@ -338,12 +349,13 @@
             // Check if there's a card in the spot
             if(playSpots[i].card?.name){
                 // If so, update the display card
-                displayCards[playSpots[i].card.name].x = playSpots[i].x;
-                displayCards[playSpots[i].card.name].y = playSpots[i].y;
-                displayCards[playSpots[i].card.name].z = 0.01;
-                displayCards[playSpots[i].card.name].rotX = playSpots[i].rotX;
-                displayCards[playSpots[i].card.name].rotY = playSpots[i].rotY;
-                displayCards[playSpots[i].card.name].rotZ = playSpots[i].rotZ;
+                displayCards[playSpots[i].card.name].now.x = playSpots[i].x;
+                displayCards[playSpots[i].card.name].now.y = playSpots[i].y;
+                displayCards[playSpots[i].card.name].now.z = 0.01;
+                displayCards[playSpots[i].card.name].now.rotX = playSpots[i].rotX;
+                displayCards[playSpots[i].card.name].now.rotY = playSpots[i].rotY;
+                displayCards[playSpots[i].card.name].now.rotZ = playSpots[i].rotZ;
+
                 displayCards[playSpots[i].card.name].location = "playspot";
             }
         }
@@ -357,12 +369,12 @@
 
                 let thisCard = thisPlayer.cards[j];
                 // Update the display card
-                displayCards[thisCard.name].x = thisPlayer.x;
-                displayCards[thisCard.name].y = thisPlayer.y;
-                displayCards[thisCard.name].z = j;
-                displayCards[thisCard.name].rotX = 0;
-                displayCards[thisCard.name].rotY = -180;
-                displayCards[thisCard.name].rotZ = 0;
+                displayCards[thisCard.name].now.x = thisPlayer.x;
+                displayCards[thisCard.name].now.y = thisPlayer.y;
+                displayCards[thisCard.name].now.z = j;
+                displayCards[thisCard.name].now.rotX = 0;
+                displayCards[thisCard.name].now.rotY = -180;
+                displayCards[thisCard.name].now.rotZ = 0;
                 displayCards[thisCard.name].location = "player";
             }
         }
@@ -597,12 +609,12 @@
                 <div 
                     class="card {displayCards[cardName].location} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ]" 
                     style="
-                        --x:{displayCards[cardName].x};
-                        --y:{displayCards[cardName].y};
-                        --z:{displayCards[cardName].z};
-                        --rotX:{displayCards[cardName].rotX};
-                        --rotY:{displayCards[cardName].rotY};
-                        --rotZ:{displayCards[cardName].rotZ};
+                        --x:{displayCards[cardName].now.x};
+                        --y:{displayCards[cardName].now.y};
+                        --z:{displayCards[cardName].now.z};
+                        --rotX:{displayCards[cardName].now.rotX};
+                        --rotY:{displayCards[cardName].now.rotY};
+                        --rotZ:{displayCards[cardName].now.rotZ};
                         --delay:{displayCards[cardName].delay};
                     "
                     >
