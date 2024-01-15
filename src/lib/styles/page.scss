@@ -310,6 +310,28 @@ details.debug {
 }
 
 
+@keyframes upAndIntoPlayspot {
+    0% {
+        transform: none;
+    }
+    50% {
+        transform: 
+        translate(-50%, -50%) // Position based on center of the card
+        translate3d(50vw, 50vh, 900px)
+        rotateX(45deg) 
+        rotateY(-90deg) 
+        rotateZ(calc(var(--rotZ) * 1deg));
+    }
+    100% {
+        transform: 
+        translate(-50%, -50%) // Position based on center of the card
+        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
+        rotateX(calc(var(--rotX) * 1deg)) 
+        rotateY(calc(var(--rotY) * 1deg)) 
+        rotateZ(calc(var(--rotZ) * 1deg));
+    }
+  }
+
 .card {
     display: block;
     position: absolute;
@@ -323,7 +345,11 @@ details.debug {
         translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
         rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
     perspective: 1000px;
-    pointer-events: none;
+    // pointer-events: none;
+
+    &.upintoplayspot {
+        animation: upAndIntoPlayspot 1s ease-in-out forwards;
+    }
     
     .front {
         display: flex;

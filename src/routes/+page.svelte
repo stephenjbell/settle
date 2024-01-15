@@ -274,6 +274,7 @@
                             color: color,
                             shading: shading,
                             shape: shape,
+                            animClass: "anim",
                             x: 0,
                             y: 0,
                             z: 0,
@@ -343,6 +344,7 @@
                 displayCards[playSpots[i].card.name].rotX = playSpots[i].rotX;
                 displayCards[playSpots[i].card.name].rotY = playSpots[i].rotY;
                 displayCards[playSpots[i].card.name].rotZ = playSpots[i].rotZ;
+                displayCards[playSpots[i].card.name].animClass = "upintoplayspot";
             }
         }
 
@@ -594,7 +596,7 @@
         <div class="displaycards">
             {#each Object.keys(displayCards) as cardName, i}
                 <div 
-                    class="card quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape}" 
+                    class="card {displayCards[cardName].animClass} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ]" 
                     style="
                         --x:{displayCards[cardName].x};
                         --y:{displayCards[cardName].y};

@@ -14,7 +14,8 @@ let displayCards = { // 81 cards
         "quantity":1,
         "color":"red",
         "shading":"solid",
-        "shape":"oval"
+        "shape":"oval",
+        "animClass": ""
     }
 };
 
