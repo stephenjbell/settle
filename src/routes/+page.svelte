@@ -232,7 +232,6 @@
     let drawPile = {
         x: 0,
         y: 0,
-        rotZ: 90,
         cards: []
     };
 
@@ -274,7 +273,7 @@
                             color: color,
                             shading: shading,
                             shape: shape,
-                            animClass: "anim",
+                            location: "start",
                             x: 0,
                             y: 0,
                             z: 0,
@@ -330,7 +329,8 @@
             displayCards[drawPile.cards[i].name].delay = drawPile.cards.length - i - 1;
             displayCards[drawPile.cards[i].name].rotX = 0;
             displayCards[drawPile.cards[i].name].rotY = -180;
-            displayCards[drawPile.cards[i].name].rotZ = drawPile.rotZ;
+            displayCards[drawPile.cards[i].name].rotZ = 90;
+            displayCards[playSpots[i].card.name].location = "drawpile";
         }
 
         // Check play spots for cards, then move displayCards there
@@ -344,7 +344,7 @@
                 displayCards[playSpots[i].card.name].rotX = playSpots[i].rotX;
                 displayCards[playSpots[i].card.name].rotY = playSpots[i].rotY;
                 displayCards[playSpots[i].card.name].rotZ = playSpots[i].rotZ;
-                displayCards[playSpots[i].card.name].animClass = "upintoplayspot";
+                displayCards[playSpots[i].card.name].location = "playspot";
             }
         }
 
@@ -363,10 +363,9 @@
                 displayCards[thisCard.name].rotX = 0;
                 displayCards[thisCard.name].rotY = -180;
                 displayCards[thisCard.name].rotZ = 0;
+                displayCards[playSpots[i].card.name].location = "player";
             }
-            
         }
-
     }
 
     function fillPlaySpots(){
@@ -596,7 +595,7 @@
         <div class="displaycards">
             {#each Object.keys(displayCards) as cardName, i}
                 <div 
-                    class="card {displayCards[cardName].animClass} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ]" 
+                    class="card {displayCards[cardName].location} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ]" 
                     style="
                         --x:{displayCards[cardName].x};
                         --y:{displayCards[cardName].y};

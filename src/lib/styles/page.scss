@@ -317,9 +317,9 @@ details.debug {
     50% {
         transform: 
         translate(-50%, -50%) // Position based on center of the card
-        translate3d(50vw, 50vh, 900px)
-        rotateX(45deg) 
-        rotateY(-90deg) 
+        translate3d(-20vw, 50vh, 400px)
+        rotateX(180deg) 
+        rotateY(90deg) 
         rotateZ(calc(var(--rotZ) * 1deg));
     }
     100% {
@@ -337,8 +337,8 @@ details.debug {
     position: absolute;
     width: var(--cardWidth);
     aspect-ratio: 3.5/2.5;
-    transition: 0.5s all ease-in;
-    transition-delay: calc(var(--delay) * 150ms);
+    // transition: 0.5s all ease-in;
+    // transition-delay: calc(var(--delay) * 150ms);
     transform-style: preserve-3d;
     transform: 
         translate(-50%, -50%) // Position based on center of the card
@@ -347,8 +347,15 @@ details.debug {
     perspective: 1000px;
     // pointer-events: none;
 
-    &.upintoplayspot {
+    // Animations based on card location
+    &.playspot {
         animation: upAndIntoPlayspot 1s ease-in-out forwards;
+        animation-delay: calc(var(--delay) * 150ms);
+    }
+
+    &.player {
+        animation: upAndIntoPlayspot 1s ease-in-out forwards;
+        animation-delay: calc(var(--delay) * 150ms);
     }
     
     .front {
