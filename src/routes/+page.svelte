@@ -275,12 +275,12 @@
                             shape: shape,
                             location: "start",
                             old: {
-                                x: null,
-                                y: null,
-                                z: null,
-                                rotX: null,
-                                rotY: null,
-                                rotZ: null
+                                x: 0,
+                                y: 0,
+                                z: 0,
+                                rotX: 0,
+                                rotY: 0,
+                                rotZ: 0
                             },
                             now: {
                                 x: 0,
@@ -314,12 +314,6 @@
         setDrawPileLocation();
         
         updateDisplayCards();
-        
-        // Wait 1ms to set up cards and then deal()
-        setTimeout(() => {
-            setPlayerCardPileLocation();
-            deal();
-        }, 1);
     });
 
     onDestroy(() => {
@@ -332,31 +326,43 @@
 
         // Check draw pile for cards, then move displayCards there
         for (let i = 0; i < drawPile.cards.length; i++) {
-            // Set card to draw pile location
-            displayCards[drawPile.cards[i].name].now.x = drawPile.x;
-            displayCards[drawPile.cards[i].name].now.y = drawPile.y;
-            displayCards[drawPile.cards[i].name].now.z = i;
-            displayCards[drawPile.cards[i].name].now.rotX = 0;
-            displayCards[drawPile.cards[i].name].now.rotY = -180;
-            displayCards[drawPile.cards[i].name].now.rotZ = 90;
 
-            displayCards[drawPile.cards[i].name].delay = drawPile.cards.length - i - 1;
-            displayCards[drawPile.cards[i].name].location = "drawpile";
+            let cardName = drawPile.cards[i].name;
+
+            // Make old coordinates a copy of now
+            displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
+            
+            // Set card to draw pile location
+            displayCards[cardName].now.x = drawPile.x;
+            displayCards[cardName].now.y = drawPile.y;
+            displayCards[cardName].now.z = i;
+            displayCards[cardName].now.rotX = 0;
+            displayCards[cardName].now.rotY = -180;
+            displayCards[cardName].now.rotZ = 90;
+
+            displayCards[cardName].delay = drawPile.cards.length - i - 1;
+            displayCards[cardName].location = "drawpile";
         }
 
         // Check play spots for cards, then move displayCards there
         for (let i = 0; i < playSpots.length; i++) {
             // Check if there's a card in the spot
             if(playSpots[i].card?.name){
-                // If so, update the display card
-                displayCards[playSpots[i].card.name].now.x = playSpots[i].x;
-                displayCards[playSpots[i].card.name].now.y = playSpots[i].y;
-                displayCards[playSpots[i].card.name].now.z = 0.01;
-                displayCards[playSpots[i].card.name].now.rotX = playSpots[i].rotX;
-                displayCards[playSpots[i].card.name].now.rotY = playSpots[i].rotY;
-                displayCards[playSpots[i].card.name].now.rotZ = playSpots[i].rotZ;
 
-                displayCards[playSpots[i].card.name].location = "playspot";
+                let cardName = playSpots[i].card.name;
+
+                // Make old coordinates a copy of now
+                displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
+
+                // If so, update the display card
+                displayCards[cardName].now.x = playSpots[i].x;
+                displayCards[cardName].now.y = playSpots[i].y;
+                displayCards[cardName].now.z = 0.01;
+                displayCards[cardName].now.rotX = playSpots[i].rotX;
+                displayCards[cardName].now.rotY = playSpots[i].rotY;
+                displayCards[cardName].now.rotZ = playSpots[i].rotZ;
+
+                displayCards[cardName].location = "playspot";
             }
         }
 
@@ -367,15 +373,19 @@
             // Loop through cards in the player's pile
             for (let j = 0; j < players[i].cards.length; j++) {
 
-                let thisCard = thisPlayer.cards[j];
+                let cardName = thisPlayer.cards[j].name;
+
+                // Make old coordinates a copy of now
+                displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
+
                 // Update the display card
-                displayCards[thisCard.name].now.x = thisPlayer.x;
-                displayCards[thisCard.name].now.y = thisPlayer.y;
-                displayCards[thisCard.name].now.z = j;
-                displayCards[thisCard.name].now.rotX = 0;
-                displayCards[thisCard.name].now.rotY = -180;
-                displayCards[thisCard.name].now.rotZ = 0;
-                displayCards[thisCard.name].location = "player";
+                displayCards[cardName].now.x = thisPlayer.x;
+                displayCards[cardName].now.y = thisPlayer.y;
+                displayCards[cardName].now.z = j;
+                displayCards[cardName].now.rotX = 0;
+                displayCards[cardName].now.rotY = -180;
+                displayCards[cardName].now.rotZ = 0;
+                displayCards[cardName].location = "player";
             }
         }
     }
@@ -478,6 +488,7 @@
     function startGame(){
         const settings = document.querySelector('dialog.settings');
         settings.close();
+        deal();
         console.log("Starting game...");
     }
 
@@ -609,6 +620,12 @@
                 <div 
                     class="card {displayCards[cardName].location} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ]" 
                     style="
+                        --old-x:{displayCards[cardName].old.x};
+                        --old-y:{displayCards[cardName].old.y};
+                        --old-z:{displayCards[cardName].old.z};
+                        --old-rotX:{displayCards[cardName].old.rotX};
+                        --old-rotY:{displayCards[cardName].old.rotY};
+                        --old-rotZ:{displayCards[cardName].old.rotZ};
                         --x:{displayCards[cardName].now.x};
                         --y:{displayCards[cardName].now.y};
                         --z:{displayCards[cardName].now.z};

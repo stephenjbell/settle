@@ -310,25 +310,41 @@ details.debug {
 }
 
 
-@keyframes upAndIntoPlayspot {
+@keyframes upAndOver {
     0% {
-        transform: none;
-    }
-    50% {
         transform: 
-        translate(-50%, -50%) // Position based on center of the card
-        translate3d(-20vw, 50vh, 400px)
-        rotateX(180deg) 
-        rotateY(90deg) 
-        rotateZ(calc(var(--rotZ) * 1deg));
+            translate(-50%, -50%) // Position on card center
+            translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * 1.5px))
+            rotateX(calc(var(--old-rotX) * 1deg)) 
+            rotateY(calc(var(--old-rotY) * 1deg)) 
+            rotateZ(calc(var(--old-rotZ) * 1deg));
+    }
+    50% { // A position halfway between the old and new positions
+        // A bit of fudge factor (add 10deg) to make the rotation look more organic
+        transform: 
+            translate(-50%, -50%) // Position on card center
+            translate3d(
+                calc((var(--old-x) + var(--x))/2 * 1px), 
+                calc((var(--old-y) + var(--y))/2 * 1px), 
+                400px
+            ) // The height of the arc
+            rotateX(
+                calc((var(--old-rotX) + var(--rotX))/2 * 1deg + 10deg)
+            ) 
+            rotateY(
+                calc((var(--old-rotY) + var(--rotY))/2 * 1deg + 10deg)
+            ) 
+            rotateZ(
+                calc((var(--old-rotZ) + var(--rotZ))/2 * 1deg + 10deg)
+            );
     }
     100% {
         transform: 
-        translate(-50%, -50%) // Position based on center of the card
-        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
-        rotateX(calc(var(--rotX) * 1deg)) 
-        rotateY(calc(var(--rotY) * 1deg)) 
-        rotateZ(calc(var(--rotZ) * 1deg));
+            translate(-50%, -50%) // Position on card center
+            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
+            rotateX(calc(var(--rotX) * 1deg)) 
+            rotateY(calc(var(--rotY) * 1deg)) 
+            rotateZ(calc(var(--rotZ) * 1deg));
     }
   }
 
@@ -337,24 +353,38 @@ details.debug {
     position: absolute;
     width: var(--cardWidth);
     aspect-ratio: 3.5/2.5;
-    // transition: 0.5s all ease-in;
-    // transition-delay: calc(var(--delay) * 150ms);
     transform-style: preserve-3d;
-    transform: 
-        translate(-50%, -50%) // Position based on center of the card
-        translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
-        rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg)) rotateZ(calc(var(--rotZ) * 1deg)) ;
-    perspective: 1000px;
     // pointer-events: none;
+
+    // Card starts at its old position
+    // then transforms in animation
+    transform: 
+        translate(-50%, -50%) // Position on card center
+        translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * 1.5px))
+        rotateX(calc(var(--old-rotX) * 1deg)) 
+        rotateY(calc(var(--old-rotY) * 1deg)) 
+        rotateZ(calc(var(--old-rotZ) * 1deg));
+
+    &.drawpile {
+        // Draw pile has no animation, so cards start at their current position
+        transform: 
+            translate(-50%, -50%) // Position on card center
+            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
+            rotateX(calc(var(--rotX) * 1deg)) 
+            rotateY(calc(var(--rotY) * 1deg)) 
+            rotateZ(calc(var(--rotZ) * 1deg));
+    }
 
     // Animations based on card location
     &.playspot {
-        animation: upAndIntoPlayspot 1s ease-in-out forwards;
+        outline: 3px solid #0ff;
+        animation: upAndOver 0.7s ease-in forwards;
         animation-delay: calc(var(--delay) * 150ms);
     }
 
     &.player {
-        animation: upAndIntoPlayspot 1s ease-in-out forwards;
+        outline: 3px solid #f80;
+        animation: upAndOver 0.7s ease-in forwards;
         animation-delay: calc(var(--delay) * 150ms);
     }
     
@@ -421,6 +451,7 @@ dialog {
         transition: 2s all ease-in-out;
         background-color: rgba(0,0,0,0.4);
         backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
     }
 
     h2 {
