@@ -11,6 +11,22 @@
     // Set the card width to the width of the play area spots
     let cardWidth = 1;
 
+    // debounce function
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
     function setCardWidth(){
         let firstSpot = document.querySelector(`.playarea .playspot:nth-child(1)`);
         cardWidth = firstSpot.offsetWidth;
@@ -250,6 +266,17 @@
 
     onMount(() => {
 
+        // Card size, location change on resize
+        var rearrangeOnResize = debounce(function() {
+            setCardWidth();
+            setPlaySpotLocations();
+            setDrawPileLocation();
+            setPlayerCardPileLocation();
+            updateDisplayCards();
+        }, 100);
+
+        window.addEventListener('resize', rearrangeOnResize);
+
         const settings = document.querySelector('dialog.settings');
         settings.showModal();
 
@@ -328,6 +355,8 @@
     });
 
     function updateDisplayCards(){
+
+        console.log("updating display cards");
 
         // Check draw pile for cards, then move displayCards there
         for (let i = 0; i < drawPile.cards.length; i++) {
