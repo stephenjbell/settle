@@ -309,7 +309,7 @@ details.debug {
     }
 }
 
-
+// Card animates from its old position to a center point (but with a high z position), to a new position
 @keyframes upAndOver {
     0% {
         transform: 
@@ -354,7 +354,7 @@ details.debug {
     width: var(--cardWidth);
     aspect-ratio: 3.5/2.5;
     transform-style: preserve-3d;
-    // pointer-events: none;
+    pointer-events: none;
 
     // Card starts at its old position
     // then transforms in animation
@@ -365,8 +365,14 @@ details.debug {
         rotateY(calc(var(--old-rotY) * 1deg)) 
         rotateZ(calc(var(--old-rotZ) * 1deg));
 
+    // Never show card before it appears in draw pile
+    &.start {
+        display: none;
+    }
+
     &.drawpile {
-        // Draw pile has no animation, so cards start at their current position
+        // outline: 3px solid #08f;
+        // Draw pile has no animation, so cards start at their final position
         transform: 
             translate(-50%, -50%) // Position on card center
             translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
@@ -377,13 +383,13 @@ details.debug {
 
     // Animations based on card location
     &.playspot {
-        outline: 3px solid #0ff;
+        // outline: 3px solid #0ff;
         animation: upAndOver 0.7s ease-in forwards;
         animation-delay: calc(var(--delay) * 150ms);
     }
 
     &.player {
-        outline: 3px solid #f80;
+        // outline: 3px solid #f80;
         animation: upAndOver 0.7s ease-in forwards;
         animation-delay: calc(var(--delay) * 150ms);
     }

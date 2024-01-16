@@ -41,7 +41,6 @@
     }
 
     function moveCardToCurrentPlayer(i, delay){
-        console.log(`Moving card ${i} to player ${currentPlayer}`);
         // Set delay on display cards to move in order clicked
         displayCards[playSpots[i].card.name].delay = delay;
         // Add card to current player
