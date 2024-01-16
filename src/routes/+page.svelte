@@ -310,10 +310,16 @@
         shuffle(drawPile.cards);
 
         // Set x and y coordinates of each card location
-        setPlaySpotLocations();
-        setDrawPileLocation();
-        
-        updateDisplayCards();
+
+        // Set a 1ms delay to allow placement and then set
+        // coordinates of each card location
+        setTimeout(() => {
+            setPlaySpotLocations();
+            setDrawPileLocation();
+            setPlayerCardPileLocation();
+
+            updateDisplayCards();
+        }, 1);
     });
 
     onDestroy(() => {
@@ -385,6 +391,15 @@
                 displayCards[cardName].now.rotX = 0;
                 displayCards[cardName].now.rotY = -180;
                 displayCards[cardName].now.rotZ = 0;
+
+                // Log move from playspot to player
+                if(displayCards[cardName].location === "playspot"){
+                    console.log("moving card from playspot to player");
+                    console.log(displayCards[cardName].old, displayCards[cardName].now);
+                    console.log(thisPlayer);
+                    console.log("---");
+                }
+
                 displayCards[cardName].location = "player";
             }
         }
