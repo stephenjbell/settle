@@ -129,6 +129,10 @@ button.ui-button {
     
 
     .cardtable {
+        // Set card thickness based on card width
+        --cardThickness: calc(var(--cardWidth) * 0.0061);
+        --cardBorderRadius: calc(var(--cardWidth) * 0.04);
+
         display: grid;
         grid-template-columns: 1fr 4fr;
         grid-template-areas: 
@@ -245,7 +249,7 @@ button.ui-button {
                         position: absolute;
                         left: 50%;
                         top: 50%;
-                        transform: translate(-50%, -50%) translateZ(calc(var(--z) * 1.5px));
+                        transform: translate(-50%, -50%) translateZ(calc(var(--z) * var(--cardThickness)));
                         font-size: 2rem;
                         font-weight: bold;
                         transform-style: preserve-3d;
@@ -314,7 +318,7 @@ details.debug {
     0% {
         transform: 
             translate(-50%, -50%) // Position on card center
-            translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * 1.5px))
+            translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * var(--cardThickness)))
             rotateX(calc(var(--old-rotX) * 1deg)) 
             rotateY(calc(var(--old-rotY) * 1deg)) 
             rotateZ(calc(var(--old-rotZ) * 1deg));
@@ -341,7 +345,7 @@ details.debug {
     100% {
         transform: 
             translate(-50%, -50%) // Position on card center
-            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
+            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * var(--cardThickness)))
             rotateX(calc(var(--rotX) * 1deg)) 
             rotateY(calc(var(--rotY) * 1deg)) 
             rotateZ(calc(var(--rotZ) * 1deg));
@@ -360,7 +364,7 @@ details.debug {
     // then transforms in animation
     transform: 
         translate(-50%, -50%) // Position on card center
-        translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * 1.5px))
+        translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * var(--cardThickness)))
         rotateX(calc(var(--old-rotX) * 1deg)) 
         rotateY(calc(var(--old-rotY) * 1deg)) 
         rotateZ(calc(var(--old-rotZ) * 1deg));
@@ -375,7 +379,7 @@ details.debug {
         // Draw pile has no animation, so cards start at their final position
         transform: 
             translate(-50%, -50%) // Position on card center
-            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * 1.5px))
+            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * var(--cardThickness)))
             rotateX(calc(var(--rotX) * 1deg)) 
             rotateY(calc(var(--rotY) * 1deg)) 
             rotateZ(calc(var(--rotZ) * 1deg));
@@ -398,7 +402,7 @@ details.debug {
         display: flex;
         gap: 4%;
         background-color: #f5f5e9;
-        border-radius: 0.5rem;
+        border-radius: var(--cardBorderRadius);
         align-items: center;
         justify-content: center;
         position: absolute;
@@ -433,7 +437,7 @@ details.debug {
         height: 100%;
         background-color: #A12596;
         background-image: url('/images/back-pattern1.svg');
-        border-radius: 0.5rem;
+        border-radius: var(--cardBorderRadius);
         background-size: auto 56%;
         background-position: center;
         backface-visibility: hidden;
