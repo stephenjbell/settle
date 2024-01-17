@@ -364,7 +364,7 @@
             let cardName = drawPile.cards[i].name;
 
             // If this card was just in start, move its displayCard to drawpile
-            if(displayCards[cardName].location === "start"){
+            if(displayCards[cardName].location !== "drawpile"){
 
                 displayCards[cardName].location = "drawpile";
                 
@@ -391,7 +391,7 @@
                 let cardName = playSpots[i].card.name;
 
                 // If this card was just in drawpile, move its displayCard to playspot
-                if(displayCards[cardName].location === "drawpile"){
+                if(displayCards[cardName].location !== "playspot"){
 
                     displayCards[cardName].location = "playspot";
 
@@ -422,7 +422,7 @@
 
 
                 // If this card was just in playspot, move its displayCard to player
-                if(displayCards[cardName].location === "playspot"){
+                if(displayCards[cardName].location !== "player"){
 
                     displayCards[cardName].location = "";
 
@@ -545,9 +545,13 @@
             }
         }
 
-        shuffle(drawPile.cards);        
-        fillPlaySpots();
         updateDisplayCards();
+
+        // Delay 1s and then log "ready"
+        setTimeout(() => {
+            shuffle(drawPile.cards);
+            fillPlaySpots();
+        }, 1);
     }
 
     function startGame(){
