@@ -257,7 +257,7 @@
         // If we're holding down a modifier key, don't do anything
         if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
 
-        for (let i = 0; i < players.length; i++) {
+        for (let i = 0; i < settings.numberOfPlayers; i++) {
             if(e.key === players[i].key && players[i].active){
                 playerTurn(i);
             }
@@ -722,14 +722,14 @@
             {/each}
         </div>
         <div class="playerarea">
-            {#each players.filter(player => player.active) as player, i}
+            {#each {length: settings.numberOfPlayers} as _, i}
                 <button class="player {currentPlayer === i ? "current" : ""}" on:click|preventDefault={() => playerTurn(i)}>
-                    <div class="name">{player.name}</div>
+                    <div class="name">{players[i].name}</div>
                     <div class="cardpile" style="width:{cardWidth}px;">
                         
-                        {#if player.cards.length > 0}
-                            <div class="points" style="--z:{player.cards.length + 1}">
-                                {player.cards.length} cards
+                        {#if players[i].cards.length > 0}
+                            <div class="points" style="--z:{players[i].cards.length + 1}">
+                                {players[i].cards.length} cards
                             </div>
                         {:else}
                             <div class="buttontext">
@@ -738,7 +738,7 @@
                         {/if}
                     </div>
                     <div class="key">
-                        Press <span class="letter">{player.key.toUpperCase()}</span>
+                        Press <span class="letter">{players[i].key.toUpperCase()}</span>
                     </div>
                     
                 </button>
