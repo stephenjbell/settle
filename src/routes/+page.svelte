@@ -173,11 +173,11 @@
     }
 
     // Shuffle deck
-    function shuffle(array) {
+    function shuffle() {
         console.log("shuffling...");
-        for (let i = array.length - 1; i > 0; i--) {
+        for (let i = drawPile.cards.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [drawPile.cards[i], drawPile.cards[j]] = [drawPile.cards[j], drawPile.cards[i]];
         }
     }
 
@@ -333,7 +333,7 @@
         displayCards = tempDisplayCards;
         drawPile.cards = tempDrawPileCards;
         setCardWidth();
-        shuffle(drawPile.cards);
+        shuffle();
 
         // Set x and y coordinates of each card location
 
@@ -363,24 +363,20 @@
 
             let cardName = drawPile.cards[i].name;
 
-            // If this card was just in start, move its displayCard to drawpile
-            if(displayCards[cardName].location !== "drawpile"){
+            displayCards[cardName].location = "drawpile";
+            
+            // Make old coordinates a copy of now
+            displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
+            
+            // Set card to draw pile location
+            displayCards[cardName].now.x = drawPile.x;
+            displayCards[cardName].now.y = drawPile.y;
+            displayCards[cardName].now.z = i;
+            displayCards[cardName].now.rotX = 0;
+            displayCards[cardName].now.rotY = -180;
+            displayCards[cardName].now.rotZ = 90;
 
-                displayCards[cardName].location = "drawpile";
-                
-                // Make old coordinates a copy of now
-                displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
-                
-                // Set card to draw pile location
-                displayCards[cardName].now.x = drawPile.x;
-                displayCards[cardName].now.y = drawPile.y;
-                displayCards[cardName].now.z = i;
-                displayCards[cardName].now.rotX = 0;
-                displayCards[cardName].now.rotY = -180;
-                displayCards[cardName].now.rotZ = 90;
-
-                displayCards[cardName].delay = drawPile.cards.length - i - 1;
-            }
+            displayCards[cardName].delay = drawPile.cards.length - i - 1;
         }
 
         // Check play spots for cards, then move displayCards there
@@ -436,11 +432,6 @@
                     displayCards[cardName].now.rotX = 0;
                     displayCards[cardName].now.rotY = -180;
                     displayCards[cardName].now.rotZ = 0;
-
-                    console.log("moving card from playspot to player");
-                    console.log(displayCards[cardName].old, displayCards[cardName].now);
-                    console.log(thisPlayer);
-                    console.log("---");
 
                     // delay 1ms then add location of "player" to card
                     setTimeout(() => {
@@ -545,11 +536,11 @@
             }
         }
 
+        shuffle();
         updateDisplayCards();
 
-        // Delay 1s and then log "ready"
+        // Delay 1s and deal cards back out again
         setTimeout(() => {
-            shuffle(drawPile.cards);
             fillPlaySpots();
         }, 1);
     }
@@ -582,7 +573,7 @@
     }
 
     function playAgain(){
-        console.log("play again");
+        console.log("Play again");
     }
     
 </script>
