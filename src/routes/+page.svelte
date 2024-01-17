@@ -617,7 +617,6 @@
     <h1>
         Settle
     </h1>
-    <p>Work-in-progress. Last updated {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}</p>
     <button on:click|preventDefault={reshuffle}>Re-shuffle</button>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
