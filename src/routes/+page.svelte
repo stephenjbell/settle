@@ -7,6 +7,7 @@
 
     // Set debug variable to true or false
     let debug = $page.url.searchParams.get('debug');
+    let easymode = $page.url.searchParams.get('easymode');
 
     // Set the card width to the width of the play area spots
     let cardWidth = 1;
@@ -54,6 +55,11 @@
         color: ['red', 'green', 'purple'],
         shading: ['solid', 'striped', 'open'],
         shape: ['oval', 'squiggle', 'diamond'],
+    }
+
+    // A simpler version of the game with only one shape on each card
+    if(easymode === "true"){
+        cardProps.quantity = [1];
     }
 
     function moveCardToCurrentPlayer(i, delay){
