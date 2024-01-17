@@ -5,10 +5,6 @@
     import { browser } from '$app/environment';
     import { page } from '$app/stores';
 
-    // Get the current date and current time in a short, easy to read format
-    let now = new Date();
-    let dateTime = now.toLocaleString('en-US',{timeZone: 'America/Chicago'});
-
     // Set debug variable to true or false
     let debug = $page.url.searchParams.get('debug');
 
@@ -621,7 +617,7 @@
     <h1>
         Settle
     </h1>
-    <p>🚧 Work-in-progress — Last updated {dateTime}</p>
+    <p>🚧 Work-in-progress 🚧</p>
     <button on:click|preventDefault={reshuffle}>Re-shuffle</button>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
