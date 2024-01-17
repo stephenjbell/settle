@@ -424,7 +424,7 @@
                 // If this card was just in playspot, move its displayCard to player
                 if(displayCards[cardName].location === "playspot"){
 
-                    displayCards[cardName].location = "player";
+                    displayCards[cardName].location = "";
 
                     // Make old coordinates a copy of now
                     displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
@@ -441,6 +441,11 @@
                     console.log(displayCards[cardName].old, displayCards[cardName].now);
                     console.log(thisPlayer);
                     console.log("---");
+
+                    // delay 1ms then add location of "player" to card
+                    setTimeout(() => {
+                        displayCards[cardName].location = "player";
+                    }, 1);
 
                     
                 }
