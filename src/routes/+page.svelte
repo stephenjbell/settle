@@ -548,6 +548,7 @@
     function startGame(){
         const settings = document.querySelector('dialog.settings');
         settings.close();
+        setPlayerCardPileLocation(); // In case we changed number of players
         deal();
         console.log("Starting game...");
     }
