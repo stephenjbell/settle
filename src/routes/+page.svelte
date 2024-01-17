@@ -456,7 +456,7 @@
         // Fill the play spots with cards
         for (let i = 0; i < playSpots.length; i++) {
             // Check if there's a card in the spot
-            if(playSpots[i].card === null){
+            if(playSpots[i].card === null && drawPile.cards.length > 0){
                 // If not, add a card
                 playSpots[i].card = drawPile.cards.pop();
             }
@@ -579,7 +579,35 @@
     }
 
     function playAgain(){
-        console.log("Play again");
+
+        // Close game over dialog
+        const gameOver = document.querySelector('dialog.gameover');
+        gameOver.close();
+
+        // Move all cards back to draw pile from play spots and player piles
+        for (let i = 0; i < playSpots.length; i++) {
+            if(playSpots[i].card !== null){
+                drawPile.cards.push(playSpots[i].card);
+                playSpots[i].card = null;
+            }
+        }
+
+        for (let i = 0; i < players.length; i++) {
+            if(players[i].cards.length > 0){
+                drawPile.cards = [...drawPile.cards, ...players[i].cards];
+                players[i].cards = [];
+            }
+        }
+
+        shuffle();
+
+        updateDisplayCards();
+
+        // Wait 1ms then deal
+        setTimeout(() => {
+            deal();
+        }, 1);
+
     }
     
 </script>
