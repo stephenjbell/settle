@@ -714,7 +714,7 @@
         <div class="displaycards">
             {#each Object.keys(displayCards) as cardName, i}
                 <div 
-                    class="card {displayCards[cardName].location} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ]" 
+                    class="card {displayCards[cardName].location} [ quantity{displayCards[cardName].quantity} {displayCards[cardName].color} {displayCards[cardName].shading} {displayCards[cardName].shape} ] {displayCards[cardName].now.rotZ === 90 ? 'vertical' : 'horizontal'}"
                     style="
                         --old-x:{displayCards[cardName].old.x};
                         --old-y:{displayCards[cardName].old.y};
