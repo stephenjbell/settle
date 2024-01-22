@@ -1,22 +1,22 @@
-
 // Let's sketch out our data before we start doing play logic
 
 // Display cards move around the board
 // but aren't really part of the game logic
-let displayCards = { // 81 cards
-    "1 red solid oval": {
-        "x":0,
-        "y":0,
-        "z":0,
-        "rotX":0,
-        "rotY":0,
-        "rotZ":0,
-        "quantity":1,
-        "color":"red",
-        "shading":"solid",
-        "shape":"oval",
-        "animClass": ""
-    }
+let displayCards = {
+	// 81 cards
+	'1 red solid oval': {
+		x: 0,
+		y: 0,
+		z: 0,
+		rotX: 0,
+		rotY: 0,
+		rotZ: 0,
+		quantity: 1,
+		color: 'red',
+		shading: 'solid',
+		shape: 'oval',
+		animClass: ''
+	}
 };
 
 // The game is played by cards moving from the draw pile
@@ -24,35 +24,35 @@ let displayCards = { // 81 cards
 
 // Draw pile
 let drawPile = {
-    "x":0,
-    "y":0,
-    "cards":[
-        {
-            "name":"1 red solid oval",
-            "quantity":1,
-            "color":"red",
-            "shading":"solid",
-            "shape":"oval",
-            "z":0 // Stacks upwards
-        }
-    ]
+	x: 0,
+	y: 0,
+	cards: [
+		{
+			name: '1 red solid oval',
+			quantity: 1,
+			color: 'red',
+			shading: 'solid',
+			shape: 'oval',
+			z: 0 // Stacks upwards
+		}
+	]
 };
 
 // Play spots X 12 (or 15, or 18)
 let playSpots = [
-    {
-        "x":0,
-        "y":0,
-        "card": {
-            "name":"1 red solid oval",
-            "quantity":1,
-            "color":"red",
-            "shading":"solid",
-            "shape":"oval",
-            "z":0.001 // Slightly above table
-        }
-    },
-    // ...
+	{
+		x: 0,
+		y: 0,
+		card: {
+			name: '1 red solid oval',
+			quantity: 1,
+			color: 'red',
+			shading: 'solid',
+			shape: 'oval',
+			z: 0.001 // Slightly above table
+		}
+	}
+	// ...
 ];
 
 /* No separate overflow area
@@ -66,43 +66,41 @@ instead of grid, so that they can be filled from left to right.
 
 */
 
-
 // Card checker X 3
 // Important: Cards don't move here, they are just checked
 let cardChecker = [
-    {
-        "name":"1 red solid oval",
-        "quantity":1,
-        "color":"red",
-        "shading":"solid",
-        "shape":"oval"
-    },
-    // ...
+	{
+		name: '1 red solid oval',
+		quantity: 1,
+		color: 'red',
+		shading: 'solid',
+		shape: 'oval'
+	}
+	// ...
 ];
 
 // Players X 4
 let players = [
-    {
-        "name":"Player 1",
-        "key":"x",
-        "penalty":0,
-        "active":true,
-        "x":0,
-        "y":0,
-        "z":0,
-        "cards":[
-            {
-                "name":"1 red solid oval",
-                "quantity":1,
-                "color":"red",
-                "shading":"solid",
-                "shape":"oval",
-            }
-        ]
-    },
-    // ...
+	{
+		name: 'Player 1',
+		key: 'x',
+		penalty: 0,
+		active: true,
+		x: 0,
+		y: 0,
+		z: 0,
+		cards: [
+			{
+				name: '1 red solid oval',
+				quantity: 1,
+				color: 'red',
+				shading: 'solid',
+				shape: 'oval'
+			}
+		]
+	}
+	// ...
 ];
-
 
 /* List of functions to implement
 

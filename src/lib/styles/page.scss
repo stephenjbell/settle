@@ -1,532 +1,522 @@
-
-$red: #F14F2C;
-$green: #24BC3C;
-$purple: #B23FA6;
+$red: #f14f2c;
+$green: #24bc3c;
+$purple: #b23fa6;
 $darkpurple: #50234c;
 $pink: #ff22a7;
 
 :root {
-    --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    accent-color: $red;
+	--system-ui: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol';
+	accent-color: $red;
 }
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 button {
-    border: 0;
-    cursor: pointer;
-    color: #4a4a4a;
-    
-    &[disabled]{
-        cursor: default;
-    }
+	border: 0;
+	cursor: pointer;
+	color: #4a4a4a;
+
+	&[disabled] {
+		cursor: default;
+	}
 }
 
 button.ui-button {
-    background-color: #F14F2C;
-    color: #fff;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1.5rem;
-    transition: 0.2s all ease-in-out;
-    font-family: var(--system-ui);
+	background-color: #f14f2c;
+	color: #fff;
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.5rem 1rem;
+	font-size: 1.5rem;
+	transition: 0.2s all ease-in-out;
+	font-family: var(--system-ui);
 
-    &:hover {
-        background-color: #e0401c;
-    }
+	&:hover {
+		background-color: #e0401c;
+	}
 }
 
 .settlegame {
-    background: linear-gradient(to bottom, #4a4b46 0%,#7f827a 100%);
-    color: #fff;
-    padding: 2rem 2rem 6rem 2rem;
-    perspective: 24in;
+	background: linear-gradient(to bottom, #4a4b46 0%, #7f827a 100%);
+	color: #fff;
+	padding: 2rem 2rem 6rem 2rem;
+	perspective: 24in;
 
-    h1 {
-        color: #fff;
-        font-size: 3rem;
-        font-weight: 600;
-        margin: 0;
-    }
+	h1 {
+		color: #fff;
+		font-size: 3rem;
+		font-weight: 600;
+		margin: 0;
+	}
 
-    .noplayerwarning {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translateX(-50%);
-        background-color: rgba(0,0,0,0.8);
-        color: #fff;
-        font-size: 2rem;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        display: none;
-        z-index: 10;
+	.noplayerwarning {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		transform: translateX(-50%);
+		background-color: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		font-size: 2rem;
+		padding: 1rem;
+		border-radius: 0.5rem;
+		display: none;
+		z-index: 10;
 
-        // When set to .show, warning will flash visible then disappear
-        &.show {
-            display: block;
-        }
-    }
+		// When set to .show, warning will flash visible then disappear
+		&.show {
+			display: block;
+		}
+	}
 
-    .currentplayer {
-        position: absolute;
-        left: 2rem;
-        top: 8rem;
-        background-color: rgba(0,0,0,0.8);
-        color: #fff;
-        font-size: 2rem;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        z-index: 10;
-        width: 17rem;
+	.currentplayer {
+		position: absolute;
+		left: 2rem;
+		top: 8rem;
+		background-color: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		font-size: 2rem;
+		padding: 1rem;
+		border-radius: 0.5rem;
+		z-index: 10;
+		width: 17rem;
 
-        h2 {
-            font-size: 1.5rem;
-            margin: 0 0 0.5rem 0;
-        }
+		h2 {
+			font-size: 1.5rem;
+			margin: 0 0 0.5rem 0;
+		}
 
-        .cardchecker {
-            font-size: 1rem;
-    
-            .cards {
-                display: flex;
-                gap: 0.5rem;
+		.cardchecker {
+			font-size: 1rem;
 
-                .cardslot {
-                    position: relative;
-                    width: 100%;
-                    height: auto;
-                    aspect-ratio: 3.5/2.5;
-                    background-color: #333;
-                }
-    
-                .card {
-                    position: relative;
-                    width: 100%;
-                    pointer-events: auto;
-                    border-radius: 0.15rem;
-                }
-            }
-    
-            .message {
-                ul {
-                    padding-left: 0;
-    
-                    li {
-                        padding-left: 0.5rem;
-                        text-transform: uppercase;
-                        list-style-type: none;
-                    }
-                }
-            }
-    
-            
-        }
-    }
+			.cards {
+				display: flex;
+				gap: 0.5rem;
 
-    
+				.cardslot {
+					position: relative;
+					width: 100%;
+					height: auto;
+					aspect-ratio: 3.5/2.5;
+					background-color: #333;
+				}
 
-    .cardtable {
-        // Set card thickness based on card width
-        --cardThickness: calc(var(--cardWidth) * 0.0061);
-        --cardBorderRadius: calc(var(--cardWidth) * 0.04);
+				.card {
+					position: relative;
+					width: 100%;
+					pointer-events: auto;
+					border-radius: 0.15rem;
+				}
+			}
 
-        display: grid;
-        grid-template-columns: 0.72fr 4fr; // 0.72 is ratio of card height to width
-        grid-template-areas: 
-            "drawarea playarea"
-            "playerarea playerarea";
-        column-gap: 2rem;
-        row-gap: 4rem;
-        transform-origin: center bottom;
-        transform: rotateX(35deg);
-        transform-style: preserve-3d;
-        margin-top: -25%; // to account for the rotation
+			.message {
+				ul {
+					padding-left: 0;
 
-        .displaycards {
-            position: absolute;
-            left: 0;
-            top: 0;
-            transform-style: preserve-3d;
-        }
+					li {
+						padding-left: 0.5rem;
+						text-transform: uppercase;
+						list-style-type: none;
+					}
+				}
+			}
+		}
+	}
 
-        .drawarea {
-            grid-area: drawarea;
-            transform-style: preserve-3d;
-            display: flex;
-            flex-direction: column;
-            align-items:end;
-            justify-content: end;
-            gap: 1.5rem;
+	.cardtable {
+		// Set card thickness based on card width
+		--cardThickness: calc(var(--cardWidth) * 0.0061);
+		--cardBorderRadius: calc(var(--cardWidth) * 0.04);
 
-            .drawpile {
-                position: relative;
-                transform-style: preserve-3d;
-                background-color: rgba(255,255,255,0.15);
-                flex-grow: 0;
-                width: auto;
-                height: var(--cardWidth);
-                aspect-ratio: 2.5/3.5;
+		display: grid;
+		grid-template-columns: 0.72fr 4fr; // 0.72 is ratio of card height to width
+		grid-template-areas:
+			'drawarea playarea'
+			'playerarea playerarea';
+		column-gap: 2rem;
+		row-gap: 4rem;
+		transform-origin: center bottom;
+		transform: rotateX(35deg);
+		transform-style: preserve-3d;
+		margin-top: -25%; // to account for the rotation
 
-                .center {
-                    position: absolute;
-                    width: 1px;
-                    height: 1px;
-                    left: 50%;
-                    top: 50%;
-                    background-color: #fff;
-                }
-            }
+		.displaycards {
+			position: absolute;
+			left: 0;
+			top: 0;
+			transform-style: preserve-3d;
+		}
 
-            .buttonholder {
-                button {
-                    font-size: 1.2rem;
-                    display: block;
-                    white-space: nowrap;
-                    background-color: #4a4a4a;
-                }
-            }
-        }
+		.drawarea {
+			grid-area: drawarea;
+			transform-style: preserve-3d;
+			display: flex;
+			flex-direction: column;
+			align-items: end;
+			justify-content: end;
+			gap: 1.5rem;
 
-        .playarea {
-            grid-area: playarea;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 1fr);
+			.drawpile {
+				position: relative;
+				transform-style: preserve-3d;
+				background-color: rgba(255, 255, 255, 0.15);
+				flex-grow: 0;
+				width: auto;
+				height: var(--cardWidth);
+				aspect-ratio: 2.5/3.5;
 
-            @media screen and (max-width:900px) {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(4, 1fr);
-            }
+				.center {
+					position: absolute;
+					width: 1px;
+					height: 1px;
+					left: 50%;
+					top: 50%;
+					background-color: #fff;
+				}
+			}
 
-            gap: 1rem;
+			.buttonholder {
+				button {
+					font-size: 1.2rem;
+					display: block;
+					white-space: nowrap;
+					background-color: #4a4a4a;
+				}
+			}
+		}
 
-            .playspot {
-                display: block;
-                background-color: rgba(255,255,255,0.1);
-                width: 100%;
-                aspect-ratio: 3.5/2.5; // Card aspect ratio
-                border-radius: 0.5rem;
+		.playarea {
+			grid-area: playarea;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(3, 1fr);
 
-                &:focus {
-                    outline: 10px solid $red;
-                }
-            }
-        }
+			@media screen and (max-width: 900px) {
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(4, 1fr);
+			}
 
-        .playerarea {
-            grid-area: playerarea;
-            display: flex;
-            width: 100%;
-            gap: 3rem;
-            // stretch the flex items to fill the container
-            align-items: stretch;
-            justify-content: center;
-            transform-style: preserve-3d;
+			gap: 1rem;
 
-            .player {
-                display: grid;
-                grid-template-columns: max-content 1fr;
-                grid-template-areas:
-                    "cardpile cardpile"
-                    "key name";
-                gap: 1rem;
-                align-items: stretch;
-                flex-grow: 0;
-                background-color: #b2b1a5;
-                padding: 0.5rem;
-                border-radius: 0.5rem;
-                transform-style: preserve-3d;
-                transition: 0.2s all ease-in-out;
+			.playspot {
+				display: block;
+				background-color: rgba(255, 255, 255, 0.1);
+				width: 100%;
+				aspect-ratio: 3.5/2.5; // Card aspect ratio
+				border-radius: 0.5rem;
 
-                &:hover, &:focus-within {
-                    background-color: lighten(#b2b1a5, 10%);
-                }
+				&:focus {
+					outline: 10px solid $red;
+				}
+			}
+		}
 
-                &.current {
-                    background-color: lighten(#b2b1a5, 30%);
-                }
+		.playerarea {
+			grid-area: playerarea;
+			display: flex;
+			width: 100%;
+			gap: 3rem;
+			// stretch the flex items to fill the container
+			align-items: stretch;
+			justify-content: center;
+			transform-style: preserve-3d;
 
-                .cardpile {
-                    grid-area: cardpile;
-                    position: relative;
-                    display: block;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: auto;
-                    aspect-ratio: 3.5/2.5;
-                    background-color: rgba(255,255,255,0.15);
-                    border-radius: 0.5rem;
-                    transform-style: preserve-3d;
+			.player {
+				display: grid;
+				grid-template-columns: max-content 1fr;
+				grid-template-areas:
+					'cardpile cardpile'
+					'key name';
+				gap: 1rem;
+				align-items: stretch;
+				flex-grow: 0;
+				background-color: #b2b1a5;
+				padding: 0.5rem;
+				border-radius: 0.5rem;
+				transform-style: preserve-3d;
+				transition: 0.2s all ease-in-out;
 
-                    .buttontext {
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%);
-                        font-size: 1.5rem;
-                        transform-style: preserve-3d;
-                        transition: 0.2s all ease-in-out;
-                        white-space: nowrap;
-                    }
+				&:hover,
+				&:focus-within {
+					background-color: lighten(#b2b1a5, 10%);
+				}
 
-                    .points {
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform: translate(-50%, -50%) translateZ(calc(var(--z) * var(--cardThickness)));
-                        font-size: 2rem;
-                        font-weight: bold;
-                        transform-style: preserve-3d;
-                        transition: 0.2s all ease-in-out;
-                        background-color: #fff;
-                        padding: 0.25rem 0.75rem;
-                        border-radius: 0.25rem;
-                        white-space: nowrap;
-                    }
-                }
+				&.current {
+					background-color: lighten(#b2b1a5, 30%);
+				}
 
-                .name {
-                    grid-area: name;
-                    text-align: left;
-                    font-size: 2rem;
-                    display: flex;
-                    align-items: center;
-                }
+				.cardpile {
+					grid-area: cardpile;
+					position: relative;
+					display: block;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: auto;
+					aspect-ratio: 3.5/2.5;
+					background-color: rgba(255, 255, 255, 0.15);
+					border-radius: 0.5rem;
+					transform-style: preserve-3d;
 
-                .key {
-                    grid-area: key;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    width: 3rem;
-                    background-color: #eee;
-                    color: #4a4a4a;
-                    padding-bottom: 0.25rem;
-                    text-transform: uppercase;
-                    font-size: 0.8em;
+					.buttontext {
+						position: absolute;
+						left: 50%;
+						top: 50%;
+						transform: translate(-50%, -50%);
+						font-size: 1.5rem;
+						transform-style: preserve-3d;
+						transition: 0.2s all ease-in-out;
+						white-space: nowrap;
+					}
 
-                    .letter {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 2.5rem;
-                        height: 2.5rem;
-                        background-color: #4a4a4a;
-                        color: #fff;
-                        font-size: 2em;
-                        border-radius: 0.25rem;
-                    }
-                }
-            }
-        }
-    }
+					.points {
+						position: absolute;
+						left: 50%;
+						top: 50%;
+						transform: translate(-50%, -50%) translateZ(calc(var(--z) * var(--cardThickness)));
+						font-size: 2rem;
+						font-weight: bold;
+						transform-style: preserve-3d;
+						transition: 0.2s all ease-in-out;
+						background-color: #fff;
+						padding: 0.25rem 0.75rem;
+						border-radius: 0.25rem;
+						white-space: nowrap;
+					}
+				}
+
+				.name {
+					grid-area: name;
+					text-align: left;
+					font-size: 2rem;
+					display: flex;
+					align-items: center;
+				}
+
+				.key {
+					grid-area: key;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					text-align: center;
+					width: 3rem;
+					background-color: #eee;
+					color: #4a4a4a;
+					padding-bottom: 0.25rem;
+					text-transform: uppercase;
+					font-size: 0.8em;
+
+					.letter {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 2.5rem;
+						height: 2.5rem;
+						background-color: #4a4a4a;
+						color: #fff;
+						font-size: 2em;
+						border-radius: 0.25rem;
+					}
+				}
+			}
+		}
+	}
 }
 
 details.debug {
-    background-color: #c9b7c7;
-    border-radius: 1rem;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
+	background-color: #c9b7c7;
+	border-radius: 1rem;
+	padding: 0.5rem;
+	margin-bottom: 1rem;
 
-    .cardcolumns {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        font-size: 0.8em;
-    }
+	.cardcolumns {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		font-size: 0.8em;
+	}
 }
 
 // Card animates from its old position to a center point (but with a high z position), to a new position
 @keyframes upAndOver {
-    0% {
-        transform: 
-            translate(-50%, -50%) // Position on card center
-            translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * var(--cardThickness)))
-            rotateX(calc(var(--old-rotX) * 1deg)) 
-            rotateY(calc(var(--old-rotY) * 1deg)) 
-            rotateZ(calc(var(--old-rotZ) * 1deg));
-    }
-    50% { // A position halfway between the old and new positions
-        // A bit of fudge factor (add 10deg) to make the rotation look more organic
-        transform: 
-            translate(-50%, -50%) // Position on card center
-            translate3d(
-                calc((var(--old-x) + var(--x))/2 * 1px), 
-                calc((var(--old-y) + var(--y))/2 * 1px), 
-                calc(var(--cardWidth) * 1.7) // The height of the arc
-            ) 
-            rotateX(
-                calc((var(--old-rotX) + var(--rotX))/2 * 1deg + 10deg)
-            ) 
-            rotateY(
-                calc((var(--old-rotY) + var(--rotY))/2 * 1deg + 10deg)
-            ) 
-            rotateZ(
-                calc((var(--old-rotZ) + var(--rotZ))/2 * 1deg + 10deg)
-            );
-    }
-    100% {
-        transform: 
-            translate(-50%, -50%) // Position on card center
-            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * var(--cardThickness)))
-            rotateX(calc(var(--rotX) * 1deg)) 
-            rotateY(calc(var(--rotY) * 1deg)) 
-            rotateZ(calc(var(--rotZ) * 1deg));
-    }
-  }
+	0% {
+		transform: translate(-50%, -50%) // Position on card center
+			translate3d(
+				calc(var(--old-x) * 1px),
+				calc(var(--old-y) * 1px),
+				calc(var(--old-z) * var(--cardThickness))
+			)
+			rotateX(calc(var(--old-rotX) * 1deg)) rotateY(calc(var(--old-rotY) * 1deg))
+			rotateZ(calc(var(--old-rotZ) * 1deg));
+	}
+	50% {
+		// A position halfway between the old and new positions
+		// A bit of fudge factor (add 10deg) to make the rotation look more organic
+		transform: translate(-50%, -50%) // Position on card center
+			translate3d(
+				calc((var(--old-x) + var(--x)) / 2 * 1px),
+				calc((var(--old-y) + var(--y)) / 2 * 1px),
+				calc(var(--cardWidth) * 1.7) // The height of the arc
+			)
+			rotateX(calc((var(--old-rotX) + var(--rotX)) / 2 * 1deg + 10deg))
+			rotateY(calc((var(--old-rotY) + var(--rotY)) / 2 * 1deg + 10deg))
+			rotateZ(calc((var(--old-rotZ) + var(--rotZ)) / 2 * 1deg + 10deg));
+	}
+	100% {
+		transform: translate(-50%, -50%) // Position on card center
+			translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * var(--cardThickness)))
+			rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg))
+			rotateZ(calc(var(--rotZ) * 1deg));
+	}
+}
 
 .card {
-    display: block;
-    // visibility: hidden;
-    position: absolute;
-    width: var(--cardWidth);
-    aspect-ratio: 3.5/2.5;
-    transform-style: preserve-3d;
-    pointer-events: none;
+	display: block;
+	// visibility: hidden;
+	position: absolute;
+	width: var(--cardWidth);
+	aspect-ratio: 3.5/2.5;
+	transform-style: preserve-3d;
+	pointer-events: none;
 
-    // Card starts at its old position
-    // then transforms in animation
-    transform: 
-        translate(-50%, -50%) // Position on card center
-        translate3d(calc(var(--old-x) * 1px), calc(var(--old-y) * 1px), calc(var(--old-z) * var(--cardThickness)))
-        rotateX(calc(var(--old-rotX) * 1deg)) 
-        rotateY(calc(var(--old-rotY) * 1deg)) 
-        rotateZ(calc(var(--old-rotZ) * 1deg));
+	// Card starts at its old position
+	// then transforms in animation
+	transform: translate(-50%, -50%) // Position on card center
+		translate3d(
+			calc(var(--old-x) * 1px),
+			calc(var(--old-y) * 1px),
+			calc(var(--old-z) * var(--cardThickness))
+		)
+		rotateX(calc(var(--old-rotX) * 1deg)) rotateY(calc(var(--old-rotY) * 1deg))
+		rotateZ(calc(var(--old-rotZ) * 1deg));
 
-    // Never show card before it appears in draw pile
-    &.start {
-        display: none;
-    }
+	// Never show card before it appears in draw pile
+	&.start {
+		display: none;
+	}
 
-    &.drawpile {
-        // outline: 3px solid #08f;
-        // Draw pile has no animation, so cards start at their final position
-        transform: 
-            translate(-50%, -50%) // Position on card center
-            translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * var(--cardThickness)))
-            rotateX(calc(var(--rotX) * 1deg)) 
-            rotateY(calc(var(--rotY) * 1deg)) 
-            rotateZ(calc(var(--rotZ) * 1deg));
-    }
+	&.drawpile {
+		// outline: 3px solid #08f;
+		// Draw pile has no animation, so cards start at their final position
+		transform: translate(-50%, -50%) // Position on card center
+			translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), calc(var(--z) * var(--cardThickness)))
+			rotateX(calc(var(--rotX) * 1deg)) rotateY(calc(var(--rotY) * 1deg))
+			rotateZ(calc(var(--rotZ) * 1deg));
+	}
 
-    // Animations based on card location
-    &.playspot {
-        // outline: 3px solid #0ff;
-        animation: upAndOver 0.7s ease-in forwards;
-        animation-delay: calc(var(--delay) * 150ms);
-    }
+	// Animations based on card location
+	&.playspot {
+		// outline: 3px solid #0ff;
+		animation: upAndOver 0.7s ease-in forwards;
+		animation-delay: calc(var(--delay) * 150ms);
+	}
 
-    &.player {
-        // outline: 3px solid #f80;
-        animation: upAndOver 0.7s ease-in forwards;
-        animation-delay: calc(var(--delay) * 150ms);
-    }
-    
-    .front {
-        display: flex;
-        gap: 4%;
-        background-color: #f5f5e9;
-        border-radius: var(--cardBorderRadius);
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-        border: 0.5px solid transparent;
-        border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5) ;
+	&.player {
+		// outline: 3px solid #f80;
+		animation: upAndOver 0.7s ease-in forwards;
+		animation-delay: calc(var(--delay) * 150ms);
+	}
 
-        img {
-            height: 65%;
-            width: auto;
-            backface-visibility: hidden;
-        }
-    }
+	.front {
+		display: flex;
+		gap: 4%;
+		background-color: #f5f5e9;
+		border-radius: var(--cardBorderRadius);
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		backface-visibility: hidden;
+		transform-style: preserve-3d;
+		border: 0.5px solid transparent;
+		border-color: rgb(255, 255, 255, 0.5) rgba(0, 0, 0, 0.5);
 
-    &.oval {
-        .front {
-            gap: 6%;
-        }
-    }
+		img {
+			height: 65%;
+			width: auto;
+			backface-visibility: hidden;
+		}
+	}
 
-    .back {
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #A12596;
-        background-image: url('/images/back-pattern1.svg');
-        border-radius: var(--cardBorderRadius);
-        background-size: auto 56%;
-        background-position: center;
-        backface-visibility: hidden;
-        transform: rotateY(180deg);
-        border: 0.5px solid transparent;
-        border-color: rgb(255,255,255,0.5) rgba(0,0,0,0.5);
-    }
+	&.oval {
+		.front {
+			gap: 6%;
+		}
+	}
 
-    &.horizontal {
-        .back {
-            border-color: rgba(0,0,0,0.5) rgb(255,255,255,0.5);
-        }
-    }
+	.back {
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #a12596;
+		background-image: url('/images/back-pattern1.svg');
+		border-radius: var(--cardBorderRadius);
+		background-size: auto 56%;
+		background-position: center;
+		backface-visibility: hidden;
+		transform: rotateY(180deg);
+		border: 0.5px solid transparent;
+		border-color: rgb(255, 255, 255, 0.5) rgba(0, 0, 0, 0.5);
+	}
 
+	&.horizontal {
+		.back {
+			border-color: rgba(0, 0, 0, 0.5) rgb(255, 255, 255, 0.5);
+		}
+	}
 }
 
 dialog {
-    background-color: $darkpurple;
-    border-radius: 0.5rem;
-    color: #fff;
-    border: 0;
-    padding: 2rem;
-    box-shadow: 0 15px 19px 0 rgba(0, 0, 0, 0.2);
-    font-size: 1.5rem;
+	background-color: $darkpurple;
+	border-radius: 0.5rem;
+	color: #fff;
+	border: 0;
+	padding: 2rem;
+	box-shadow: 0 15px 19px 0 rgba(0, 0, 0, 0.2);
+	font-size: 1.5rem;
 
-    &::backdrop {
-        transition: 2s all ease-in-out;
-        background-color: rgba(0,0,0,0.4);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-    }
+	&::backdrop {
+		transition: 2s all ease-in-out;
+		background-color: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+	}
 
-    h2 {
-        margin-top: 0;
-    }
+	h2 {
+		margin-top: 0;
+	}
 
-    .formfield {
-        margin-bottom: 1rem;
+	.formfield {
+		margin-bottom: 1rem;
 
-        input {
-            font-size: 1.5rem;
-            margin-left: 0.5rem;
-        }
-    }
+		input {
+			font-size: 1.5rem;
+			margin-left: 0.5rem;
+		}
+	}
 
-    input[type="submit"] {
-        background-color: #F14F2C;
-        color: #fff;
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        font-size: 1.5rem;
-        transition: 0.2s all ease-in-out;
-        font-family: var(--system-ui);
-        cursor: pointer;
-        margin-top: 1rem;
-    
-        &:hover {
-            background-color: #e0401c;
-        }
-    }
+	input[type='submit'] {
+		background-color: #f14f2c;
+		color: #fff;
+		border: none;
+		border-radius: 0.5rem;
+		padding: 0.5rem 1rem;
+		font-size: 1.5rem;
+		transition: 0.2s all ease-in-out;
+		font-family: var(--system-ui);
+		cursor: pointer;
+		margin-top: 1rem;
+
+		&:hover {
+			background-color: #e0401c;
+		}
+	}
 }
