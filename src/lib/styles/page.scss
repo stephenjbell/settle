@@ -183,8 +183,9 @@ button.ui-button {
 
             .buttonholder {
                 button {
-                    font-size: 2rem;
+                    font-size: 1.5rem;
                     display: block;
+                    white-space: nowrap;
                 }
             }
         }
@@ -357,8 +358,8 @@ details.debug {
             translate3d(
                 calc((var(--old-x) + var(--x))/2 * 1px), 
                 calc((var(--old-y) + var(--y))/2 * 1px), 
-                400px
-            ) // The height of the arc
+                calc(var(--cardWidth) * 1.7) // The height of the arc
+            ) 
             rotateX(
                 calc((var(--old-rotX) + var(--rotX))/2 * 1deg + 10deg)
             ) 
