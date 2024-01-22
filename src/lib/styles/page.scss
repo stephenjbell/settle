@@ -144,7 +144,7 @@ button.ui-button {
         transform-origin: center bottom;
         transform: rotateX(35deg);
         transform-style: preserve-3d;
-        margin-top: -20%; // to account for the rotation
+        margin-top: -25%; // to account for the rotation
 
         .displaycards {
             position: absolute;
@@ -183,9 +183,10 @@ button.ui-button {
 
             .buttonholder {
                 button {
-                    font-size: 1.5rem;
+                    font-size: 1.2rem;
                     display: block;
                     white-space: nowrap;
+                    background-color: #4a4a4a;
                 }
             }
         }

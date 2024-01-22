@@ -745,13 +745,13 @@
                 <div class="center"></div>
             </div>
             <div class="buttonholder">
-                <button class="ui-button" on:click|preventDefault={reshuffle}>Re-shuffle &harr;</button>
+                <button type="button" class="ui-button" on:click|preventDefault={reshuffle}>Deal New Cards &harr;</button>
             </div>
             
         </div>
         <div class="playarea">
             {#each playSpots as spot, i}
-                <button class="playspot"
+                <button type="button" class="playspot"
                     on:click|preventDefault={() => addCardToChecker(i)}
                     disabled={spot.card === null}
                 >
@@ -763,7 +763,7 @@
         </div>
         <div class="playerarea">
             {#each {length: settings.numberOfPlayers} as _, i}
-                <button class="player {currentPlayer === i ? "current" : ""}" on:click|preventDefault={() => playerTurn(i)}>
+                <button type="button" class="player {currentPlayer === i ? "current" : ""}" on:click|preventDefault={() => playerTurn(i)}>
                     <div class="name">{players[i].name}</div>
                     <div class="cardpile" style="width:{cardWidth}px;">
                         
@@ -823,7 +823,7 @@
             {/each}
         </p>
     {/if}
-    <button class="ui-button" on:click|preventDefault={playAgain}>Play Again</button>
+    <button type="button" class="ui-button" on:click|preventDefault={playAgain}>Play Again</button>
 
 </dialog>
 
