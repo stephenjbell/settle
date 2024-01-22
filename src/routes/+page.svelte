@@ -233,9 +233,10 @@
         let drawArea = document.querySelector(`.drawarea`);
 
         // Get the location of the draw pile
-        let drawPileEl = document.querySelector(`.drawpile`);
-        drawPile.x = drawPileEl.offsetLeft + drawArea.offsetLeft;
-        drawPile.y = drawPileEl.offsetTop + drawArea.offsetTop;
+        let drawPileEl = document.querySelector(`.drawpile .center`);
+        let offset = cardTableOffset(drawPileEl);
+        drawPile.x = offset.x;
+        drawPile.y = offset.y;
     }
 
     // Set the X and Y coordinates of each player card pile
@@ -653,7 +654,6 @@
         Settle
     </h1>
     <p>🚧 Work-in-progress 🚧</p>
-    <button on:click|preventDefault={reshuffle}>Re-shuffle</button>
 
     <div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
@@ -742,7 +742,12 @@
         </div>
         <div class="drawarea">
             <div class="drawpile">
+                <div class="center"></div>
             </div>
+            <div class="buttonholder">
+                <button class="ui-button" on:click|preventDefault={reshuffle}>Re-shuffle &harr;</button>
+            </div>
+            
         </div>
         <div class="playarea">
             {#each playSpots as spot, i}
