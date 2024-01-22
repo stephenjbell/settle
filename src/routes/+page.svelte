@@ -280,7 +280,7 @@
             setDrawPileLocation();
             setPlayerCardPileLocation();
             updateDisplayCards();
-        }, 100);
+        }, 50);
 
         window.addEventListener('resize', rearrangeOnResize);
 
@@ -393,23 +393,18 @@
 
                 let cardName = playSpots[i].card.name;
 
-                // If this card was just in drawpile, move its displayCard to playspot
-                if(displayCards[cardName].location !== "playspot"){
+                displayCards[cardName].location = "playspot";
 
-                    displayCards[cardName].location = "playspot";
+                // Make old coordinates a copy of now
+                displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
 
-                    // Make old coordinates a copy of now
-                    displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
-
-                    // If so, update the display card
-                    displayCards[cardName].now.x = playSpots[i].x;
-                    displayCards[cardName].now.y = playSpots[i].y;
-                    displayCards[cardName].now.z = 0.01;
-                    displayCards[cardName].now.rotX = playSpots[i].rotX;
-                    displayCards[cardName].now.rotY = playSpots[i].rotY;
-                    displayCards[cardName].now.rotZ = playSpots[i].rotZ;
-                }
-
+                // If so, update the display card
+                displayCards[cardName].now.x = playSpots[i].x;
+                displayCards[cardName].now.y = playSpots[i].y;
+                displayCards[cardName].now.z = 0.01;
+                displayCards[cardName].now.rotX = playSpots[i].rotX;
+                displayCards[cardName].now.rotY = playSpots[i].rotY;
+                displayCards[cardName].now.rotZ = playSpots[i].rotZ;
                 
             }
         }
@@ -423,32 +418,23 @@
 
                 let cardName = thisPlayer.cards[j].name;
 
+                displayCards[cardName].location = "";
 
-                // If this card was just in playspot, move its displayCard to player
-                if(displayCards[cardName].location !== "player"){
+                // Make old coordinates a copy of now
+                displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
 
-                    displayCards[cardName].location = "";
+                // Update the display card
+                displayCards[cardName].now.x = thisPlayer.x;
+                displayCards[cardName].now.y = thisPlayer.y;
+                displayCards[cardName].now.z = j;
+                displayCards[cardName].now.rotX = 0;
+                displayCards[cardName].now.rotY = -180;
+                displayCards[cardName].now.rotZ = 0;
 
-                    // Make old coordinates a copy of now
-                    displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
-
-                    // Update the display card
-                    displayCards[cardName].now.x = thisPlayer.x;
-                    displayCards[cardName].now.y = thisPlayer.y;
-                    displayCards[cardName].now.z = j;
-                    displayCards[cardName].now.rotX = 0;
-                    displayCards[cardName].now.rotY = -180;
-                    displayCards[cardName].now.rotZ = 0;
-
-                    // delay 1ms then add location of "player" to card
-                    setTimeout(() => {
-                        displayCards[cardName].location = "player";
-                    }, 1);
-
-                    
-                }
-
-                
+                // delay 1ms then add location of "player" to card
+                setTimeout(() => {
+                    displayCards[cardName].location = "player";
+                }, 1);
             }
         }
     }
