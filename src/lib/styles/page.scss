@@ -142,15 +142,15 @@ button.ui-button {
 		transform-style: preserve-3d;
 		margin-top: -25%; // to account for the rotation
 
-        @media (orientation: portrait) {
-            // Move draw pile above play spots
-            grid-template-columns: 1fr;
-            grid-template-areas:
-                'drawarea'
-                'playarea'
-                'playerarea';
-            margin-top: -40%;
-        }
+		@media (orientation: portrait) {
+			// Move draw pile above play spots
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				'drawarea'
+				'playarea'
+				'playerarea';
+			margin-top: -40%;
+		}
 
 		.displaycards {
 			position: absolute;
@@ -384,7 +384,7 @@ details.debug {
 	width: var(--cardWidth);
 	aspect-ratio: 3.5/2.5;
 	transform-style: preserve-3d;
-	pointer-events: none;
+	// pointer-events: none;
 
 	// Card starts at its old position
 	// then transforms in animation

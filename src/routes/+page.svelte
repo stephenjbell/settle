@@ -229,7 +229,6 @@
 
 	// Set the location of the draw pile relative to .cardtable
 	function setDrawPileLocation() {
-
 		// Get the location of the draw pile
 		let drawPileEl = document.querySelector(`.drawpile .center`);
 		let offset = cardTableOffset(drawPileEl);
@@ -425,14 +424,14 @@
 				displayCards[cardName].now.rotY = -180;
 				displayCards[cardName].now.rotZ = 0;
 
-                if(displayCards[cardName].location !== 'player'){
-                    displayCards[cardName].location = '';
+				if (displayCards[cardName].location !== 'player') {
+					displayCards[cardName].location = '';
 
-                    // delay 1ms then add location of "player" to card
-                    setTimeout(() => {
-                        displayCards[cardName].location = 'player';
-                    }, 1);
-                }
+					// delay 1ms then add location of "player" to card
+					setTimeout(() => {
+						displayCards[cardName].location = 'player';
+					}, 1);
+				}
 			}
 		}
 	}
