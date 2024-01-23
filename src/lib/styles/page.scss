@@ -135,7 +135,7 @@ button.ui-button {
 		grid-template-areas:
 			'drawarea playarea'
 			'playerarea playerarea';
-		column-gap: 2rem;
+		column-gap: 4rem;
 		row-gap: 4rem;
 		transform-origin: center bottom;
 		transform: rotateX(35deg);

@@ -414,8 +414,6 @@
 			for (let j = 0; j < players[i].cards.length; j++) {
 				let cardName = thisPlayer.cards[j].name;
 
-				displayCards[cardName].location = '';
-
 				// Make old coordinates a copy of now
 				displayCards[cardName].old = JSON.parse(JSON.stringify(displayCards[cardName].now));
 
@@ -427,10 +425,14 @@
 				displayCards[cardName].now.rotY = -180;
 				displayCards[cardName].now.rotZ = 0;
 
-				// delay 1ms then add location of "player" to card
-				setTimeout(() => {
-					displayCards[cardName].location = 'player';
-				}, 1);
+                if(displayCards[cardName].location !== 'player'){
+                    displayCards[cardName].location = '';
+
+                    // delay 1ms then add location of "player" to card
+                    setTimeout(() => {
+                        displayCards[cardName].location = 'player';
+                    }, 1);
+                }
 			}
 		}
 	}
