@@ -384,7 +384,7 @@ details.debug {
 	width: var(--cardWidth);
 	aspect-ratio: 3.5/2.5;
 	transform-style: preserve-3d;
-	// pointer-events: none;
+	pointer-events: none;
 
 	// Card starts at its old position
 	// then transforms in animation
