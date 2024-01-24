@@ -1,4 +1,5 @@
 <script>
+	export let data;
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
@@ -627,7 +628,10 @@
 
 <div class="settlegame">
 	<h1>Settle</h1>
-	<p>🚧 Work-in-progress 🚧</p>
+	<p>
+		🚧 Work-in-progress 🚧 <br />
+		Updated: {data.message}
+	</p>
 
 	<div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 
