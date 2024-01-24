@@ -630,7 +630,7 @@
 	<h1>Settle</h1>
 	<p>
 		🚧 Work-in-progress 🚧 <br />
-		Updated: {data.message}
+		Updated: {data.date}
 	</p>
 
 	<div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
