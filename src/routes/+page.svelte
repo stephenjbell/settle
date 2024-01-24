@@ -5,8 +5,10 @@
 	import { page } from '$app/stores';
 
 	// Set debug variable to true or false
-	let debug = $page.url.searchParams.get('debug');
-	let easymode = $page.url.searchParams.get('easymode');
+	// let debug = $page.url.searchParams.get('debug');
+	// let easymode = $page.url.searchParams.get('easymode');
+	let debug = "false";
+	let easymode = "false";
 
 	// Set the card width to the width of the play area spots
 	let cardWidth = 1;
@@ -630,7 +632,7 @@
 	<h1>Settle</h1>
 	<p>
 		🚧 Work-in-progress 🚧 <br />
-		<!-- Updated: {data.date} -->
+		Updated: {data.date}
 	</p>
 
 	<div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
