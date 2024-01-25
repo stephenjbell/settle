@@ -802,31 +802,36 @@
 
 <dialog class="settings">
 	<h2>New Game</h2>
-	<div class="formfield">
-		<label for="numberOfPlayers">Number of players</label>
-		<div class="radios">
-			{#each { length: 4 } as num, i}
-				<label>
-					<input
-						type="radio"
-						name="numberOfPlayers"
-						bind:group={settings.numberOfPlayers}
-						value={i + 1}
-					/>
-					{i + 1}
-				</label>
-			{/each}
-		</div>
-	</div>
-	{#each { length: settings.numberOfPlayers } as num, i}
+	<form on:submit|preventDefault={startGame}>
 		<div class="formfield">
-			<label
-				>Name {i + 1}
-				<input type="text" name="player{i}" bind:value={players[i].name} />
-			</label>
+			<label for="numberOfPlayers">Number of players</label>
+			<div class="radios">
+				{#each { length: 4 } as num, i}
+					<label>
+						<input
+							type="radio"
+							name="numberOfPlayers"
+							bind:group={settings.numberOfPlayers}
+							value={i + 1}
+						/>
+						{i + 1}
+					</label>
+				{/each}
+			</div>
 		</div>
-	{/each}
-	<input type="submit" value="Start Game" on:click|preventDefault={() => startGame()} />
+
+		{#each { length: settings.numberOfPlayers } as num, i}
+			<div class="formfield">
+				<label
+					>Name {i + 1}
+					<input type="text" name="player{i}" bind:value={players[i].name} />
+				</label>
+			</div>
+		{/each}
+		<input type="submit" value="Start Game" />
+	</form>
+	
+	
 </dialog>
 
 <dialog class="gameover">
