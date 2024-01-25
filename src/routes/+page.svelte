@@ -269,6 +269,12 @@
 		// If we're holding down a modifier key, don't do anything
 		if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) return;
 
+		// If currentPlayer is set, pressing escape key runs endPlayerTurn()
+		if (e.key === 'Escape' && currentPlayer !== null) {
+			endPlayerTurn();
+			return;
+		}
+
 		for (let i = 0; i < settings.numberOfPlayers; i++) {
 			if (e.key === players[i].key && players[i].active) {
 				playerTurn(i);
@@ -464,6 +470,11 @@
 		}
 	}
 
+	function endPlayerTurn(){
+		cardChecker = []; // Clear the card checker
+		currentPlayer = null; // Clear the current player
+	}
+
 	let currentSets = [];
 
 	// Check if the cards are a set
@@ -521,7 +532,6 @@
 	}
 
 	function reshuffle() {
-		// TODO: Fix the delays, etc. so cards aren't out of order
 
 		// Move all cards from play spots to draw pile
 		for (let i = 0; i < playSpots.length; i++) {
@@ -531,6 +541,7 @@
 			}
 		}
 
+		endPlayerTurn();
 		shuffle();
 		updateDisplayCards();
 
@@ -690,6 +701,9 @@
 					</div>
 				{/if}
 			</div>
+			<button type="button" class="close" aria-label="close" on:click|preventDefault={endPlayerTurn}>
+				&times;
+			</button>
 		</div>
 	{/if}
 

@@ -123,6 +123,20 @@ button.ui-button {
 				}
 			}
 		}
+
+		button.close {
+			position: absolute;
+			right:0;
+			top:0;
+			background-color: transparent;
+			color: #fff;
+			font-size: 2rem;
+			transition: 0.2s all ease-in-out;
+
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
 	}
 
 	.cardtable {
