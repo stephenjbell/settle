@@ -140,13 +140,18 @@
 
 	function addCardToChecker(i) {
 		// If there's no currentPlayer, return false
-		if (currentPlayer === null) {
+		if (currentPlayer === null && settings.numberOfPlayers > 1) {
 			noPlayerWarning = 'show';
 			// Turn off noPlayerWarning after 3 seconds
 			setTimeout(() => {
 				noPlayerWarning = '';
 			}, 3000);
 			return false;
+		}
+
+		// Set currentPlayer to 0 if there's only one player
+		if(currentPlayer === null){
+			currentPlayer = 0;
 		}
 
 		// If card is already in the checker, don't add it
