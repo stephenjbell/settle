@@ -6,9 +6,7 @@
 
 	// Set debug variable to true or false
 	// let debug = $page.url.searchParams.get('debug');
-	// let easymode = $page.url.searchParams.get('easymode');
 	let debug = "false";
-	let easymode = "false";
 
 	// Set the card width to the width of the play area spots
 	let cardWidth = 1;
@@ -36,8 +34,10 @@
 	}
 
 	let settings = {
-		numberOfPlayers: 1
+		numberOfPlayers: 1,
+		easymode: false
 	};
+
 	let players = [];
 	let playerKeys = ['z', 'v', 'm', '/']; // Action key on keyboard
 
@@ -58,11 +58,6 @@
 		shading: ['solid', 'striped', 'open'],
 		shape: ['oval', 'squiggle', 'diamond']
 	};
-
-	// A simpler version of the game with only one shape on each card
-	if (easymode === 'true') {
-		cardProps.quantity = [1];
-	}
 
 	function moveCardToCurrentPlayer(i, delay) {
 		// Set delay on display cards to move in order clicked
@@ -305,68 +300,6 @@
 		if (browser) {
 			window.addEventListener('keydown', handleKeydown);
 		}
-
-		// Generate deck of cards
-		let tempDisplayCards = {};
-		let tempDrawPileCards = [];
-
-		cardProps.quantity.forEach((quantity) => {
-			cardProps.color.forEach((color) => {
-				cardProps.shading.forEach((shading) => {
-					cardProps.shape.forEach((shape) => {
-						// Create all the named display cards to animate
-						tempDisplayCards[`${quantity} ${color} ${shading} ${shape}`] = {
-							quantity: quantity,
-							color: color,
-							shading: shading,
-							shape: shape,
-							location: 'start',
-							old: {
-								x: 0,
-								y: 0,
-								z: 0,
-								rotX: 0,
-								rotY: 0,
-								rotZ: 0
-							},
-							now: {
-								x: 0,
-								y: 0,
-								z: 0,
-								rotX: 0,
-								rotY: 0,
-								rotZ: 0
-							}
-						};
-
-						// Create the cards in memory to move around arrays
-						tempDrawPileCards.push({
-							name: `${quantity} ${color} ${shading} ${shape}`,
-							quantity: quantity,
-							color: color,
-							shading: shading,
-							shape: shape
-						});
-					});
-				});
-			});
-		});
-		displayCards = tempDisplayCards;
-		drawPile.cards = tempDrawPileCards;
-		setCardWidth();
-		shuffle();
-
-		// Set x and y coordinates of each card location
-
-		// Set a 1ms delay to allow placement and then set
-		// coordinates of each card location
-		setTimeout(() => {
-			setPlaySpotLocations();
-			setDrawPileLocation();
-			setPlayerCardPileLocation();
-
-			updateDisplayCards();
-		}, 1);
 	});
 
 	onDestroy(() => {
@@ -462,8 +395,13 @@
 
 		drawPile = drawPile; // Tell Svelte to update variable
 		playSpots = playSpots; // Tell Svelte to update variable
-		updateDisplayCards();
+		// updateDisplayCards();
 		countSets();
+
+		// delay 1ms then update display cards
+		setTimeout(() => {
+			updateDisplayCards();
+		}, 1);
 	}
 
 	let currentPlayer = null;
@@ -557,10 +495,81 @@
 	}
 
 	function startGame() {
-		const settings = document.querySelector('dialog.settings');
-		settings.close();
-		setPlayerCardPileLocation(); // In case we changed number of players
-		deal();
+		const settingsModal = document.querySelector('dialog.settings');
+		settingsModal.close();
+
+		// Generate deck of cards
+		let tempDisplayCards = {};
+		let tempDrawPileCards = [];
+
+		// A simpler version of the game with only one shape on each card
+		if (settings.easymode === true) {
+			// select a cardProps property at random
+			let randomProp = Object.keys(cardProps)[Math.floor(Math.random() * Object.keys(cardProps).length)];
+			// select a random value from the property
+			let randomValue = cardProps[randomProp][Math.floor(Math.random() * cardProps[randomProp].length)];
+			// set that cardProp to only have the random value
+			cardProps[randomProp] = [randomValue];
+			console.log(cardProps);
+		}
+
+		cardProps.quantity.forEach((quantity) => {
+			cardProps.color.forEach((color) => {
+				cardProps.shading.forEach((shading) => {
+					cardProps.shape.forEach((shape) => {
+						// Create all the named display cards to animate
+						tempDisplayCards[`${quantity} ${color} ${shading} ${shape}`] = {
+							quantity: quantity,
+							color: color,
+							shading: shading,
+							shape: shape,
+							location: 'start',
+							old: {
+								x: 0,
+								y: 0,
+								z: 0,
+								rotX: 0,
+								rotY: 0,
+								rotZ: 0
+							},
+							now: {
+								x: 0,
+								y: 0,
+								z: 0,
+								rotX: 0,
+								rotY: 0,
+								rotZ: 0
+							}
+						};
+
+						// Create the cards in memory to move around arrays
+						tempDrawPileCards.push({
+							name: `${quantity} ${color} ${shading} ${shape}`,
+							quantity: quantity,
+							color: color,
+							shading: shading,
+							shape: shape
+						});
+					});
+				});
+			});
+		});
+		displayCards = tempDisplayCards;
+		drawPile.cards = tempDrawPileCards;
+		setCardWidth();
+		shuffle();
+
+		// Set a 1ms delay to allow placement and then set
+		// coordinates of each card location
+		setTimeout(() => {
+			setPlaySpotLocations();
+			setDrawPileLocation();
+			setPlayerCardPileLocation();
+			updateDisplayCards();
+
+			deal();
+		}, 1);
+
 		console.log('Starting game...');
 	}
 
@@ -830,6 +839,15 @@
 				</label>
 			</div>
 		{/each}
+
+		<!-- Easy mode checkbox -->
+		<div class="formfield">
+			<label>
+				<input type="checkbox" name="easymode" bind:checked={settings.easymode} />
+				Easy mode
+			</label>
+		</div>
+
 		<input type="submit" value="Start Game" />
 	</form>
 	
