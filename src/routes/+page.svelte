@@ -645,11 +645,13 @@
 {/if}
 
 <div class="settlegame">
-	<h1>Settle</h1>
-	<p>
-		🚧 Work-in-progress 🚧 <br />
-		Updated: {data.date}
-	</p>
+	<header>
+		<h1>Settle</h1>
+		<p>
+			🚧 Work-in-progress 🚧 <br />
+			Updated: {data.date}
+		</p>
+	</header>
 
 	<div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
 

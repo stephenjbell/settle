@@ -45,6 +45,10 @@ button.ui-button {
 	padding: 2rem 2rem 6rem 2rem;
 	perspective: 24in;
 
+	header {
+		z-index: 9;
+	}
+
 	h1 {
 		color: #fff;
 		font-size: 3rem;
