@@ -621,6 +621,10 @@
 			deal();
 		}, 1);
 	}
+
+	function changeSettings(){
+		location.reload();
+	}
 </script>
 
 {#if debug === 'true'}
@@ -867,6 +871,7 @@
 		</p>
 	{/if}
 	<button type="button" class="ui-button" on:click|preventDefault={playAgain}>Play Again</button>
+	<button type="button" class="ui-button outline" on:click|preventDefault={changeSettings}>Change Settings</button>
 </dialog>
 
 <style>
