@@ -6,7 +6,7 @@
 
 	// Set debug variable to true or false
 	// let debug = $page.url.searchParams.get('debug');
-	let debug = "false";
+	let debug = 'false';
 
 	// Set the card width to the width of the play area spots
 	let cardWidth = 1;
@@ -145,7 +145,7 @@
 		}
 
 		// Set currentPlayer to 0 if there's only one player
-		if(currentPlayer === null){
+		if (currentPlayer === null) {
 			currentPlayer = 0;
 		}
 
@@ -409,7 +409,7 @@
 		}
 	}
 
-	function endPlayerTurn(){
+	function endPlayerTurn() {
 		cardChecker = []; // Clear the card checker
 		currentPlayer = null; // Clear the current player
 	}
@@ -471,7 +471,6 @@
 	}
 
 	function reshuffle() {
-
 		// Move all cards from play spots to draw pile
 		for (let i = 0; i < playSpots.length; i++) {
 			if (playSpots[i].card !== null) {
@@ -497,7 +496,6 @@
 	};
 
 	function startGame() {
-
 		startTime = new Date();
 
 		const settingsModal = document.querySelector('dialog.settings');
@@ -510,9 +508,11 @@
 		// A simpler version of the game with only one shape on each card
 		if (settings.easymode === true) {
 			// select a cardProps property at random
-			let randomProp = Object.keys(cardProps)[Math.floor(Math.random() * Object.keys(cardProps).length)];
+			let randomProp =
+				Object.keys(cardProps)[Math.floor(Math.random() * Object.keys(cardProps).length)];
 			// select a random value from the property
-			let randomValue = cardProps[randomProp][Math.floor(Math.random() * cardProps[randomProp].length)];
+			let randomValue =
+				cardProps[randomProp][Math.floor(Math.random() * cardProps[randomProp].length)];
 			// set that cardProp to only have the random value
 			cardProps[randomProp] = [randomValue];
 			console.log(cardProps);
@@ -579,14 +579,38 @@
 	}
 
 	let winners = [];
+	let winMessage = '';
 
 	function gameOver() {
-
+		// Figure out how long the game took
 		let endTime = new Date();
 		let timeDiff = endTime - startTime; //in ms
-		// set totalTime
 		totalTime.minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 		totalTime.seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+		// Display a random win message
+		let winMessages = [
+			'Good game!',
+			'Well done!',
+			'Nice work!',
+			'Great job!',
+			'Congratulations!',
+			'You did it!',
+			'That was great!',
+			'Fantastic!',
+			'Wow!',
+			'Incredible!',
+			'Hurray!',
+			'Bravo!',
+			'Amazing!',
+			'Impressive!',
+			'Outstanding!',
+			'Unbelievable!',
+			'Phenomenal!',
+			'Extraordinary!'
+		];
+
+		winMessage = winMessages[Math.floor(Math.random() * winMessages.length)];
 
 		// Get players, sorted by number of cards
 		let sortedPlayers = players.sort((a, b) => {
@@ -605,7 +629,6 @@
 	}
 
 	function playAgain() {
-
 		startTime = new Date();
 
 		// Close game over dialog
@@ -637,7 +660,7 @@
 		}, 1);
 	}
 
-	function changeSettings(){
+	function changeSettings() {
 		location.reload();
 	}
 </script>
@@ -736,7 +759,12 @@
 					</div>
 				{/if}
 			</div>
-			<button type="button" class="close" aria-label="close" on:click|preventDefault={endPlayerTurn}>
+			<button
+				type="button"
+				class="close"
+				aria-label="close"
+				on:click|preventDefault={endPlayerTurn}
+			>
 				&times;
 			</button>
 		</div>
@@ -869,33 +897,38 @@
 
 		<input type="submit" value="Start Game" />
 	</form>
-	
-	
 </dialog>
 
 <dialog class="gameover">
-	<h2>Game Over</h2>
-	{#if winners.length === 1}
-		<p>You win!</p>
+	{#if settings.numberOfPlayers === 1}
+		<h2>{winMessage}</h2>
 		<p>
+			⏱️ Completed in
 			<strong>
-				⏱️
 				{#if totalTime.minutes}
-					{totalTime.minutes}m 
+					{totalTime.minutes}m
 				{/if}
 				{totalTime.seconds}s
 			</strong>
 		</p>
+	{:else if winners.length === 1}
+		<h2>{winMessage}</h2>
+		<p>{winners[0].name} wins!</p>
 	{:else}
+		<h2>Tie game!</h2>
 		<p>
-			It's a tie!
+			Our winners:
 			{#each winners as winner, i}
 				{winner.name}{i < winners.length - 1 ? ', ' : '.'}
 			{/each}
 		</p>
 	{/if}
-	<button type="button" class="ui-button" on:click|preventDefault={playAgain}>Play Again</button>
-	<button type="button" class="ui-button outline" on:click|preventDefault={changeSettings}>Change Settings</button>
+	<div class="buttonholder">
+		<button type="button" class="ui-button" on:click|preventDefault={playAgain}>Play Again</button>
+		<button type="button" class="ui-button outline" on:click|preventDefault={changeSettings}
+			>Change Settings</button
+		>
+	</div>
 </dialog>
 
 <style>
