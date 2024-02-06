@@ -191,10 +191,6 @@
 		}
 	}
 
-	function deal() {
-		fillPlaySpots();
-	}
-
 	// Get the offset of an element relative to .cardtable
 	function cardTableOffset(el) {
 		let cardTable = document.querySelector(`.cardtable`);
@@ -494,7 +490,16 @@
 		}, 1);
 	}
 
+	let startTime;
+	let totalTime = {
+		minutes: 0,
+		seconds: 0
+	};
+
 	function startGame() {
+
+		startTime = new Date();
+
 		const settingsModal = document.querySelector('dialog.settings');
 		settingsModal.close();
 
@@ -567,7 +572,7 @@
 			setPlayerCardPileLocation();
 			updateDisplayCards();
 
-			deal();
+			fillPlaySpots();
 		}, 1);
 
 		console.log('Starting game...');
@@ -576,6 +581,13 @@
 	let winners = [];
 
 	function gameOver() {
+
+		let endTime = new Date();
+		let timeDiff = endTime - startTime; //in ms
+		// set totalTime
+		totalTime.minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+		totalTime.seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
 		// Get players, sorted by number of cards
 		let sortedPlayers = players.sort((a, b) => {
 			return b.cards.length - a.cards.length;
@@ -593,6 +605,9 @@
 	}
 
 	function playAgain() {
+
+		startTime = new Date();
+
 		// Close game over dialog
 		const gameOver = document.querySelector('dialog.gameover');
 		gameOver.close();
@@ -618,7 +633,7 @@
 
 		// Wait 1ms then deal
 		setTimeout(() => {
-			deal();
+			fillPlaySpots();
 		}, 1);
 	}
 
@@ -861,7 +876,16 @@
 <dialog class="gameover">
 	<h2>Game Over</h2>
 	{#if winners.length === 1}
-		<p>{winners[0].name} wins!</p>
+		<p>You win!</p>
+		<p>
+			<strong>
+				⏱️
+				{#if totalTime.minutes}
+					{totalTime.minutes}m 
+				{/if}
+				{totalTime.seconds}s
+			</strong>
+		</p>
 	{:else}
 		<p>
 			It's a tie!
