@@ -698,10 +698,6 @@
 <div class="settlegame">
 	<header>
 		<h1>Settle</h1>
-		<p>
-			🚧 Work-in-progress 🚧 <br />
-			Updated: {data.date}
-		</p>
 	</header>
 
 	<div class="noplayerwarning {noPlayerWarning}">Select a player.</div>
@@ -814,7 +810,7 @@
 			</div>
 			<div class="buttonholder">
 				<button type="button" class="ui-button" on:click|preventDefault={reshuffle}
-					>Deal New Cards &harr;</button
+					>New Cards &harr;</button
 				>
 			</div>
 		</div>
@@ -838,10 +834,10 @@
 			{#each { length: settings.numberOfPlayers } as _, i}
 				<button
 					type="button"
-					class="player {currentPlayer === i ? 'current' : ''}"
+					class="player {currentPlayer === i ? 'current' : ''}
+					{settings.numberOfPlayers === 1 ? 'oneplayer' : ''}"
 					on:click|preventDefault={() => playerTurn(i)}
 				>
-					<div class="name">{players[i].name}</div>
 					<div class="cardpile" style="width:{cardWidth}px;">
 						{#if players[i].cards.length > 0}
 							<div class="points" style="--z:{players[i].cards.length + 1}">
@@ -854,10 +850,18 @@
 					<div class="key">
 						Press <span class="letter">{players[i].key.toUpperCase()}</span>
 					</div>
+					<div class="name">{players[i].name}</div>
 				</button>
 			{/each}
 		</div>
 	</div>
+
+	<footer>
+		<p>
+			🚧 Work-in-progress 🚧 <br>
+			Updated: {data.date}
+		</p>
+	</footer>
 </div>
 
 <dialog class="settings">

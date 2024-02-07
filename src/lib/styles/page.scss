@@ -54,8 +54,9 @@ button.ui-button {
 	padding: 2rem 2rem 6rem 2rem;
 	perspective: 24in;
 
-	header {
-		z-index: 9;
+	// If portrait, smaller padding
+	@media (orientation: portrait) {
+		padding: 1rem;
 	}
 
 	h1 {
@@ -167,7 +168,7 @@ button.ui-button {
 		transform-origin: center bottom;
 		transform: rotateX(35deg);
 		transform-style: preserve-3d;
-		margin-top: -25%; // to account for the rotation
+		margin-top: -15%; // to account for the rotation
 
 		@media (orientation: portrait) {
 			// Move draw pile above play spots
@@ -176,7 +177,9 @@ button.ui-button {
 				'drawarea'
 				'playarea'
 				'playerarea';
-			margin-top: -40%;
+			transform: rotateX(0);
+			margin-top: -10%;
+			row-gap: 2rem;
 		}
 
 		.displaycards {
@@ -225,7 +228,7 @@ button.ui-button {
 			}
 
 			.buttonholder {
-				display:block;
+				display: block;
 				grid-area: buttonholder;
 				text-align: right;
 
@@ -246,6 +249,12 @@ button.ui-button {
 
 			gap: 1rem;
 
+			@media (orientation: portrait) {
+				gap: 0.5rem;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(4, 1fr);
+			}
+
 			.playspot {
 				display: block;
 				background-color: rgba(255, 255, 255, 0.1);
@@ -254,7 +263,7 @@ button.ui-button {
 				border-radius: 0.5rem;
 				transform-style: preserve-3d;
 
-				container: playspot / size;				
+				container: playspot / size;
 
 				.playspottext {
 					font-size: 1rem;
@@ -295,6 +304,16 @@ button.ui-button {
 				transform-style: preserve-3d;
 				transition: 0.2s all ease-in-out;
 				container: player;
+
+				&.oneplayer {
+					grid-template-columns: 1fr;
+					grid-template-areas: 'cardpile';
+
+					.name,
+					.key {
+						display: none;
+					}
+				}
 
 				&:hover,
 				&:focus-within {
@@ -597,4 +616,10 @@ dialog {
 	.buttonholder {
 		margin-top: 2rem;
 	}
+}
+
+footer {
+	text-align: center;
+	font-size: 0.8em;
+	padding: 2rem 0;
 }
