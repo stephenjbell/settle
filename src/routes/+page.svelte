@@ -827,7 +827,9 @@
 					disabled={spot.card === null}
 				>
 					{#if spot.card?.name}
-						{spot.card?.name}{spot.card?.quantity && spot.card.quantity != 1 ? 's' : ''}
+						<div class="playspottext">
+							{spot.card?.name}{spot.card?.quantity && spot.card.quantity != 1 ? 's' : ''}
+						</div>
 					{/if}
 				</button>
 			{/each}

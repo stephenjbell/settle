@@ -238,6 +238,17 @@ button.ui-button {
 				width: 100%;
 				aspect-ratio: 3.5/2.5; // Card aspect ratio
 				border-radius: 0.5rem;
+				transform-style: preserve-3d;
+
+				container: playspot / size;				
+
+				.playspottext {
+					font-size: 1rem;
+					font-size: 10cqw;
+					padding: 5cqw;
+					transform-style: preserve-3d;
+					color: transparent;
+				}
 
 				&:focus {
 					outline: 10px solid $red;
@@ -269,6 +280,7 @@ button.ui-button {
 				border-radius: 0.5rem;
 				transform-style: preserve-3d;
 				transition: 0.2s all ease-in-out;
+				container: player;
 
 				&:hover,
 				&:focus-within {
@@ -291,6 +303,7 @@ button.ui-button {
 					background-color: rgba(255, 255, 255, 0.15);
 					border-radius: 0.5rem;
 					transform-style: preserve-3d;
+					container: cardpile / size;
 
 					.buttontext {
 						position: absolute;
@@ -298,9 +311,10 @@ button.ui-button {
 						top: 50%;
 						transform: translate(-50%, -50%);
 						font-size: 1.5rem;
+						font-size: 12cqw;
+						line-height: 1.2;
 						transform-style: preserve-3d;
 						transition: 0.2s all ease-in-out;
-						// white-space: nowrap;
 					}
 
 					.points {
