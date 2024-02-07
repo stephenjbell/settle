@@ -189,13 +189,23 @@ button.ui-button {
 		.drawarea {
 			grid-area: drawarea;
 			transform-style: preserve-3d;
-			display: flex;
-			flex-direction: column;
+
+			display: grid;
+			width: 100%;
+			grid-template-rows: 1fr max-content;
+			grid-template-areas: 'drawpile' 'buttonholder';
 			align-items: end;
 			justify-content: end;
 			gap: 1.5rem;
 
+			@media (orientation: portrait) {
+				grid-template-columns: 1fr max-content;
+				grid-template-rows: 1fr;
+				grid-template-areas: 'buttonholder drawpile';
+			}
+
 			.drawpile {
+				grid-area: drawpile;
 				position: relative;
 				transform-style: preserve-3d;
 				background-color: rgba(255, 255, 255, 0.15);
@@ -215,9 +225,13 @@ button.ui-button {
 			}
 
 			.buttonholder {
+				display:block;
+				grid-area: buttonholder;
+				text-align: right;
+
 				button {
+					display: inline-block;
 					font-size: 1.2rem;
-					display: block;
 					white-space: nowrap;
 					background-color: #4a4a4a;
 				}
